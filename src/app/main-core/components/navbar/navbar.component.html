@@ -1,0 +1,39 @@
+<div class="fixed-top d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <img src="/assets/images/logo.png" routerLink="/" height="50" alt="" srcset="">
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark pointer" [routerLink]="['/']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a class="p-2 text-dark pointer" routerLink="/shop" [routerLinkActive]="['active']">Shop</a>
+    <a class="p-2 text-dark pointer" >Contact</a>
+  </nav>
+  <div class="d-flex">
+    <a class="position-relative" routerLink="/basket">
+      <i class="fa fa-shopping-cart fa-lg mr-5 text-dark"></i>
+      <div *ngIf="(bastek$ | async)" class="cart-no">{{(bastek$ | async).items.length}}</div>
+    </a>
+    <ng-container
+    *ngIf="(currentUser$ | async) === null"
+    >
+      <a routerLink="/account/register" class="btn btn-sm btn-outline-secondary mr-2">Sign up</a>
+      <a routerLink="/account/login" class="btn btn-sm btn-outline-secondary mr-2">Login</a>
+  </ng-container>
+  <ng-container *ngIf="(currentUser$ | async) as user">
+    <div class="dropdown" dropdown>
+      <a class="dropdown-toggle" style="cursor: pointer;" dropdownToggle>
+        <strong>Welcome {{(currentUser$ | async).displayName}}</strong>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" style="cursor:pointer" *dropdownMenu>
+        <a routerLink="/basket" class="dropdown-item d-flex align-items-center py-2">
+          <i class="fa fa-shopping-cart mr-3"></i> View Basket
+        </a>
+        <a routerLink="/orders" class="dropdown-item d-flex align-items-center py-2">
+          <i class="fa fa-history mr-3"></i> View Orders
+        </a>
+        <div class="dropdown-divider"></div>
+        <a (click)="logout()" class="dropdown-item d-flex align-items-center py-2">
+          <i class="fa fa-sign-out mr-3"></i> Logout
+        </a>
+      </div>
+    </div>
+  </ng-container>
+  </div>
+</div>
