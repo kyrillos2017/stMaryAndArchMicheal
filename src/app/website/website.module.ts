@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { WebsiteRoutingModule } from './website-routing.module';
 import { SiteLayoutComponent } from './shared/components/site-layout/site-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { SiteNavbarComponent } from './shared/components/site-navbar/site-navbar.component';
 
 @NgModule({
-  declarations: [SiteLayoutComponent],
+  declarations: [SiteLayoutComponent, SiteNavbarComponent],
   imports: [CommonModule, WebsiteRoutingModule, SharedModule],
 })
 export class WebsiteModule {}
