@@ -1,0 +1,71 @@
+$padding_image: 15px;
+.gallery {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+  &__img {
+     float: left;
+     width: 100%;
+
+     margin-bottom: $padding_image;
+     &--inner {
+        background: #6980fe;
+        height: 240px;
+        border-radius: 4px;
+
+     }
+  }
+  .gallery__img--inner {
+    background-size: cover;
+    background-position: center center;
+ }
+  @media (min-width: 768px) {
+     &__img {
+        width: 50%;
+        &:nth-child(odd) {
+           padding-right: calc( #{$padding_image} / 2);
+        }
+        &:nth-child(even) {
+           padding-left: calc( #{$padding_image} / 2);
+        }
+        &--inner {
+           height: 384px;
+        }
+     }
+  }
+  @media (min-width: 992px) {
+     &__img {
+        width: 33.3333%;
+        &:nth-of-type(8n+1),
+        &:nth-of-type(8n+2) {
+           width: 50%;
+           .gallery__img--inner {
+              height: 384px;
+              background-size: cover;
+              background-position: center center;
+           }
+        }
+        &:nth-of-type(8n+4) {
+           padding-right: calc(#{$padding_image} / 2);
+        }
+        &:nth-of-type(8n+5) {
+           padding-left: calc(#{$padding_image} / 2);
+           padding-right: 0;
+        }
+        &:nth-of-type(8n+6) {
+           padding-left: 0;
+           padding-right: calc(#{$padding_image} / 2);
+        }
+        &:nth-of-type(8n+7) {
+           padding-left: calc(#{$padding_image} / 2);
+        }
+        &--inner {
+           height: 250px;
+        }
+     }
+  }
+}
+.gallery-showMore{
+  max-height: 1000px;
+  overflow: hidden;
+}
