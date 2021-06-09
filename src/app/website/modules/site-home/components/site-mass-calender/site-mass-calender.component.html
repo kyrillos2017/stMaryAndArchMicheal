@@ -1,12 +1,19 @@
 <div class="bg-light w-100 py-5">
-  <div class="container">
-    <h2 class="mb-5 text-center">مواعيد القداسات</h2>
-    <div [class.showMore]="showMore" class="px-3">
+  <div class="container" [class.position-relative]="showMore">
+    <div *ngIf="showMore" class="showmore-layout">
+      <div *ngIf="showMore" class="w-100 text-center mt-4">
+        <a class="main-btn">عرض الكل</a>
+      </div>
+    </div>
+    <h2 class="text-center">مواعيد القداسات</h2>
+    <span class="mb-5 mt-3 small-hr"></span>
+    <div [class.showMore]="showMore" class="px-3 scroll-transparent">
       <div *ngIf="specialDays && specialDays.length > 0">
         <h6 class="w-100 text-end mb-3">
           مناسبات خاصة
         </h6>
-        <div *ngFor="let mass of specialDays" class="box-main row mb-2 py-2 px-3 align-items-center" dir="rtl">
+
+        <div *ngFor="let mass of specialDays" class="box-main bg-white row mb-2 py-2 px-3 align-items-center" dir="rtl">
           <div class="col-2">
             <div>
               {{mass.day}}
@@ -32,7 +39,7 @@
       <h6 class="w-100 text-end mt-4 mb-3">
         القداسات العامة
       </h6>
-      <div *ngFor="let mass of repeatedMasses" class="box-main row mb-2 py-2 px-3 align-items-center" dir="rtl">
+      <div *ngFor="let mass of repeatedMasses" class="box-main bg-white row mb-2 py-2 px-3 align-items-center" dir="rtl">
         <div class="col-2">{{mass.day}}</div>
         <div class="col">
           <div *ngFor="let event of mass.events; let last = last">
@@ -50,7 +57,7 @@
         <h6 class="w-100 text-end mt-4 mb-3">
           القداسات الغير أسبوعية
         </h6>
-        <div *ngFor="let mass of nonRepeatedMasses" class="box-main row mb-2 py-2 px-3 align-items-center" dir="rtl">
+        <div *ngFor="let mass of nonRepeatedMasses" class="box-main bg-white row mb-2 py-2 px-3 align-items-center" dir="rtl">
           <div class="col-2">{{mass.day}} - {{mass.order}}</div>
           <div class="col">
             <div *ngFor="let event of mass.events; let last = last">
@@ -67,9 +74,7 @@
       </div>
 
     </div>
-    <div *ngIf="showMore" class="w-100 text-center mt-4">
-      <a class="main-btn">عرض الكل</a>
-    </div>
+
 
   </div>
 </div>

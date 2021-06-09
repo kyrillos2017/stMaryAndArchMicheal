@@ -1,0 +1,7 @@
+<div>Some tags before</div>
+<owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide *ngFor="let item of videos">
+    <iframe width="560" height="315" [src]="item.path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </ng-template>
+</owl-carousel-o>
+<div>Some tags after</div>
