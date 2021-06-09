@@ -1,0 +1,38 @@
+<div class="bg-white w-100 py-5">
+  <div class="container">
+    <h2 class="text-center">أباء الكنيسة</h2>
+    <span class="mb-5 mt-3 small-hr"></span>
+
+    <div class="d-flex justify-content-center" dir="rtl">
+      <div class="box-main bg-light p-3 d-flex justify-content-between mb-3">
+        <div class="small-card-img" [style.background-image]="'url(' + bishop.img + ')'"></div>
+        <div class="pe-3">
+          <h5>صاحب النيافة ال{{bishop.name}}</h5>
+          <p>{{bishop.bishopType}}</p>
+          <div class="pt-4">
+            <div>تاريخ الرهبنة : {{bishop.monasticDate}}</div>
+            <div>تاريخ الرسامة : {{bishop.ordinationDate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" dir="rtl">
+      <div class="col-md-4" *ngFor="let father of fathers">
+        <div class="box-main bg-light p-3 d-flex mb-3" >
+          <div class="small-card-img" [style.background-image]="'url(' + father.img + ')'"></div>
+          <div class="pe-3 flex-column d-flex justify-content-between">
+            <div>
+              <h5>ال{{father.priestlyRank}} {{father.name}}</h5>
+              <div>تاريخ الرسامة : {{father.priestlyDate}}</div>
+              <div *ngIf="father.deathDate">تاريخ النياحة : {{father.deathDate}}</div>
+            </div>
+            <div class="mb-2">
+              <a class="main-btn">مواعيد الإعترافات</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
