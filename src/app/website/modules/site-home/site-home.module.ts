@@ -9,6 +9,10 @@ import { SiteVideosCarouselComponent } from './components/site-videos-carousel/s
 import { SiteChurchFathersComponent } from './components/site-church-fathers/site-church-fathers.component';
 import { SiteAboutChurchComponent } from './components/site-about-church/site-about-church.component';
 import { SiteHomeGalleryComponent } from './components/site-home-gallery/site-home-gallery.component';
+import { SiteEventsCarouselComponent } from './components/site-events-carousel/site-events-carousel.component';
+import { SiteSoundMediaComponent } from './components/site-sound-media/site-sound-media.component';
+import { SiteConfessionsComponent } from './components/site-confessions/site-confessions.component';
+import { SiteChurchServicesComponent } from './components/site-church-services/site-church-services.component';
 
 
 
@@ -20,7 +24,11 @@ import { SiteHomeGalleryComponent } from './components/site-home-gallery/site-ho
     SiteVideosCarouselComponent,
     SiteChurchFathersComponent,
     SiteAboutChurchComponent,
-    SiteHomeGalleryComponent
+    SiteHomeGalleryComponent,
+    SiteEventsCarouselComponent,
+    SiteSoundMediaComponent,
+    SiteConfessionsComponent,
+    SiteChurchServicesComponent
   ],
   imports: [
     CommonModule,

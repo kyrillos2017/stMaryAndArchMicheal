@@ -14,11 +14,11 @@ interface Image {
 })
 export class SiteHomeGalleryComponent implements OnInit {
   constructor(private http: HttpClient) {}
-  @Input() showMore = true;
+  @Input() showMore = false;
+  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
   images: Image[] = [];
   ngOnInit(): void {
     this.getImages().then((images) => {
-      console.log(images);
       this.images = images;
     });
   }
@@ -43,7 +43,6 @@ export class SiteHomeGalleryComponent implements OnInit {
       .toPromise()
       .then((res) => <Image[]>res.data)
       .then((data) => {
-        console.log(data);
         return data;
       });
   }

@@ -6,7 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./site-mass-calender.component.scss'],
 })
 export class SiteMassCalenderComponent implements OnInit {
-  @Input() showMore = true;
+  @Input() showMore = false;
+
+  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
   repeatedMasses = [
     {
       day: 'الأحد',

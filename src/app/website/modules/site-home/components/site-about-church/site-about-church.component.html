@@ -1,4 +1,5 @@
-<div class="bg-light w-100 py-5" dir="rtl">
+<div [class.bg-light]="showMore" [class.py-5]="showMore" [class.pb-5]="!showMore" class="w-100" dir="rtl">
+  <div *ngIf="!showMore" class="section-banner mb-5" [style.background-image]="'url(' + banner"></div>
   <div class="container">
     <h2 class="text-center">عن الكنيسة</h2>
     <span class="mb-5 mt-3 small-hr"></span>
@@ -7,16 +8,16 @@
       <div class="col-md-4">
         <img [src]="aboutChurch.img" alt="" srcset="">
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8" [class.position-relative]="showMore">
+        <div *ngIf="showMore" class="showmore-layout pt-4">
+          <div *ngIf="showMore" class="w-100 text-center">
+            <a class="main-btn" routerLink="/about-church">عرض الكل</a>
+          </div>
+        </div>
         {{aboutChurch.disc}}
       </div>
     </div>
   </div>
 </div>
 
-<div class="container py-5">
-  <h2 class="text-center">ميديا الكنيسة</h2>
-    <span class="mb-5 mt-3 small-hr"></span>
 
-  <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/216734651&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/coptic-hymns" title="الحان قبطية- coptic hymns" target="_blank" style="color: #cccccc; text-decoration: none;">الحان قبطية- coptic hymns</a> · <a href="https://soundcloud.com/coptic-hymns/sets/6e3or6av92w4" title="خورس كنيسة السيدة العذراء و البابا أثناسيوس الرسولي بمدينة نصر" target="_blank" style="color: #cccccc; text-decoration: none;">خورس كنيسة السيدة العذراء و البابا أثناسيوس الرسولي بمدينة نصر</a></div>
-</div>

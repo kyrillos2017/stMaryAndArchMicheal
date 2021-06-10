@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-site-about-church',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./site-about-church.component.scss']
 })
 export class SiteAboutChurchComponent implements OnInit {
-
+  @Input() showMore = false;
+  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
   constructor() { }
 
   ngOnInit(): void {
