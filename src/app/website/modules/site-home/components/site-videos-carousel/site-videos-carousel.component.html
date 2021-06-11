@@ -1,7 +1,19 @@
-<div>Some tags before</div>
-<owl-carousel-o [options]="customOptions">
-  <ng-template carouselSlide *ngFor="let item of videos">
-    <iframe width="560" height="315" [src]="item.path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </ng-template>
-</owl-carousel-o>
-<div>Some tags after</div>
+<div *ngIf="isActive" class="w-100 py-5">
+  <div class="container">
+      <div class="box-main p-1 position-relative">
+          <!-- <p-skeleton class="skeleton" height="315px"></p-skeleton> -->
+          <owl-carousel-o [options]="customOptions">
+          <ng-container *ngFor="let slide of videos;" #videosContainer>
+            <ng-template carouselSlide>
+              {{slide.url}}
+              <!-- <div>{{slide.id}}</div> -->
+              <!-- <iframe width="100%"  [id]="'slide-'+ slide.id" height="315" title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe> -->
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+  </div>
+  <button (click)="generateFrame()">test</button>
+</div>

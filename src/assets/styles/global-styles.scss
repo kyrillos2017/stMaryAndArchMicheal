@@ -4,6 +4,16 @@ $main-radias: 5px;
 $bold-boder: 3px solid $red-color;
 $slim-border: 1px solid $soft-gray;
 
+@function get-vw($target) {
+  $vw-context: (1000*.01) * 1px;
+  @return ($target/$vw-context) * 1vw;
+}
+
+html,
+body {
+  height: 100% !important;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 5px;
@@ -132,6 +142,16 @@ $slim-border: 1px solid $soft-gray;
   height: 215px;
   width: 175px;
   border-radius: $main-radias;
+  background-size: cover;
+  background-position: center center ;
+}
+.bold-border-top{
+  border-top: $bold-boder;
+}
+.font-12{font-size: 12px;}
+.section-banner{
+  height: get-vw(150px);
+  width: 100%;
   background-size: cover;
   background-position: center center ;
 }

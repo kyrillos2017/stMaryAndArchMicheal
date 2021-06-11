@@ -4,9 +4,15 @@ import { NotFoundComponent } from './core/components/errors/not-found/not-found.
 import { ServerErrorComponent } from './core/components/errors/server-error/server-error.component';
 
 const routes: Routes = [
+  
   {
-    path: '',
-    loadChildren: () => import('./website/website.module').then(m=> m.WebsiteModule),
+    path: 'login',
+    loadChildren: () => import('./account/account.module').then(m=> m.AccountModule),
+    data: { preload: true }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m=> m.DashboardModule),
     data: { preload: true }
   },
   {
@@ -17,6 +23,11 @@ const routes: Routes = [
   {
     path: '500',
     component: ServerErrorComponent,
+    data: { preload: true }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./website/website.module').then(m=> m.WebsiteModule),
     data: { preload: true }
   },
   {path: '**', redirectTo: '', pathMatch: 'full'}

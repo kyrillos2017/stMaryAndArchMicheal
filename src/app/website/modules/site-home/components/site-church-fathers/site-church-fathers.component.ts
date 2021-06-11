@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { SiteConfessionsComponent } from './../site-confessions/site-confessions.component';
 
 @Component({
   selector: 'app-site-church-fathers',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./site-church-fathers.component.scss']
 })
 export class SiteChurchFathersComponent implements OnInit {
+  constructor(
+    private _router: Router,
 
-  constructor() { }
+  ) { }
+
 
   ngOnInit(): void {
+
   }
 
   bishop = {
@@ -57,5 +63,6 @@ export class SiteChurchFathersComponent implements OnInit {
       img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
     }
   ]
+
 
 }
