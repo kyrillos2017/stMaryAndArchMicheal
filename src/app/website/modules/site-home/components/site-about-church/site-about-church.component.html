@@ -1,5 +1,5 @@
 <div [class.bg-light]="showMore" [class.py-5]="showMore" [class.pb-5]="!showMore" class="w-100" dir="rtl">
-  <div *ngIf="!showMore" class="section-banner mb-5" [style.background-image]="'url(' + banner"></div>
+  <app-site-home-seperator *ngIf="!showMore" [fixed]="false" [banner]="banner"></app-site-home-seperator>
   <div class="container">
     <h2 class="text-center">عن الكنيسة</h2>
     <span class="mb-5 mt-3 small-hr"></span>

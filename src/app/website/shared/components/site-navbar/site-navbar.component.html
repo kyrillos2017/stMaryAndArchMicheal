@@ -6,20 +6,23 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">الرئيسية</a>
+          <a class="nav-link active" aria-current="page" routerLinkActive="active" routerLink="/">الرئيسية</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link">عن الكنيسة</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">أباء الكنيسة</a>
+        <li class="nav-item dropdown custom-dropdown-hover">
+          <a class="nav-link dropdown-toggle" routerLinkActive="active" role="button" aria-expanded="false">
+            عن الكنيسة
+          </a>
+          <ul class="dropdown-menu text-end">
+            <li><a class="dropdown-item pointer"  routerLink="/about-church" routerLinkActive="active">تاريخ الكنيسة</a></li>
+            <li><a class="dropdown-item pointer" routerLink="/fathers" routerLinkActive="active">أباء الكنيسة</a></li>
+          </ul>
         </li>
         <li class="nav-item dropdown custom-dropdown-hover">
           <a class="nav-link dropdown-toggle" role="button" aria-expanded="false">
             خدمات الكنيسة
           </a>
           <ul class="dropdown-menu text-end">
-            <li><a class="dropdown-item pointer" routerLink="/church-service/1">التربية الكنيسة</a></li>
+            <li><a class="dropdown-item pointer" routerLink="/church-service/sunday-school">التربية الكنيسة</a></li>
             <li><a class="dropdown-item pointer"  routerLink="/church-service/1">إخوة الرب</a></li>
             <li><a class="dropdown-item pointer"  routerLink="/church-service/1">مركز الكمبيوتر</a></li>
             <li><a class="dropdown-item pointer"  routerLink="/church-service/1">أنشطة عامة</a></li>
@@ -29,7 +32,7 @@
           <a class="nav-link">مواعيد القداسات</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">صور</a>
+          <a class="nav-link" routerLink="/gallery" routerLinkActive="active">صور</a>
         </li>
         <li class="nav-item">
           <a class="nav-link">ميديا الكنيسة</a>
@@ -38,7 +41,7 @@
           <a class="nav-link">إعلانات هامة</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">إتصل بنا</a>
+          <a class="nav-link" routerLink="/login">تسجيل الدخول</a>
         </li>
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

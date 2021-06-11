@@ -9,7 +9,10 @@ $slim-border: 1px solid $soft-gray;
   @return ($target/$vw-context) * 1vw;
 }
 
-
+html,
+body {
+  height: 100% !important;
+}
 
 ::-webkit-scrollbar {
   width: 4px;

@@ -13,6 +13,9 @@ import { SiteEventsCarouselComponent } from './components/site-events-carousel/s
 import { SiteSoundMediaComponent } from './components/site-sound-media/site-sound-media.component';
 import { SiteConfessionsComponent } from './components/site-confessions/site-confessions.component';
 import { SiteChurchServicesComponent } from './components/site-church-services/site-church-services.component';
+import { SiteLiveStreamComponent } from './components/site-live-stream/site-live-stream.component';
+import { SiteHomeSeperatorComponent } from './components/site-home-seperator/site-home-seperator.component';
+import { SiteServicesTableComponent } from './components/site-services-table/site-services-table.component';
 
 
 
@@ -28,7 +31,10 @@ import { SiteChurchServicesComponent } from './components/site-church-services/s
     SiteEventsCarouselComponent,
     SiteSoundMediaComponent,
     SiteConfessionsComponent,
-    SiteChurchServicesComponent
+    SiteChurchServicesComponent,
+    SiteLiveStreamComponent,
+    SiteHomeSeperatorComponent,
+    SiteServicesTableComponent
   ],
   imports: [
     CommonModule,
