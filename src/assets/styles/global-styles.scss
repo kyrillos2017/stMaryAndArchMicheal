@@ -137,6 +137,38 @@ body {
   display: flex;
   align-items: flex-end;
 }
+.showmore-layout-w {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f8f9fa+0,f8f9fa+49,ffffff+100&1+0,1+49,0+100 */
+  background: -moz-linear-gradient(
+    bottom,
+    rgba(248, 249, 250, 1) 0%,
+    rgb(255, 255, 255) 49%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(255, 255, 255) 49%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(255, 255, 255) 49%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+  display: block;
+  position: absolute;
+  top: auto;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 30%;
+  display: flex;
+  align-items: flex-end;
+}
 
 .small-card-img{
   height: 215px;
@@ -155,3 +187,5 @@ body {
   background-size: cover;
   background-position: center center ;
 }
+
+

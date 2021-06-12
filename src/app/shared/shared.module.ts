@@ -6,9 +6,12 @@ import {GalleriaModule} from 'primeng/galleria';
 import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
 import { SkeletonModule } from 'primeng/skeleton';
 import {ButtonModule} from 'primeng/button';
+import { TextInputComponent } from './components/text-input/text-input.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    TextInputComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -16,7 +19,7 @@ import {ButtonModule} from 'primeng/button';
     CarouselModule,
     NgImageFullscreenViewModule,
     SkeletonModule,
-    ButtonModule
+    ButtonModule,
   ],
   exports:[
     FormsModule,

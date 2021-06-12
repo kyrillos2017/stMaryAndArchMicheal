@@ -13,12 +13,18 @@ interface Image {
   styleUrls: ['./site-home-gallery.component.scss'],
 })
 export class SiteHomeGalleryComponent implements OnInit {
+  showFlag: boolean = false;
+  selectedImageIndex: number = -1;
   constructor(private http: HttpClient) {}
   @Input() showMore = false;
   banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
   images: Image[] = [];
   ngOnInit(): void {
-    this.getImages().then((images) => {
+    this.getImages().then(imgs => {
+      let images = imgs.map(el => {
+        return  {image: el.previewImageSrc, ...el}
+      
+      })
       this.images = images;
     });
   }
@@ -46,5 +52,15 @@ export class SiteHomeGalleryComponent implements OnInit {
         return data;
       });
   }
+
+  showLightbox(index:number) {
+    this.selectedImageIndex = index;
+    this.showFlag = true;
+}
+
+closeEventHandler() {
+    this.showFlag = false;
+    this.selectedImageIndex = -1;
+}
 
 }

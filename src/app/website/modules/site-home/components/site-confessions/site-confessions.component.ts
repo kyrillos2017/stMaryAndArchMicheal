@@ -16,7 +16,7 @@ export class SiteConfessionsComponent implements OnInit {
     name: 'بيشوي بسطا',
     priestlyRank: 'قمص',
     priestlyDate: '01-02-1111',
-    deathDate : null,
+    deathDate : '',
     img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg',
     events: {
       confession : [
