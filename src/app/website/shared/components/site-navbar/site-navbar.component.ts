@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-site-navbar',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./site-navbar.component.scss']
 })
 export class SiteNavbarComponent implements OnInit {
+  isSticky: boolean = false;
 
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 78;
+  }
   constructor() { }
 
   ngOnInit(): void {
+   
   }
+  
 
 }

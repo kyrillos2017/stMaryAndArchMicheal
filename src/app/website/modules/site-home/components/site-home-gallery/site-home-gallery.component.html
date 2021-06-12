@@ -10,8 +10,13 @@
     <span class="mb-5 mt-3 small-hr"></span>
     <div [class.gallery-showMore]="showMore" class="gallery" >
       <div *ngFor="let img of images; let i = index" class="gallery__img">
-        <div class="gallery__img--inner"  [style.background-image]="'url(' + img.thumbnailImageSrc"></div>
+        <div class="gallery__img--inner" (click)="showLightbox(i)"  [style.background-image]="'url(' + img.thumbnailImageSrc"></div>
       </div>
     </div>
   </div>
 </div>
+<ng-image-fullscreen-view
+    [images]="images"
+    [imageIndex]="selectedImageIndex"
+    [show]="showFlag"
+    (close)="closeEventHandler()"></ng-image-fullscreen-view>

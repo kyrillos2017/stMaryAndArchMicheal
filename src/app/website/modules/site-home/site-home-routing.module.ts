@@ -32,6 +32,10 @@ const routes: Routes = [
         component: SiteHomeGalleryComponent
       },
       {
+        path: 'fathers/:id',
+        component: SiteConfessionsComponent
+      },
+      {
         path: 'fathers',
         component: SiteChurchFathersComponent
       },
@@ -47,6 +51,7 @@ const routes: Routes = [
         path: 'church-service/:id',
         component: SiteChurchServicesComponent
       },
+      
       
     ]
   }
