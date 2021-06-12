@@ -1,0 +1,36 @@
+<div class="w-100 pb-5" dir="rtl">
+  <app-site-home-seperator [fixed]="false" [banner]="banner"></app-site-home-seperator>
+  <div class="container">
+    <h2 class="text-center">ال{{father.priestlyRank}} {{father.name}}</h2>
+    <span class="mb-5 mt-3 small-hr"></span>
+
+
+
+    <div class="row">
+      <div class="col-md-4 px-3">
+        <div class="p-4">
+          <img class="box-main p-1 rounded img-fluid"  [src]="father.img"  alt="" srcset="">
+        </div>
+      </div>
+      <div class="col-md-8 px-3" >
+        <h6>مواعيد الإعترافات</h6>
+        <div *ngFor="let event of father.events.confession" class="box-main bg-white row mb-2 py-2 px-3 align-items-center" dir="rtl">
+          <div class="col-2">{{event.day}}</div>
+          <div class="col">
+            <div *ngFor="let cal of event.calender; let last = last">
+              <div *ngIf="cal.isActive" [class.border-bottom]="!last" [class.mb-3]="!last" class=" pb-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 dir="ltr">{{cal.startTime}} - {{cal.endTime}}</h6>
+                </div>
+                <div>{{cal.place}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

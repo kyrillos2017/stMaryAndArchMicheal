@@ -1,0 +1,17 @@
+  <div [class.bg-light]="showMore" [class.py-5]="showMore" [class.pb-5]="!showMore" class="w-100 overflow-hidden" >
+    <app-site-home-seperator *ngIf="!showMore" [fixed]="false" [banner]="banner"></app-site-home-seperator>
+  <div class="container" [class.position-relative]="showMore">
+    <div *ngIf="showMore" class="showmore-layout">
+      <div *ngIf="showMore" class="w-100 text-center mt-4">
+        <a class="main-btn" routerLink="/gallery">عرض الكل</a>
+      </div>
+    </div>
+    <h2 class="text-center">صور</h2>
+    <span class="mb-5 mt-3 small-hr"></span>
+    <div [class.gallery-showMore]="showMore" class="gallery" >
+      <div *ngFor="let img of images; let i = index" class="gallery__img">
+        <div class="gallery__img--inner"  [style.background-image]="'url(' + img.thumbnailImageSrc"></div>
+      </div>
+    </div>
+  </div>
+</div>

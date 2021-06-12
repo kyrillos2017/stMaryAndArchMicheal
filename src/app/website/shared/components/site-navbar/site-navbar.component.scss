@@ -1,0 +1,11 @@
+nav.navbar {
+  border-bottom: 3px solid #fff;
+}
+.custom-dropdown-hover {
+
+  &:hover > .dropdown-menu {
+    display: block;
+  }
+
+}
+.nav-link {cursor: pointer;}
