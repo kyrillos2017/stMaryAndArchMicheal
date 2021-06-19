@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LiveService } from './../../shared/services/live.service';
 
 @Component({
   selector: 'app-dashboard-live',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardLiveComponent implements OnInit {
   val:any;
-  constructor() { }
+  constructor(
+    private _live: LiveService
+  ) { }
 
   ngOnInit(): void {
+    this._live.getLive().subscribe(console.log)
   }
 
   handleChange(e: any) {
