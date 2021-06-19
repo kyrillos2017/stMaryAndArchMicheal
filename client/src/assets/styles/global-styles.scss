@@ -51,6 +51,7 @@ body {
 * {
   outline: none !important;
 }
+.p-toast .p-toast-message{ direction: rtl !important; }
 .pointer {
   cursor: pointer;
 }
@@ -187,5 +188,4 @@ body {
   background-size: cover;
   background-position: center center ;
 }
-
 

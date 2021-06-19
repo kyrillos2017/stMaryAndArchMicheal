@@ -20,12 +20,11 @@ export class BaseService {
   }
 
   protected get<T>(url: string, headers?: HttpHeaders){
-    return this.http.get(`${this.baseUrl}/${url}`, {headers}).pipe(map((res : T)=> res))
+    return this.http.get<T>(`${this.baseUrl}/${url}`, {headers})
   }
   protected getMany<T>(url: string): Observable<IPagination<T>> {
     return this.http
-      .get(`${this.baseUrl}/${url}`)
-      .pipe(map((data: IPagination<T>) => data));
+      .get<IPagination<T>>(`${this.baseUrl}/${url}`)
   }
 
   protected getDirect(url: string, headers?: HttpHeaders){
@@ -33,14 +32,13 @@ export class BaseService {
   };
 
   protected getList<T>(url: string): Observable<ListResult<T>> {
-    return this.http.get(`${this.baseUrl}/${url}`)
-      .pipe(map((data: ListResult<T>) => data));
+    return this.http.get<ListResult<T>>(`${this.baseUrl}/${url}`)
   }
 
-  protected post<T>(url: string, data: any) {
+  protected post<T>(url: string, data: any){
     return this.http
-      .post(`${this.baseUrl}/${url}`, data)
-      .pipe(map((data: T) => data))
+      .post<T>(`${this.baseUrl}/${url}`, data)
+
       //.pipe(map((data: T) => data));
   }
 
@@ -51,13 +49,13 @@ export class BaseService {
 
   protected put<T>(url: string, data: T): Observable<T> {
     return this.http
-      .put(`${this.baseUrl}/${url}`, data)
+      .put<ResponseResult<T>>(`${this.baseUrl}/${url}`, data)
       .pipe(map((data: ResponseResult<T>) => data.result));
   }
 
   protected remove<T>(url: string): Observable<T> {
     return this.http
-      .delete(`${this.baseUrl}/${url}`)
+      .delete<ResponseResult<T>>(`${this.baseUrl}/${url}`)
       .pipe(map((data: ResponseResult<T>) => data.result));
   }
 

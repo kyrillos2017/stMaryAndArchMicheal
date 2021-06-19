@@ -51,6 +51,7 @@ namespace Infrastructure.Data
         {
             var id = 1;
             var live = await _context.Live.FirstOrDefaultAsync(x => x.Id == id);
+            if (live == null) return null;
             return live;
 
         }

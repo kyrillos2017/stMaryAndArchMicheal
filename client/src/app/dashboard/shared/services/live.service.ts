@@ -12,6 +12,11 @@ export class LiveService extends BaseService {
     super(injector)
    }
 
+   updateLive(data: ILive){
+     let url = ApiUrls.LIVE.LIVE;
+     return this.post<ILive>(url, data)
+   }
+
    getLive(){
      const url = ApiUrls.LIVE.LIVE;
      return this.get<ILive>(url)

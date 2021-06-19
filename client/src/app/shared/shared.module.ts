@@ -9,10 +9,13 @@ import { ButtonModule } from 'primeng/button';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
 
-
+// materials
 import { MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { MatRippleModule } from '@angular/material/core';
     InputSwitchModule,
     MatSliderModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    MatInputModule
   ],
   exports: [
     FormsModule,
@@ -43,7 +49,10 @@ import { MatRippleModule } from '@angular/material/core';
     InputSwitchModule,
     MatSliderModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }
