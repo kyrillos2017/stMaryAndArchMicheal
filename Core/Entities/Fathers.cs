@@ -12,6 +12,6 @@ namespace Core.Entities
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
         public string ImgUrl { get; set; }
-        public IReadOnlyList<Confessions> Confessions { get; set; }
+        public ICollection<Confessions> Confessions { get; set; }
     }
 }
