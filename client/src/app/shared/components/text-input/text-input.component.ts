@@ -10,19 +10,19 @@ export class TextInputComponent implements OnInit {
   @ViewChild('input', {static: true}) input: ElementRef;
   @Input() type = 'text';
   @Input() label = 'string';
-  
-  constructor(@Self() public controlDir: NgControl) { 
+
+  constructor(@Self() public controlDir: NgControl) {
     this.controlDir.valueAccessor = this;
   }
 
   ngOnInit(): void {
     const control = this.controlDir.control;
-    const validators = control.validator ? [control.validator] : [];
-    const asyncValidators = control.asyncValidator ? [control.asyncValidator] : [];
+    // const validators = control.validator ? [control.validator] : [];
+    // const asyncValidators = control.asyncValidator ? [control.asyncValidator] : [];
 
-    control.setValidators(validators);
-    control.setAsyncValidators(asyncValidators);
-    control.updateValueAndValidity();
+    // control.setValidators(validators);
+    // control.setAsyncValidators(asyncValidators);
+    // control.updateValueAndValidity();
   }
 
   onChange(event: Event) {console.log(event)}

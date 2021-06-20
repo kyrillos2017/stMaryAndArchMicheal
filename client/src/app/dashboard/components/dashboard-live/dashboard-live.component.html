@@ -1,3 +1,30 @@
 <div>
-  <p-inputSwitch (onChange)="handleChange($event)" [(ngModel)]="val"></p-inputSwitch>
+  <form [formGroup]="liveForm" (ngSubmit)="onSubmit()" dir="rtl">
+    <div class="row mt-4 border rounded px-3 pt-3 pb-2 position-relative">
+      <div class="col-md-12">
+        <mat-slide-toggle formControlName="isActive">تشغيل</mat-slide-toggle>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="legacy" class="w-100 text-right">
+          <mat-label>كود الفيديو</mat-label>
+          <input formControlName="videoId" matInput placeholder="كود الفيديو">
+          <mat-icon matSuffix><i class="pi pi-link"></i></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <footer class="w-100 text-start pt-2 border-top">
+        <button mat-flat-button color="primary" [disabled]="submitted">حفظ</button>
+      </footer>
+    </div>
+  </form>
+
+  <div class="pt-5" *ngIf="f.videoId !== null">
+    <div class="position-relative">
+      <p-skeleton class="skeleton" height="315px"></p-skeleton>
+      <iframe class="position-absolute" width="100%" height="315"  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+    </div>
+  </div>
 </div>

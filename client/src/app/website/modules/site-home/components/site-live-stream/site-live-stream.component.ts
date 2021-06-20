@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { LiveService } from './../../../../../dashboard/shared/services/live.service';
 
 @Component({
   selector: 'app-site-live-stream',
@@ -12,18 +13,23 @@ export class SiteLiveStreamComponent implements OnInit, AfterViewInit {
   videoId: string = 'kQobPqE0T5M';
   url: string;
 
-  constructor() { }
+  constructor(private _liveService: LiveService) { }
   ngAfterViewInit(): void {
     this.getVideo()
   }
 
   ngOnInit(): void {
-    
+
   }
 
   getVideo(){
-    this.url = this.baseurl + this.videoId;
-   document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
+    this._liveService.getLive().subscribe(res => {
+      if(res) {
+        this.isActive = res.isActive
+        this.url = this.baseurl + res.videoId;
+        document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
+      }
+    })
     // return url + this.videoId
   }
 }

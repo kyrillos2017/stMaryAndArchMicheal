@@ -39,6 +39,10 @@ namespace API.Controllers
         public async Task<ActionResult<LiveDto>> GetCurrentLive()
         {
             var live = await _liveRepository.GetLive();
+            if (live == null)
+            {
+                return null;
+            }
             return _mapper.Map<Live, LiveDto>(live);
         }
 
