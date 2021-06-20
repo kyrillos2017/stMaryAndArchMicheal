@@ -28,8 +28,10 @@ namespace API
 
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContext<StoreContext>(x => x.UseSqlite(_configuration.GetConnectionString("Default")));
-            services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlite(_configuration.GetConnectionString("IdentityConnection")));
+            services.AddDbContextPool<AppIdentityDbContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlStringIdentity")));
+            services.AddDbContextPool<StoreContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlString")));
+            // services.AddDbContext<StoreContext>(x => x.UseSqlite(_configuration.GetConnectionString("Default")));
+            // services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlite(_configuration.GetConnectionString("IdentityConnection")));
 
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
