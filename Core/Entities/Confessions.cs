@@ -6,6 +6,8 @@ namespace Core.Entities
     public class Confessions : BaseEntity
     {
         public DaysEnum Day { get; set; }
-        public IReadOnlyList<ConfessionCalender> Calender { get; set; }
+        public ICollection<ConfessionCalender> Calender { get; set; }
+        public int FatherId { get; set; }
+        public Fathers Fathers { get; set; }
     }
 }
