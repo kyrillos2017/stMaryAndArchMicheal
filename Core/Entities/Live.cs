@@ -12,8 +12,8 @@ namespace Core.Entities
             VideoId = videoId;
         }
 
-        public int? Id { get; set; } = 1;
-        public bool IsActive { get; set; } = false;
+        public int? Id { get; set; }
+        public bool IsActive { get; set; }
         public string VideoId { get; set; }
     }
 }
