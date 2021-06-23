@@ -95,14 +95,9 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("FathersId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FathersId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FathersId");
-
-                    b.HasIndex("FathersId1");
 
                     b.ToTable("Confessions");
                 });
@@ -168,14 +163,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Confessions", b =>
                 {
-                    b.HasOne("Core.Entities.Fathers", null)
-                        .WithMany("Confessions")
-                        .HasForeignKey("FathersId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Core.Entities.Fathers", "Fathers")
                         .WithMany()
-                        .HasForeignKey("FathersId1");
+                        .HasForeignKey("FathersId");
 
                     b.Navigation("Fathers");
                 });
@@ -183,11 +173,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Confessions", b =>
                 {
                     b.Navigation("Calender");
-                });
-
-            modelBuilder.Entity("Core.Entities.Fathers", b =>
-                {
-                    b.Navigation("Confessions");
                 });
 #pragma warning restore 612, 618
         }

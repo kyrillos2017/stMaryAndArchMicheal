@@ -45,9 +45,10 @@ namespace Infrastructure.Data
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
 
-        public void Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            _context.Set<T>().Add(entity);
+            await _context.Set<T>().AddAsync(entity);
+            return entity;
         }
 
         public void Update(T entity)
@@ -59,6 +60,21 @@ namespace Infrastructure.Data
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+           
+        }
+
+        public async Task<bool> Save()
+        {
+            try
+            {
+                var res = await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

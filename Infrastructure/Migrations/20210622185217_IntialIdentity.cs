@@ -3,10 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class Intial : Migration
+    public partial class IntialIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Bishop",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BishopType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MonasticDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrdinationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bishop", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Fathers",
                 columns: table => new
@@ -47,6 +65,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Day = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FatherId = table.Column<int>(type: "int", nullable: false),
                     FathersId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -57,11 +76,11 @@ namespace Infrastructure.Migrations
                         column: x => x.FathersId,
                         principalTable: "Fathers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConfessionCalender",
+                name: "confessionCalenders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -74,9 +93,9 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConfessionCalender", x => x.Id);
+                    table.PrimaryKey("PK_confessionCalenders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ConfessionCalender_Confessions_ConfessionsId",
+                        name: "FK_confessionCalenders_Confessions_ConfessionsId",
                         column: x => x.ConfessionsId,
                         principalTable: "Confessions",
                         principalColumn: "Id",
@@ -84,8 +103,8 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConfessionCalender_ConfessionsId",
-                table: "ConfessionCalender",
+                name: "IX_confessionCalenders_ConfessionsId",
+                table: "confessionCalenders",
                 column: "ConfessionsId");
 
             migrationBuilder.CreateIndex(
@@ -97,7 +116,10 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ConfessionCalender");
+                name: "Bishop");
+
+            migrationBuilder.DropTable(
+                name: "confessionCalenders");
 
             migrationBuilder.DropTable(
                 name: "Live");

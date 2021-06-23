@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Config
                     o => o.ToString(),
                     o => (DaysEnum)Enum.Parse(typeof(DaysEnum), o)
                 );
-            builder.HasMany(o => o.Calender).WithOne().OnDelete(DeleteBehavior.Cascade);
+           // builder.HasMany(o => o.Calender).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
