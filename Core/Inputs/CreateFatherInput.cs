@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 
-namespace API.Dtos
+namespace Core.Inputs
 {
-    public class FathersDto
+    public class CreateFatherInput
     {
         public int? Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +12,5 @@ namespace API.Dtos
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
         public string ImgUrl { get; set; }
-        public IReadOnlyList<ConfessionsDto> Confessions { get; set; }
     }
 }

@@ -16,6 +16,10 @@ export class DashboardSidebarComponent implements OnInit {
     {
       name: 'البث المباشر',
       route: '/dashboard/live'
+    },
+    {
+      name: 'أباء الكنيسة',
+      route: '/dashboard/fathers'
     }
   ]
 

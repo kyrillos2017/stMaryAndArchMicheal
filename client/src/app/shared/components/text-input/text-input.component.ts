@@ -4,12 +4,13 @@ import { NgControl } from '@angular/forms';
 @Component({
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.scss']
+  styleUrls: ['./text-input.component.scss'],
 })
 export class TextInputComponent implements OnInit {
   @ViewChild('input', {static: true}) input: ElementRef;
   @Input() type = 'text';
   @Input() label = 'string';
+  @Input() icon : string;
 
   constructor(@Self() public controlDir: NgControl) {
     this.controlDir.valueAccessor = this;
@@ -17,17 +18,25 @@ export class TextInputComponent implements OnInit {
 
   ngOnInit(): void {
     const control = this.controlDir.control;
-    // const validators = control.validator ? [control.validator] : [];
-    // const asyncValidators = control.asyncValidator ? [control.asyncValidator] : [];
+    const validators = (control && control.validator) ? [control.validator] : [];
+    const asyncValidators = (control && control.asyncValidator) ? [control.asyncValidator] : [];
 
-    // control.setValidators(validators);
-    // control.setAsyncValidators(asyncValidators);
-    // control.updateValueAndValidity();
+    if(control){
+      control.setValidators(validators);
+      control.setAsyncValidators(asyncValidators);
+      control.updateValueAndValidity();
+      console.log(control)
+    }
   }
 
-  onChange(event: Event) {console.log(event)}
+  onChange(event? : Event) {
+    console.log(event)
+    console.log(this.controlDir.control?.errors)
+  }
 
-  onTouched() {}
+  onTouched() {
+    console.log('t')
+  }
 
   writeValue(obj: any): void {
     this.input.nativeElement.value = obj || '';

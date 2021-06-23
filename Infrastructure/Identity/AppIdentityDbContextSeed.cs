@@ -15,18 +15,8 @@ namespace Infrastructure.Identity
                 {
                     DisplayName = "Admin",
                     Email = "admin@admin.com",
-                    UserName = "admin",
-                    Address = new Address
-                    {
-                        FirstName = "Bob",
-                        LastName = "Bobbity",
-                        Street = "10 The street",
-                        City = "New York",
-                        State = "NY",
-                        ZipCode = "90210"
-                    }
+                    UserName = "admin"
                 };
-
                 await userManager.CreateAsync(user, "Abc123**");
             };
         }

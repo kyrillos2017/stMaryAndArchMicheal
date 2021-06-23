@@ -7,6 +7,8 @@ import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar
 import { DashboardNavbarComponent } from './shared/components/dashboard-navbar/dashboard-navbar.component';
 import { DashboardLiveComponent } from './components/dashboard-live/dashboard-live.component';
 import { SharedModule } from '../shared/shared.module';
+import { DashboardFathersComponent } from './components/Fathers/dashboard-fathers/dashboard-fathers.component';
+import { DashboardFatherFormComponent } from './components/fathers/dashboard-father-form/dashboard-father-form.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { SharedModule } from '../shared/shared.module';
     DashboardLayoutComponent,
     DashboardSidebarComponent,
     DashboardNavbarComponent,
-    DashboardLiveComponent
+    DashboardLiveComponent,
+    DashboardFathersComponent,
+    DashboardFatherFormComponent
   ],
   imports: [
     CommonModule,

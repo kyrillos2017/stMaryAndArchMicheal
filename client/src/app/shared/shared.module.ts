@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { GalleriaModule } from 'primeng/galleria';
 import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
@@ -52,7 +52,9 @@ import {MatInputModule} from '@angular/material/input';
     MatRippleModule,
     MatFormFieldModule,
     MatSlideToggleModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    TextInputComponent
+  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true }]
 })
 export class SharedModule { }
