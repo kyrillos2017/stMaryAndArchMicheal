@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public class Live
+    public class Live : BaseEntity
     {
         public Live()
         {
@@ -12,7 +12,6 @@ namespace Core.Entities
             VideoId = videoId;
         }
 
-        public int? Id { get; set; }
         public bool IsActive { get; set; }
         public string VideoId { get; set; }
     }

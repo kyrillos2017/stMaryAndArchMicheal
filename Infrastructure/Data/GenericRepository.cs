@@ -39,6 +39,12 @@ namespace Infrastructure.Data
         {
             return await ApplySpecification(spec).CountAsync();
         }
+        // public async Task<IReadOnlyList<T>> GroupListAsync(ISpecification<T> spec)
+        // {
+        //     var list = await ApplySpecification(spec).Select(s => new )
+
+        // }
+
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
@@ -60,7 +66,7 @@ namespace Infrastructure.Data
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-           
+
         }
 
         public async Task<bool> Save()

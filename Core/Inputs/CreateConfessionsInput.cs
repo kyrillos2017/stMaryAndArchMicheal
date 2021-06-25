@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using Core.Entities;
 using Core.Entities.Enums;
 
-namespace API.Dtos
+namespace Core.Inputs
 {
-    public class ConfessionsDto
+    public class CreateConfessionsInput
     {
         public int? Id { get; set; }
         public DaysEnum Day { get; set; }
@@ -14,5 +12,6 @@ namespace API.Dtos
         public DateTime EndTime { get; set; }
         public string Place { get; set; }
         public bool IsActive { get; set; }
+        public int FathersId { get; set; }
     }
 }

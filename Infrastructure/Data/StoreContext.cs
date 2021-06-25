@@ -15,7 +15,6 @@ namespace Infrastructure.Data
 
         // public DbSet<Product> Products { get; set; }
         public DbSet<Live> Live { get; set; }
-        public DbSet<ConfessionCalender> confessionCalenders { get; set; }
         public DbSet<Confessions> Confessions { get; set; }
         public DbSet<Bishop> Bishop { get; set; }
         public DbSet<Fathers> Fathers { get; set; }

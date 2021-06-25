@@ -21,6 +21,7 @@ namespace Core.Specifications
         public Expression<Func<T, object>> OrderBy { get; private set; }
 
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
+        // public Expression<Func<T, object>> GroupBy { get; private set; }
 
         public int Take { get; private set; }
 
@@ -48,6 +49,12 @@ namespace Core.Specifications
             Skip = skip;
             IsPagingEnable = true;
         }
+
+        // protected void GroupListBy(Expression<Func<T, object>> groupByExpression)
+        // {
+        //     GroupBy = groupByExpression;
+        // }
+
 
     }
 }

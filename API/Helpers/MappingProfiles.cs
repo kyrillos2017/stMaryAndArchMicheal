@@ -10,8 +10,13 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Live, LiveDto>().ReverseMap();
+
             CreateMap<Fathers, FathersDto>().ReverseMap();
-            CreateMap<CreateFatherInput, Fathers > ().ReverseMap();
+            CreateMap<CreateFatherInput, Fathers>().ReverseMap();
+            CreateMap<CreateFatherInput, FathersDto>().ReverseMap();
+
+            CreateMap<Confessions, ConfessionsDto>().ReverseMap();
+            CreateMap<CreateConfessionsInput, Confessions>().ReverseMap();
         }
     }
 }

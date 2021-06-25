@@ -10,11 +10,16 @@
         <input  matInput placeholder="الاسم">
         <mat-icon matSuffix><i class="pi pi-link"></i></mat-icon>
       </mat-form-field>
-      <app-text-input  [label]="'الاسم'" formControlName="firstName" [icon]="'fas fa-user-alt'"></app-text-input>
+      <app-text-input [control]="fatherForm.get('firstName')"  [label]="'الاسم'" formControlName="firstName" [icon]="'fas fa-user-alt'"></app-text-input>
+      <ul class="text-danger list-unstyled" *ngIf="errors">
+        <li *ngFor="let error of errors">
+            {{error}}
+        </li>
+    </ul>
     </div>
 
     <footer class="w-100 text-start pt-2 border-top">
-      <button mat-flat-button color="primary" >حفظ</button>
+      <button mat-flat-button color="primary" [disabled]="!fatherForm.valid" >حفظ</button>
     </footer>
   </div>
 </form>

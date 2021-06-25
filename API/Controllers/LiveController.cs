@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
@@ -11,12 +10,12 @@ namespace API.Controllers
     public class LiveController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILiveRepository _liveRepository;
+        private readonly IGenericRepository<Live> _liveRepository;
         private readonly IMapper _mapper;
         public LiveController(
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            ILiveRepository liveRepository
+            IGenericRepository<Live> liveRepository
         )
         {
             _mapper = mapper;
@@ -31,38 +30,25 @@ namespace API.Controllers
             {
                 input.IsActive = false;
             }
-            var live = await _liveRepository.CreateOrEdit(input.IsActive, input.VideoId);
-            return _mapper.Map<Live, LiveDto>(live);
+            var live = _mapper.Map<LiveDto, Live>(input);
+            var data = await _liveRepository.Add(live);
+            await _liveRepository.Save();
+            return _mapper.Map<Live, LiveDto>(data);
         }
 
         [HttpGet]
         public async Task<ActionResult<LiveDto>> GetCurrentLive()
         {
-            var live = await _liveRepository.GetLive();
+            var live = await _liveRepository.GetByIdAsync(1);
             if (live == null)
             {
-                return null;
+                return new LiveDto();
             }
-            return _mapper.Map<Live, LiveDto>(live);
+            else
+            {
+                return _mapper.Map<Live, LiveDto>(live);
+            }
         }
 
-        // private async Task<LiveDto> Create(LiveDto input)
-        // {
-
-        //     var live = await _liveRepository.CreateOrEdit(input.VideoId, input.IsActive);
-        //     return _mapper.Map<Live, LiveDto>(live);
-
-        //     // if(string.IsNullOrEmpty(input.VideoId)){
-        //     //     input.IsActive = false;
-        //     // }
-        //     // var live = _mapper.Map<LiveDto, Live>(input);
-        //     // _unitOfWork.Repository<Live>().Add(live);
-        //     // var result = await _unitOfWork.Complete();
-        //     // if (result <= 0) return null;
-
-        //     // return live;
-        //     //return _mapper.Map<Live, LiveDto>(live);
-        //     //return await _bannerRepository.InsertAndGetIdAsync(point);
-        // }
     }
 }
