@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-father-form',
@@ -10,10 +11,13 @@ export class DashboardFatherFormComponent implements OnInit {
 
   fatherForm: FormGroup;
   submitted = false;
+  errors: string[];
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.fatherFormInit()
+    // this.fatherForm.controls['firstName'].valueChanges.subscribe(console.log)
   }
 
   fatherFormInit(){

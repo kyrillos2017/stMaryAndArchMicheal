@@ -1,9 +1,13 @@
 using API.Dtos;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Inputs;
 using Core.Interfaces;
+using Core.Specifications;
+using Core.Specifications.Params;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -36,10 +40,27 @@ namespace API.Controllers
                 //Update
                 _fathersRepo.Update(father);
                 await _fathersRepo.Save();
-              
+
             }
             return father.Id;
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<Pagination<FathersDto>>> GetAll([FromQuery] FathersParams fathersParams)
+        {
+            var spec = new FathersSpecificationsWithConfessions(fathersParams);
+            var countSpec = new FathersCountSpecifications(fathersParams);
+            var totalItems = await _fathersRepo.CountAsync(countSpec);
+
+            var fathers = await _fathersRepo.ListAsync(spec);
+            var data = _mapper.Map<IReadOnlyList<FathersDto>>(fathers);
+            return Ok(
+                new Pagination<FathersDto>(fathersParams.PageSize, fathersParams.PageIndex, totalItems, data)
+            );
+            ;
+        }
+
 
     }
 }
