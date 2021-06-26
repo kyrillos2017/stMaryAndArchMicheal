@@ -20,6 +20,10 @@ namespace Infrastructure.Data
         {
             return await _context.Set<T>().FindAsync(id);
         }
+        public async Task<T> GetLastAsync()
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync();
+        }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {

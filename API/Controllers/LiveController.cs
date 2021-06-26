@@ -9,17 +9,14 @@ namespace API.Controllers
 {
     public class LiveController : BaseApiController
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<Live> _liveRepository;
         private readonly IMapper _mapper;
         public LiveController(
             IMapper mapper,
-            IUnitOfWork unitOfWork,
             IGenericRepository<Live> liveRepository
         )
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
             _liveRepository = liveRepository;
         }
 
@@ -30,16 +27,29 @@ namespace API.Controllers
             {
                 input.IsActive = false;
             }
-            var live = _mapper.Map<LiveDto, Live>(input);
-            var data = await _liveRepository.Add(live);
-            await _liveRepository.Save();
-            return _mapper.Map<Live, LiveDto>(data);
+            var currentLive = await _liveRepository.GetLastAsync();
+            if (currentLive == null)
+            {
+                var inputMapper = _mapper.Map<LiveDto, Live>(input);
+                var data = await _liveRepository.Add(inputMapper);
+                await _liveRepository.Save();
+
+                return _mapper.Map<Live, LiveDto>(data);
+            }
+            else
+            {
+                currentLive.IsActive = input.IsActive;
+                currentLive.VideoId = input.VideoId;
+                _liveRepository.Update(currentLive);
+                await _liveRepository.Save();
+                return _mapper.Map<Live, LiveDto>(currentLive);
+            }
         }
 
         [HttpGet]
         public async Task<ActionResult<LiveDto>> GetCurrentLive()
         {
-            var live = await _liveRepository.GetByIdAsync(1);
+            var live = await _liveRepository.GetLastAsync();
             if (live == null)
             {
                 return new LiveDto();

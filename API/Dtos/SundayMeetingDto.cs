@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
 using Core.Entities.Enums;
 
-namespace Core.Entities
+namespace API.Dtos
 {
-    public class Confessions : BaseEntity
+    public class SundayMeetingDto
     {
+        public int? Id { get; set; }
+        public string Name { get; set; }
+        public string Grade { get; set; }
         public DaysEnum Day { get; set; }
-
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Place { get; set; }
         public bool IsActive { get; set; }
-
-        public int FathersId { get; set; }
-        public Fathers Fathers { get; set; }
-        public GenderEnum Gender { get; set; } = GenderEnum.Booth;
     }
 }

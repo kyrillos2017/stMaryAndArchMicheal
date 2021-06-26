@@ -15,7 +15,12 @@ namespace Infrastructure.Data.Config
                     o => o.ToString(),
                     o => (DaysEnum)Enum.Parse(typeof(DaysEnum), o)
                 );
-           // builder.HasMany(o => o.Calender).WithOne().OnDelete(DeleteBehavior.Cascade);
+            builder.Property(s => s.Gender)
+                .HasConversion(
+                    o => o.ToString(),
+                    o => (GenderEnum)Enum.Parse(typeof(GenderEnum), o)
+                );
+            // builder.HasMany(o => o.Calender).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
