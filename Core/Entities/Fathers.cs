@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.Entities.Enums;
 
 namespace Core.Entities
 {
@@ -20,6 +21,7 @@ namespace Core.Entities
         public string PriestlyRank { get; set; }
         public DateTime PriestlyDate { get; set; }
         public bool IsDead { get; set; } = false;
+        public bool IsActive { get; set; }
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
         public string ImgUrl { get; set; }

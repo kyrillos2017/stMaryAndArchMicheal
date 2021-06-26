@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos;
+using API.Errors;
 using API.Helpers;
 using AutoMapper;
 using Core.Entities;
@@ -25,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ConfessionsDto> CreateOrUpdate(CreateConfessionsInput input)
+        public async Task<ActionResult<ConfessionsDto>> CreateOrUpdate(CreateConfessionsInput input)
         {
             var conf = _mapper.Map<CreateConfessionsInput, Confessions>(input);
             if (input.Id == null)
@@ -36,6 +37,8 @@ namespace API.Controllers
             else
             {
                 //Update
+                var s = await _confessionRepo.GetByIdAsync((int)input.Id);
+                if (s == null) return BadRequest(new ApiResponse(404));
                 _confessionRepo.Update(conf);
                 await _confessionRepo.Save();
 
@@ -56,6 +59,17 @@ namespace API.Controllers
             var data = _mapper.Map<IReadOnlyList<ConfessionsDto>>(conf);
             return data;
             ;
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<ConfessionsDto>> Delete(int id)
+        {
+            var conf = await _confessionRepo.GetByIdAsync(id);
+            if (conf == null) return BadRequest(new ApiResponse(404));
+            _confessionRepo.Delete(conf);
+            await _confessionRepo.Save();
+            var confDto = _mapper.Map<Confessions, ConfessionsDto>(conf);
+            return confDto;
         }
 
     }

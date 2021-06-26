@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Errors;
 using API.Helpers;
 using AutoMapper;
 using Core.Entities;
@@ -27,7 +28,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<int> CreateOrUpdate(CreateFatherInput fatherDto)
+        public async Task<ActionResult<int>> CreateOrUpdate(CreateFatherInput fatherDto)
         {
             var father = _mapper.Map<CreateFatherInput, Fathers>(fatherDto);
             if (fatherDto.Id == null)
@@ -38,6 +39,8 @@ namespace API.Controllers
             else
             {
                 //Update
+                var s = await _fathersRepo.GetByIdAsync((int)fatherDto.Id);
+                if (s == null) return BadRequest(new ApiResponse(404));
                 _fathersRepo.Update(father);
                 await _fathersRepo.Save();
 
@@ -59,6 +62,17 @@ namespace API.Controllers
                 new Pagination<FathersDto>(fathersParams.PageSize, fathersParams.PageIndex, totalItems, data)
             );
             ;
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<FathersDto>> Delete(int id)
+        {
+            var father = await _fathersRepo.GetByIdAsync(id);
+            if (father == null) return BadRequest(new ApiResponse(404));
+            _fathersRepo.Delete(father);
+            await _fathersRepo.Save();
+            var fatherDto = _mapper.Map<Fathers, FathersDto>(father);
+            return fatherDto;
         }
 
 

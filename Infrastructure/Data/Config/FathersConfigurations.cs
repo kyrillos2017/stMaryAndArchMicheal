@@ -1,4 +1,6 @@
+using System;
 using Core.Entities;
+using Core.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,8 +10,7 @@ namespace Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Fathers> builder)
         {
-            // builder.OwnsOne(o => o.Confessions, a => a.WithOwner());
-            // builder.HasMany(o => o.Confessions).WithOne().OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

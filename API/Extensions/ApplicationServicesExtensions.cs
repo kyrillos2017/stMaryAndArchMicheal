@@ -15,8 +15,6 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ILiveRepository, LiveRepository>();
-            services.AddScoped<IFathersRepository, FathersRepository>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.Configure<ApiBehaviorOptions>(options =>

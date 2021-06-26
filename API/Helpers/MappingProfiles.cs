@@ -17,6 +17,12 @@ namespace API.Helpers
 
             CreateMap<Confessions, ConfessionsDto>().ReverseMap();
             CreateMap<CreateConfessionsInput, Confessions>().ReverseMap();
+
+            CreateMap<SundayMeeting, SundayMeetingDto>().ReverseMap();
+
+            CreateMap<AboutChurch, AboutChurchDto>().ReverseMap();
+
+            CreateMap<ChurchService, ChurchServiceDto>().ReverseMap();
         }
     }
 }

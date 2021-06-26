@@ -18,6 +18,9 @@ namespace Infrastructure.Data
         public DbSet<Confessions> Confessions { get; set; }
         public DbSet<Bishop> Bishop { get; set; }
         public DbSet<Fathers> Fathers { get; set; }
+        public DbSet<SundayMeeting> SundayMeetings { get; set; }
+        public DbSet<AboutChurch> AboutChurch { get; set; }
+        public DbSet<ChurchService> ChurchServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

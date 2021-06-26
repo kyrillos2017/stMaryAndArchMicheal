@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.Entities.Enums;
 
 namespace API.Dtos
 {
@@ -13,6 +14,8 @@ namespace API.Dtos
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
         public string ImgUrl { get; set; }
+        public bool IsActive { get; set; }
+
         public IReadOnlyList<ConfessionsDto> Confessions { get; set; }
     }
 }
