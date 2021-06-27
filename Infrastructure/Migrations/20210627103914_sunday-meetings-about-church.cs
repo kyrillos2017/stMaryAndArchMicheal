@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Migrations
 {
-    public partial class churchservices : Migration
+    public partial class sundaymeetingsaboutchurch : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,12 +14,33 @@ namespace Infrastructure.Migrations
                 name: "SundayMeeting",
                 newName: "SundayMeetings");
 
+            migrationBuilder.AddColumn<int>(
+                name: "DisplayOrder",
+                table: "Fathers",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.AddColumn<bool>(
                 name: "IsActive",
                 table: "Fathers",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
+
+            migrationBuilder.AddColumn<int>(
+                name: "DisplayOrder",
+                table: "Confessions",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "DisplayOrder",
+                table: "SundayMeetings",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_SundayMeetings",
@@ -50,7 +71,8 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BannerImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,8 +93,20 @@ namespace Infrastructure.Migrations
                 table: "SundayMeetings");
 
             migrationBuilder.DropColumn(
+                name: "DisplayOrder",
+                table: "Fathers");
+
+            migrationBuilder.DropColumn(
                 name: "IsActive",
                 table: "Fathers");
+
+            migrationBuilder.DropColumn(
+                name: "DisplayOrder",
+                table: "Confessions");
+
+            migrationBuilder.DropColumn(
+                name: "DisplayOrder",
+                table: "SundayMeetings");
 
             migrationBuilder.RenameTable(
                 name: "SundayMeetings",

@@ -21,13 +21,14 @@ namespace Core.Specifications
         public Expression<Func<T, object>> OrderBy { get; private set; }
 
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
-        // public Expression<Func<T, object>> GroupBy { get; private set; }
 
+        // public Expression<Func<T, object>> GroupBy { get; private set; }
         public int Take { get; private set; }
 
         public int Skip { get; private set; }
 
         public bool IsPagingEnable { get; private set; }
+
 
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
@@ -50,7 +51,7 @@ namespace Core.Specifications
             IsPagingEnable = true;
         }
 
-        // protected void GroupListBy(Expression<Func<T, object>> groupByExpression)
+        // protected void AddGroupBy(Expression<Func<T, object>> groupByExpression)
         // {
         //     GroupBy = groupByExpression;
         // }

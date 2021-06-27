@@ -22,6 +22,10 @@ namespace Infrastructure.Data
             {
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
+            // if (spec.GroupBy != null)
+            // {
+            //     query = query.GroupBy(spec.GroupBy).SelectMany(x => x);
+            // }
             if (spec.IsPagingEnable)
             {
                 query = query.Skip(spec.Skip).Take(spec.Take);
