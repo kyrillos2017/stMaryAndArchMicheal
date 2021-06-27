@@ -6,6 +6,7 @@ using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -49,7 +50,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IReadOnlyList<SundayMeetingDto>> GetAll()
         {
-            var sundays = await _sindayMeetingRepo.ListAllAsync();
+            var spec = new SundayMeetingSpecifications();
+            var sundays = await _sindayMeetingRepo.ListAsync(spec);
             var data = _mapper.Map<IReadOnlyList<SundayMeetingDto>>(sundays);
             return data;
         }
