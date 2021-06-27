@@ -12,5 +12,6 @@ namespace Core.Inputs
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
         public string ImgUrl { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }

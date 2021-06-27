@@ -15,6 +15,7 @@ namespace API.Dtos
         public string About { get; set; }
         public string ImgUrl { get; set; }
         public bool IsActive { get; set; }
+        public int DisplayOrder { get; set; }
 
         public IReadOnlyList<ConfessionsDto> Confessions { get; set; }
     }

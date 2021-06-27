@@ -6,6 +6,7 @@ namespace Core.Specifications
     {
         public ConfessionsGroupByDaySpecifications()
         {
+            AddOrderBy(x => x.DisplayOrder);
             // GroupListBy(x => x.Day);
 
             //AddSelect()

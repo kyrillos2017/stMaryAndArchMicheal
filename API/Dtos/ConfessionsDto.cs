@@ -15,5 +15,6 @@ namespace API.Dtos
         public string Place { get; set; }
         public bool IsActive { get; set; }
         public GenderEnum Gender { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }

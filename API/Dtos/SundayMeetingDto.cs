@@ -13,5 +13,6 @@ namespace API.Dtos
         public DateTime EndTime { get; set; }
         public string Place { get; set; }
         public bool IsActive { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }

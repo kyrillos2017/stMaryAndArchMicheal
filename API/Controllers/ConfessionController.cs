@@ -51,10 +51,10 @@ namespace API.Controllers
         public async Task<IReadOnlyList<ConfessionsDto>> GetAll()
         {
 
-            //var spec = new ConfessionsGroupByDaySpecifications();
+            var spec = new ConfessionsGroupByDaySpecifications();
             //var conf = await _confessionRepo.GroupListAsync(spec);
 
-            var conf = await _confessionRepo.ListAllAsync();
+            var conf = await _confessionRepo.ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<ConfessionsDto>>(conf);
             return data;

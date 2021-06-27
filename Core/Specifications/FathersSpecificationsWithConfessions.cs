@@ -10,6 +10,7 @@ namespace Core.Specifications
         {
             AddInclude(x => x.Confessions);
             AddOrderBy(x => x.Name);
+            AddOrderBy(x => x.DisplayOrder);
             ApplyPaging(fathersParams.PageSize, fathersParams.PageSize * (fathersParams.PageIndex - 1));
         }
 
