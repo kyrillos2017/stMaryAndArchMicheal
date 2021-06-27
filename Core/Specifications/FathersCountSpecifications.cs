@@ -9,6 +9,8 @@ namespace Core.Specifications
     {
         public FathersCountSpecifications(FathersParams fathersParams)
         : base(x => (string.IsNullOrEmpty(fathersParams.Search) || x.Name.ToLower().Contains(fathersParams.Search)))
-        { }
+        {
+            AddOrderBy(x => x.DisplayOrder);
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace Core.Entities
         public int FathersId { get; set; }
         public Fathers Fathers { get; set; }
         public GenderEnum Gender { get; set; } = GenderEnum.Booth;
+        public int DisplayOrder { get; set; } = 100;
     }
 }

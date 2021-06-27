@@ -13,5 +13,6 @@ namespace Core.Inputs
         public string Place { get; set; }
         public bool IsActive { get; set; }
         public int FathersId { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }
