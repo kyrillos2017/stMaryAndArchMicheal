@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
+import { ImageAssetsService } from './../../../../services/image-assets.service';
 
 @Component({
   selector: 'app-dashboard-father-form',
@@ -13,7 +15,7 @@ export class DashboardFatherFormComponent implements OnInit {
   submitted = false;
   errors: string[];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private _img: ImageAssetsService) { }
 
   ngOnInit(): void {
     this.fatherFormInit()
@@ -48,6 +50,32 @@ export class DashboardFatherFormComponent implements OnInit {
     //})
 
 }
+
+public progress: number;
+  public message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+public uploadFile = (files:any) => {
+  if (files.length === 0) {
+    return;
+  }
+  let fileToUpload = <File>files[0];
+  const formData = new FormData();
+
+  formData.set('file', fileToUpload, fileToUpload.name);
+  // console.log(fileToUpload)
+  console.log(formData)
+  this._img.upload(formData)
+    .subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress)
+        this.progress = Math.round(100 * event.loaded / (event.total?event.total: 0));
+      else if (event.type === HttpEventType.Response) {
+        this.message = 'Upload success.';
+        this.onUploadFinished.emit(event.body);
+      }
+    });
+}
+
+
 
 onReset() {
     this.submitted = false;

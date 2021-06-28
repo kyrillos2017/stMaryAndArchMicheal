@@ -16,7 +16,6 @@ namespace API.Controllers
 {
     public class ImageAssetsController : BaseApiController
     {
-        private readonly IWebHostEnvironment _environment;
         private readonly IGenericRepository<ImageAssets> _ImageRepo;
         private readonly IMapper _mapper;
         public ImageAssetsController(
@@ -27,87 +26,40 @@ namespace API.Controllers
             _ImageRepo = ImageRepo;
             _mapper = mapper;
         }
-        [HttpPost]
-        public async Task<ActionResult<int>> CreateOrUpdate(CreateImageInput imgDto)
+
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
         {
-            var image = _mapper.Map<CreateImageInput, ImageAssets>(imgDto);
-            if (imgDto.Id == null)
+            try
             {
-                imgDto.ImgUrl = SaveImage();
-                await _ImageRepo.Add(image);
-                await _ImageRepo.Save();
-            }
-            else
-            {
-                //Update
-                imgDto.ImgUrl = SaveImage();
-                var s = await _ImageRepo.GetByIdAsync((int)imgDto.Id);
-                if (s == null) return BadRequest(new ApiResponse(404));
-                _ImageRepo.Update(image);
-                await _ImageRepo.Save();
-
-            }
-            return image.Id;
-        }
-
-
-        private string SaveImage()
-        {
-
-            string FolderName = "Images/";
-
-            var newFileName = string.Empty;
-
-            if (HttpContext.Request.Form.Files != null)
-            {
-                var fileName = string.Empty;
-                string PathDB = string.Empty;
-
-                var files = HttpContext.Request.Form.Files;
-
-                foreach (var file in files)
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("wwwroot", "images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
                 {
-                    if (file.Length > 0)
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        //Getting FileName
-                        fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-                        //Assigning Unique Filename (Guid)
-                        var myUniqueFileName = DateTime.Now.Ticks.ToString();
-
-                        //Getting file Extension
-                        var FileExtension = Path.GetExtension(fileName);
-
-                        // concating  FileName + FileExtension
-                        newFileName = myUniqueFileName + FileExtension;
-
-                        // Combines two strings into a path.
-                        fileName = Path.Combine(_environment.WebRootPath, FolderName) + $@"\{newFileName}";
-
-                        // if you want to store path of folder in database
-                        PathDB = FolderName + newFileName;
-
-                        using (FileStream fs = System.IO.File.Create(fileName))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-
-                        return PathDB;
+                        file.CopyTo(stream);
                     }
-                    else
-                    {
-                        return "";
-                    }
+                    var img = new ImageAssets(fileName, dbPath);
+                    await _ImageRepo.Add(img);
+                    await _ImageRepo.Save();
+                    return Ok(new { img });
+                }
+                else
+                {
+                    return BadRequest();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return "";
+                return StatusCode(500, $"Internal server error: {ex}");
             }
-
-            return "";
         }
+
 
     }
 }

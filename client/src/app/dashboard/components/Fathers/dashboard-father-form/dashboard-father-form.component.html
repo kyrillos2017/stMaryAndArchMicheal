@@ -10,7 +10,7 @@
         <input  matInput placeholder="الاسم">
         <mat-icon matSuffix><i class="pi pi-link"></i></mat-icon>
       </mat-form-field>
-      <app-text-input [control]="fatherForm.get('firstName')"  [label]="'الاسم'" formControlName="firstName" [icon]="'fas fa-user-alt'"></app-text-input>
+      <!-- <app-text-input [control]="fatherForm.get('firstName')"  [label]="'الاسم'" formControlName="firstName" [icon]="'fas fa-user-alt'"></app-text-input> -->
       <ul class="text-danger list-unstyled" *ngIf="errors">
         <li *ngFor="let error of errors">
             {{error}}
@@ -23,3 +23,7 @@
     </footer>
   </div>
 </form>
+
+
+<input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+<button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
