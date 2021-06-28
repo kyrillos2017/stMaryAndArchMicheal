@@ -21,6 +21,7 @@ namespace Infrastructure.Data
         public DbSet<SundayMeeting> SundayMeetings { get; set; }
         public DbSet<AboutChurch> AboutChurch { get; set; }
         public DbSet<ChurchService> ChurchServices { get; set; }
+        public DbSet<ImageAssets> ImageAssets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
