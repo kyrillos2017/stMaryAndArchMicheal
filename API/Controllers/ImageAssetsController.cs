@@ -11,6 +11,10 @@ using Core.Inputs;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using API.Errors;
+using Core.Specifications.Params;
+using API.Helpers;
+using Core.Specifications;
+using API.Dtos;
 
 namespace API.Controllers
 {
@@ -60,6 +64,31 @@ namespace API.Controllers
             }
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<Pagination<ImageAssetsDto>>> GetAll([FromQuery] ImageAssetsParams imgParams)
+        {
+            var spec = new ImageAssetsPaginationSpecifications(imgParams);
+            var countSpec = new ImageAssetsCountSpecifications(imgParams);
+            var totalItems = await _ImageRepo.CountAsync(countSpec);
+
+            var imgs = await _ImageRepo.ListAsync(spec);
+            var data = _mapper.Map<IReadOnlyList<ImageAssetsDto>>(imgs);
+
+            return Ok(
+                new Pagination<ImageAssetsDto>(imgParams.PageSize, imgParams.PageIndex, totalItems, data)
+            );
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ImageAssetsDto>> GetById(int id)
+        {
+            var img = await _ImageRepo.GetByIdAsync(id);
+            if (img == null) return NotFound(new ApiResponse(404));
+            var data = _mapper.Map<ImageAssets, ImageAssetsDto>(img);
+
+            return data;
+        }
 
     }
 }

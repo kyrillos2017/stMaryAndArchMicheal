@@ -19,6 +19,7 @@ export class DashboardFatherFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.fatherFormInit()
+    this.getImg()
     // this.fatherForm.controls['firstName'].valueChanges.subscribe(console.log)
   }
 
@@ -80,6 +81,14 @@ public uploadFile = (files:any) => {
 onReset() {
     this.submitted = false;
     this.fatherForm.reset();
+}
+
+img: any;
+getImg(){
+  this._img.getImg(1).subscribe(res => {
+    this.img = res
+    console.log(res)
+  })
 }
 
 }
