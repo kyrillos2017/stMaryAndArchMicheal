@@ -9,6 +9,9 @@ namespace API.Helpers
     {
         public MappingProfiles()
         {
+            CreateMap<ImageAssets, ImageAssetsDto>()
+            .ForMember(d => d.ImgUrl, o => o.MapFrom<ImageAssetsUrlResolver>());
+
             CreateMap<Live, LiveDto>().ReverseMap();
 
             CreateMap<Fathers, FathersDto>().ReverseMap();

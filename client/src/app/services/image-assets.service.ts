@@ -11,7 +11,11 @@ export class ImageAssetsService {
 
   upload(file: any){
     const url = "https://localhost:5001/api/ImageAssets";
-    console.log("s")
     return this.http.post(url, file, {reportProgress: true, observe: 'events'})
+  }
+
+  getImg(id: number){
+    const url = "https://localhost:5001/api/ImageAssets";
+    return this.http.get(url + "/" +id)
   }
 }
