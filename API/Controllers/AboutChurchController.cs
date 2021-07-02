@@ -3,7 +3,9 @@ using API.Dtos;
 using API.Errors;
 using AutoMapper;
 using Core.Entities;
+using Core.Inputs;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -22,28 +24,25 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AboutChurchDto>> CreateOrEdit(AboutChurchDto input)
+        public async Task<ActionResult<AboutChurchDto>> CreateOrEdit(CreateAboutChurch input)
         {
-            var about = await _churchRepository.GetLastAsync();
+            var spec = new AboutChurchWithImageSpecification();
+            var about = await _churchRepository.GetEntityWithSpec(spec);
+            var inputMapper = _mapper.Map<CreateAboutChurch, AboutChurch>(input);
             if (about == null)
             {
-                var inputMapper = _mapper.Map<AboutChurchDto, AboutChurch>(input);
-                var data = await _churchRepository.Add(inputMapper);
+                await _churchRepository.Add(inputMapper);
                 await _churchRepository.Save();
 
-                return _mapper.Map<AboutChurch, AboutChurchDto>(data);
             }
             else
             {
-                about.IsActive = input.IsActive;
-                about.Description = input.Description;
-                about.BannerImgUrl = input.BannerImgUrl;
-                about.ImgUrl = input.ImgUrl;
-
-                _churchRepository.Update(about);
+                // about.BannerId = input.BannerId;
+                _churchRepository.Update(inputMapper);
                 await _churchRepository.Save();
-                return _mapper.Map<AboutChurch, AboutChurchDto>(about);
             }
+
+            return _mapper.Map<CreateAboutChurch, AboutChurchDto>(input);
         }
 
         [HttpGet]

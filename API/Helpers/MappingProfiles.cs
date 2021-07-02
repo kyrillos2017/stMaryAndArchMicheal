@@ -17,6 +17,7 @@ namespace API.Helpers
             CreateMap<Fathers, FathersDto>().ReverseMap();
             CreateMap<CreateFatherInput, Fathers>().ReverseMap();
             CreateMap<CreateFatherInput, FathersDto>().ReverseMap();
+            CreateMap<FathersSection, FathersReturnDto>().ReverseMap();
 
             CreateMap<Confessions, ConfessionsDto>().ReverseMap();
             CreateMap<CreateConfessionsInput, Confessions>().ReverseMap();
@@ -24,6 +25,8 @@ namespace API.Helpers
             CreateMap<SundayMeeting, SundayMeetingDto>().ReverseMap();
 
             CreateMap<AboutChurch, AboutChurchDto>().ReverseMap();
+            CreateMap<CreateAboutChurch, AboutChurch>().ReverseMap();
+            CreateMap<CreateAboutChurch, AboutChurchDto>().ReverseMap();
 
             CreateMap<ChurchService, ChurchServiceDto>().ReverseMap();
         }

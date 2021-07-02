@@ -13,7 +13,7 @@ namespace API.Dtos
         public bool IsDead { get; set; } = false;
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
-        public string ImgUrl { get; set; }
+        public ImageAssetsDto Image { get; set; }
         public bool IsActive { get; set; }
         public int DisplayOrder { get; set; }
 

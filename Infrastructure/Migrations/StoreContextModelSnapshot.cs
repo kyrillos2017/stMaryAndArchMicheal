@@ -26,19 +26,23 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("BannerImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("AboutChurch");
                 });
@@ -153,8 +157,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("FathersSectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -173,7 +180,28 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FathersSectionId");
+
+                    b.HasIndex("ImageId");
+
                     b.ToTable("Fathers");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.ToTable("FathersSections");
                 });
 
             modelBuilder.Entity("Core.Entities.ImageAssets", b =>
@@ -249,6 +277,21 @@ namespace Infrastructure.Migrations
                     b.ToTable("SundayMeetings");
                 });
 
+            modelBuilder.Entity("Core.Entities.AboutChurch", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Banner");
+
+                    b.Navigation("Image");
+                });
+
             modelBuilder.Entity("Core.Entities.Confessions", b =>
                 {
                     b.HasOne("Core.Entities.Fathers", "Fathers")
@@ -262,7 +305,34 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Fathers", b =>
                 {
+                    b.HasOne("Core.Entities.FathersSection", null)
+                        .WithMany("fathers")
+                        .HasForeignKey("FathersSectionId");
+
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.Navigation("Banner");
+                });
+
+            modelBuilder.Entity("Core.Entities.Fathers", b =>
+                {
                     b.Navigation("Confessions");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.Navigation("fathers");
                 });
 #pragma warning restore 612, 618
         }

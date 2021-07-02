@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210626181018_sunday-meetings")]
-    partial class sundaymeetings
+    [Migration("20210701214629_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,34 @@ namespace Infrastructure.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7");
+
+            modelBuilder.Entity("Core.Entities.AboutChurch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("AboutChurch");
+                });
 
             modelBuilder.Entity("Core.Entities.Bishop", b =>
                 {
@@ -51,6 +79,30 @@ namespace Infrastructure.Migrations
                     b.ToTable("Bishop");
                 });
 
+            modelBuilder.Entity("Core.Entities.ChurchService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("BannerImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChurchServices");
+                });
+
             modelBuilder.Entity("Core.Entities.Confessions", b =>
                 {
                     b.Property<int>("Id")
@@ -61,6 +113,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Day")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -101,8 +156,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("DeathDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FathersSectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDead")
                         .HasColumnType("bit");
@@ -118,7 +182,46 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FathersSectionId");
+
+                    b.HasIndex("ImageId");
+
                     b.ToTable("Fathers");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.ToTable("FathersSections");
+                });
+
+            modelBuilder.Entity("Core.Entities.ImageAssets", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageAssets");
                 });
 
             modelBuilder.Entity("Core.Entities.Live", b =>
@@ -150,6 +253,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -170,7 +276,22 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SundayMeeting");
+                    b.ToTable("SundayMeetings");
+                });
+
+            modelBuilder.Entity("Core.Entities.AboutChurch", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Banner");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Core.Entities.Confessions", b =>
@@ -186,7 +307,34 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Fathers", b =>
                 {
+                    b.HasOne("Core.Entities.FathersSection", null)
+                        .WithMany("fathers")
+                        .HasForeignKey("FathersSectionId");
+
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.Navigation("Banner");
+                });
+
+            modelBuilder.Entity("Core.Entities.Fathers", b =>
+                {
                     b.Navigation("Confessions");
+                });
+
+            modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.Navigation("fathers");
                 });
 #pragma warning restore 612, 618
         }

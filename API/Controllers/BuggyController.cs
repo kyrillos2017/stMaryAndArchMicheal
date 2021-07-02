@@ -39,7 +39,7 @@
 //         }
 
 //         [HttpGet("badrequest/{id}")]
-//         public ActionResult GetNotFoundRequest(int id)
+//         public ActionResult GetNotFoundRequest(int Id)
 //         {
 
 //             return Ok();
