@@ -64,7 +64,7 @@ public uploadFile = (files:any) => {
 
   formData.set('file', fileToUpload, fileToUpload.name);
   // console.log(fileToUpload)
-  console.log(formData)
+  // console.log(formData)
   this._img.upload(formData)
     .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress)
@@ -86,9 +86,18 @@ onReset() {
 img: any;
 getImg(){
   this._img.getImg(1).subscribe(res => {
-    this.img = res
+    if(res){
+      this.img = res
     console.log(res)
-  })
+    }
+    else {
+      this.img = null
+    }
+  },
+  err => {
+    console.log(err)
+  }
+  )
 }
 
 }
