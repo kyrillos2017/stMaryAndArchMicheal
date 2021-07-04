@@ -10,7 +10,7 @@ namespace Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Fathers> builder)
         {
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            // builder.Property(x => x.Id).ValueGeneratedOnAdd();
         }
     }
 }

@@ -1,7 +1,10 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Injector, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
+import { ImagesPopupComponent } from 'src/app/dashboard/shared/components/images-popup/images-popup.component';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { enumToArray, PriestlyRank } from 'src/app/shared/enums/enums';
 import { ImageAssetsService } from './../../../../services/image-assets.service';
 
 @Component({
@@ -9,25 +12,41 @@ import { ImageAssetsService } from './../../../../services/image-assets.service'
   templateUrl: './dashboard-father-form.component.html',
   styleUrls: ['./dashboard-father-form.component.scss']
 })
-export class DashboardFatherFormComponent implements OnInit {
+export class DashboardFatherFormComponent extends BaseComponent implements OnInit {
+  @ViewChild('imagesPopup') imagesPopup: ImagesPopupComponent;
 
   fatherForm: FormGroup;
   submitted = false;
   errors: string[];
+  priestlyRankEnum = PriestlyRank
+  priestlyRank: any[] = []
 
-  constructor(private formBuilder: FormBuilder, private _img: ImageAssetsService) { }
+  constructor(injector: Injector,private formBuilder: FormBuilder) {
+    super(injector)
+    this.priestlyRank = enumToArray(this.priestlyRankEnum)
+    console.log(this.priestlyRank)
+   }
 
   ngOnInit(): void {
     this.fatherFormInit()
-    this.getImg()
+    // this.getImg()
     // this.fatherForm.controls['firstName'].valueChanges.subscribe(console.log)
   }
 
-  fatherFormInit(){
+  fatherFormInit() {
     this.fatherForm = this.formBuilder.group(
       {
-        // isActive:  [false, Validators.required],
-        firstName: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(15)]]
+        isActive:  [false, Validators.required],
+        name: [null, [Validators.required]],
+        priestlyRank : [1, [Validators.required]],
+        priestlyDate: [null, [Validators.required]],
+        isDead: [false],
+        deathDate: [null],
+        about: [''],
+        imgId: [null, [Validators.required]],
+        bannerId: [null],
+        displayOrder: [1000],
+
       }
     )
   }
@@ -35,10 +54,10 @@ export class DashboardFatherFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.fatherForm.value)
     // stop here if form is invalid
     if (this.fatherForm.invalid) {
-        return;
+      return;
     }
 
     // this._live.updateLive(this.liveForm.value).pipe(
@@ -50,45 +69,32 @@ export class DashboardFatherFormComponent implements OnInit {
     //   this._toast.addSingle(ToastrMessages.success, 'تم', 'تم حفظ التغيرات بنجاح')
     //})
 
-}
-
-public progress: number;
-  public message: string;
-  @Output() public onUploadFinished = new EventEmitter();
-public uploadFile = (files:any) => {
-  if (files.length === 0) {
-    return;
   }
-  let fileToUpload = <File>files[0];
-  const formData = new FormData();
-
-  formData.set('file', fileToUpload, fileToUpload.name);
-  // console.log(fileToUpload)
-  console.log(formData)
-  this._img.upload(formData)
-    .subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / (event.total?event.total: 0));
-      else if (event.type === HttpEventType.Response) {
-        this.message = 'Upload success.';
-        this.onUploadFinished.emit(event.body);
-      }
-    });
-}
 
 
 
-onReset() {
+  onReset() {
     this.submitted = false;
     this.fatherForm.reset();
-}
+  }
 
-img: any;
-getImg(){
-  this._img.getImg(1).subscribe(res => {
-    this.img = res
-    console.log(res)
-  })
-}
+  onSelectImage(event : any, type: number){
+    console.log(event)
+    switch (type) {
+      case 1:
+        this.fatherForm.controls['imgId'].patchValue(event.data.id)
+        break;
 
+        case 2:
+        this.fatherForm.controls['bannerId'].patchValue(event.data.id)
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  selectImage(event: Event){
+    this.imagesPopup.show(event)
+  }
 }

@@ -1,32 +1,82 @@
-
-
 <form [formGroup]="fatherForm" (ngSubmit)="onSubmit()" dir="rtl">
   <div class="row mt-4 border rounded px-3 pt-3 pb-2 position-relative">
 
 
     <div class="col-md-4">
-      <mat-form-field appearance="legacy" class="w-100 text-right">
+      <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
         <mat-label>الاسم</mat-label>
-        <input  matInput placeholder="الاسم">
+        <input formControlName="name" matInput placeholder="الاسم">
         <mat-icon matSuffix><i class="pi pi-link"></i></mat-icon>
+        <mat-error *ngFor="let validation of validation_messages">
+          <mat-error class="error-message"
+            *ngIf="fatherForm?.get('name')?.hasError(validation.type) && (fatherForm.get('name').dirty || fatherForm.get('name').touched)">
+            الإسم {{validation.message}}</mat-error>
+        </mat-error>
       </mat-form-field>
-      <!-- <app-text-input [control]="fatherForm.get('firstName')"  [label]="'الاسم'" formControlName="firstName" [icon]="'fas fa-user-alt'"></app-text-input> -->
-      <ul class="text-danger list-unstyled" *ngIf="errors">
-        <li *ngFor="let error of errors">
-            {{error}}
-        </li>
-    </ul>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
+        <mat-label>الرتبة الكهنوتية</mat-label>
+        <mat-select formControlName="priestlyRank">
+          <mat-option *ngFor="let o of priestlyRank" [value]="o.id">{{o.id === priestlyRankEnum.keseseia ? "قس" : "قمص" }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
+        <mat-label>تاريخ الرسامة</mat-label>
+        <input (click)="priestlyDatePicker.open()" formControlName="priestlyDate" matInput [matDatepicker]="priestlyDatePicker">
+        <mat-datepicker-toggle matSuffix [for]="priestlyDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #priestlyDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
+        <mat-label>ترتيب الظهور</mat-label>
+        <input type="number" formControlName="displayOrder" matInput placeholder="ترتيب الظهور">
+        <mat-icon matSuffix><i class="pi pi-link"></i></mat-icon>
+
+      </mat-form-field>
     </div>
 
-    <footer class="w-100 text-start pt-2 border-top">
-      <button mat-flat-button color="primary" [disabled]="!fatherForm.valid" >حفظ</button>
+
+    <div class="col-md-4">
+      <mat-label class="d-block">صورة الكاهن</mat-label>
+      <button type="button" (click)="selectImage($event)" mat-flat-button color="primary">اختار صورة</button>
+      <app-images-popup #imagesPopup (onSelectImage)="onSelectImage($event, 1)"></app-images-popup>
+    </div>
+
+    <div class="col-md-4">
+      <mat-label class="d-block">صورة القسم</mat-label>
+      <button type="button" (click)="selectImage($event)" mat-flat-button color="primary">اختار صورة</button>
+      <app-images-popup #imagesPopup (onSelectImage)="onSelectImage($event, 2)"></app-images-popup>
+    </div>
+
+    <div class="col-md-4">
+      <mat-slide-toggle formControlName="isDead">متنيح</mat-slide-toggle>
+    </div>
+    <div class="col-md-4" *ngIf="f.isDead.value == true">
+      <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
+        <mat-label>تاريخ النياحة</mat-label>
+        <input (click)="deathDatePicker.open()" formControlName="deathDate" matInput [matDatepicker]="deathDatePicker">
+        <mat-datepicker-toggle matSuffix [for]="deathDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #deathDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12">
+      <p-editor formControlName="about" [style]="{'height':'320px'}"></p-editor>
+    </div>
+
+
+    <footer class="w-100 text-start pt-2 border-top mt-3">
+      <button type="submit" mat-flat-button color="primary" >حفظ</button>
     </footer>
   </div>
+
 </form>
 
 
-<input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-<button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
 
 
-<img [src]="img?.imgUrl" alt="" srcset="">
+<!--
+<img [src]="img?.imgUrl" alt="" srcset=""> -->

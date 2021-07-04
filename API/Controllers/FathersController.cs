@@ -47,7 +47,7 @@ namespace API.Controllers
                 sec.BannerId = fatherDto.BannerId;
                 _secRepo.Update(sec);
             }
-            await _secRepo.Save();
+            var result =  await _secRepo.Save();
 
 
             var father = _mapper.Map<CreateFatherInput, Fathers>(fatherDto);

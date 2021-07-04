@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrsService } from 'src/app/core/services/toastrs.service';
 import { ToastrMessages } from 'src/app/shared/enums/enums';
 import { LiveService } from './../../shared/services/live.service';
 import { finalize } from 'rxjs/operators';
+import { ImagesPopupComponent } from './../../shared/components/images-popup/images-popup.component';
 
 @Component({
   selector: 'app-dashboard-live',
@@ -11,6 +12,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./dashboard-live.component.scss']
 })
 export class DashboardLiveComponent implements OnInit {
+  @ViewChild('imagesPopup') imagesPopup: ImagesPopupComponent;
   val:any;
   liveForm: FormGroup;
   submitted = false;
@@ -27,6 +29,7 @@ export class DashboardLiveComponent implements OnInit {
   ngOnInit(): void {
     this.liveFormInit();
     this.getLive();
+    console.log(this.imagesPopup)
   }
   liveFormInit(){
     this.liveForm = this.formBuilder.group(
@@ -55,7 +58,6 @@ export class DashboardLiveComponent implements OnInit {
     this._live.updateLive(this.liveForm.value).pipe(
       finalize(()=> {this.submitted = false})
     ).subscribe(res=> {
-      console.log(res)
       this.getVideo()
       // display form values on success
       this._toast.addSingle(ToastrMessages.success, 'تم', 'تم حفظ التغيرات بنجاح')
@@ -74,9 +76,20 @@ onReset() {
 }
 
 getVideo(){
-  this.url = this.baseurl + this.liveForm.controls['videoId'].value;
- document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
-  // return url + this.videoId
+  let vid : string = this.liveForm.controls['videoId'].value
+  if(vid && vid.includes('http')){
+    vid = vid.split("?v=")[1]
+    if(vid.includes("&list")){
+      vid = vid.split("&list")[0]
+    }
+  }
+  this.url = this.baseurl + vid;
+  document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
+  console.log(vid)
+}
+
+selectImage(event: Event){
+  this.imagesPopup.show(event)
 }
 
 }

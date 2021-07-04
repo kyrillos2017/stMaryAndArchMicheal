@@ -25,11 +25,13 @@ export class ErrorInterceptor implements HttpInterceptor{
               // this.toastr.error(error.error.message, error.error.statusCode)
             }
             if(error.status === 404){
-              this.router.navigateByUrl('/404')
+              this.toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'تأكد من البيانات المرسلة')
+              // this.router.navigateByUrl('/404')
             }
             if(error.status === 500){
-              const navigationExtras : NavigationExtras = {state: {error: error.error}}
-              this.router.navigateByUrl('/500', navigationExtras)
+              this.toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'خطأ داخلي')
+              // const navigationExtras : NavigationExtras = {state: {error: error.error}}
+              // this.router.navigateByUrl('/500', navigationExtras)
             }
           }
           return throwError(error)

@@ -1,0 +1,5 @@
+.product-image{height: 50px !important;}
+
+@media (min-width: 700px) {
+ ::ng-deep .p-overlaypanel{width: 400px !important;}
+}
