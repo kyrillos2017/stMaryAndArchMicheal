@@ -70,25 +70,6 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
     //})
 
   }
-<<<<<<< HEAD
-=======
-  let fileToUpload = <File>files[0];
-  const formData = new FormData();
-
-  formData.set('file', fileToUpload, fileToUpload.name);
-  // console.log(fileToUpload)
-  // console.log(formData)
-  this._img.upload(formData)
-    .subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / (event.total?event.total: 0));
-      else if (event.type === HttpEventType.Response) {
-        this.message = 'Upload success.';
-        this.onUploadFinished.emit(event.body);
-      }
-    });
-}
->>>>>>> master
 
 
 
@@ -97,31 +78,12 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
     this.fatherForm.reset();
   }
 
-<<<<<<< HEAD
   onSelectImage(event : any, type: number){
     console.log(event)
     switch (type) {
       case 1:
         this.fatherForm.controls['imgId'].patchValue(event.data.id)
         break;
-=======
-img: any;
-getImg(){
-  this._img.getImg(1).subscribe(res => {
-    if(res){
-      this.img = res
-    console.log(res)
-    }
-    else {
-      this.img = null
-    }
-  },
-  err => {
-    console.log(err)
-  }
-  )
-}
->>>>>>> master
 
         case 2:
         this.fatherForm.controls['bannerId'].patchValue(event.data.id)
