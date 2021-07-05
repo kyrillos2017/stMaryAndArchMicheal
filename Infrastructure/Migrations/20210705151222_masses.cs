@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class masses : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -137,6 +137,25 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MassSection",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BannerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MassSection", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MassSection_ImageAssets_BannerId",
+                        column: x => x.BannerId,
+                        principalTable: "ImageAssets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Fathers",
                 columns: table => new
                 {
@@ -171,6 +190,28 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Masses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Day = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    MassSectionId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Masses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Masses_MassSection_MassSectionId",
+                        column: x => x.MassSectionId,
+                        principalTable: "MassSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Confessions",
                 columns: table => new
                 {
@@ -192,6 +233,31 @@ namespace Infrastructure.Migrations
                         name: "FK_Confessions_Fathers_FathersId",
                         column: x => x.FathersId,
                         principalTable: "Fathers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MassEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Place = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    MassId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MassEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MassEvents_Masses_MassId",
+                        column: x => x.MassId,
+                        principalTable: "Masses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -225,6 +291,21 @@ namespace Infrastructure.Migrations
                 name: "IX_FathersSections_BannerId",
                 table: "FathersSections",
                 column: "BannerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Masses_MassSectionId",
+                table: "Masses",
+                column: "MassSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MassEvents_MassId",
+                table: "MassEvents",
+                column: "MassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MassSection_BannerId",
+                table: "MassSection",
+                column: "BannerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -245,13 +326,22 @@ namespace Infrastructure.Migrations
                 name: "Live");
 
             migrationBuilder.DropTable(
+                name: "MassEvents");
+
+            migrationBuilder.DropTable(
                 name: "SundayMeetings");
 
             migrationBuilder.DropTable(
                 name: "Fathers");
 
             migrationBuilder.DropTable(
+                name: "Masses");
+
+            migrationBuilder.DropTable(
                 name: "FathersSections");
+
+            migrationBuilder.DropTable(
+                name: "MassSection");
 
             migrationBuilder.DropTable(
                 name: "ImageAssets");

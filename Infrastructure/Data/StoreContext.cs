@@ -23,6 +23,9 @@ namespace Infrastructure.Data
         public DbSet<AboutChurch> AboutChurch { get; set; }
         public DbSet<ChurchService> ChurchServices { get; set; }
         public DbSet<ImageAssets> ImageAssets { get; set; }
+        public DbSet<MassSection> MassSection { get; set; }
+        public DbSet<Mass> Masses { get; set; }
+        public DbSet<MassEvent> MassEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
