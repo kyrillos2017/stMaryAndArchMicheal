@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SiteAboutChurchComponent implements OnInit {
   @Input() showMore = false;
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
+  banner:string = 'https://localhost:5001/images/c2.jpeg';
   constructor() { }
 
   ngOnInit(): void {

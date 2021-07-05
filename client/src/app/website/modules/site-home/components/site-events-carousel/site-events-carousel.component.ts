@@ -15,7 +15,7 @@ export class SiteEventsCarouselComponent implements OnInit {
 
   banners = [
     {
-      src: 'https://egyptianstreets.com/wp-content/uploads/2019/02/church.v1.jpg'
+      src: 'https://localhost:5001/images/211.jpg'
     },
     {
       src: 'https://i.ytimg.com/vi/HjqDIHaW-tI/maxresdefault.jpg'

@@ -25,8 +25,13 @@ export class ErrorInterceptor implements HttpInterceptor{
               // this.toastr.error(error.error.message, error.error.statusCode)
             }
             if(error.status === 404){
+<<<<<<< HEAD
               this.toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'تأكد من البيانات المرسلة')
               // this.router.navigateByUrl('/404')
+=======
+              // this.router.navigateByUrl('/404')
+              this.toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'تأكد من البيانات المرسلة')
+>>>>>>> master
             }
             if(error.status === 500){
               this.toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'خطأ داخلي')
