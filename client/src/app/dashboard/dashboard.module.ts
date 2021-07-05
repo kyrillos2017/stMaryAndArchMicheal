@@ -9,6 +9,7 @@ import { DashboardLiveComponent } from './components/dashboard-live/dashboard-li
 import { SharedModule } from '../shared/shared.module';
 import { DashboardFathersComponent } from './components/Fathers/dashboard-fathers/dashboard-fathers.component';
 import { DashboardFatherFormComponent } from './components/fathers/dashboard-father-form/dashboard-father-form.component';
+import { ImagesPopupComponent } from './shared/components/images-popup/images-popup.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DashboardFatherFormComponent } from './components/fathers/dashboard-fat
     DashboardNavbarComponent,
     DashboardLiveComponent,
     DashboardFathersComponent,
-    DashboardFatherFormComponent
+    DashboardFatherFormComponent,
+    ImagesPopupComponent
   ],
   imports: [
     CommonModule,

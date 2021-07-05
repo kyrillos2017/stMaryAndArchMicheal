@@ -14,7 +14,7 @@ import {SkeletonModule} from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

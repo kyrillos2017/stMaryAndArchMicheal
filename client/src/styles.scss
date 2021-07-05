@@ -3,7 +3,8 @@
 @import "../node_modules//bootstrap/dist/css/bootstrap.min.css";
 @import "./assets/styles/global-styles.scss";
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
-
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
 
 html, body { height: 100%; font-family: 'El Messiri', sans-serif !important; }
 body { margin: 0; }

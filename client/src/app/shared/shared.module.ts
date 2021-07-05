@@ -8,19 +8,26 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TableModule} from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+import {EditorModule} from 'primeng/editor';
+
 
 // materials
 import { MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
   declarations: [
-    TextInputComponent
+    TextInputComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +43,14 @@ import {MatInputModule} from '@angular/material/input';
     MatRippleModule,
     MatFormFieldModule,
     MatSlideToggleModule,
-    MatInputModule
+    MatInputModule,
+    OverlayPanelModule,
+    TableModule,
+    PaginatorModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    EditorModule
   ],
   exports: [
     FormsModule,
@@ -53,8 +67,16 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatSlideToggleModule,
     MatInputModule,
-    TextInputComponent
+    TextInputComponent,
+    OverlayPanelModule,
+    TableModule,
+    PaginatorModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    EditorModule
   ],
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true },
+    MatDatepicker]
 })
 export class SharedModule { }

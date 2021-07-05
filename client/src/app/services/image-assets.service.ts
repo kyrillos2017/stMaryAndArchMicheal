@@ -1,5 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IImageAssets, IImageAssetsParams } from '../shared/models/image-assets';
+import { IPagination } from './../shared/models/response-result';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,25 @@ export class ImageAssetsService {
     return this.http.post(url, file, {reportProgress: true, observe: 'events'})
   }
 
-  getImg(id: number){
+  getImgById(id: number){
     const url = "https://localhost:5001/api/ImageAssets";
     return this.http.get(url + "/" +id)
+  }
+
+  getAll(images?: IImageAssetsParams){
+    let url = "https://localhost:5001/api/ImageAssets";
+    if(images){
+      let params = this.toQueryString(images)
+      url += `?${params}`
+    }
+    return this.http.get<IPagination<IImageAssets>>(url)
+  }
+
+
+  protected toQueryString(obj: any) : string {
+    return Object.keys(obj)
+      .filter((key: any) => obj[key] != undefined)
+      .map(key => key + "=" + obj[key])
+      .join("&");
   }
 }
