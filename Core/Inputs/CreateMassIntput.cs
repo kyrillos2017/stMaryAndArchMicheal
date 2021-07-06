@@ -7,6 +7,7 @@ namespace Core.Inputs
     {
         public int? massId { get; set; }
         public int? massEventId { get; set; }
+        public int? secId { get; set; }
         public DaysEnum Day { get; set; }
         public int Order { get; set; } = 100;
         public DateTime? Date { get; set; }

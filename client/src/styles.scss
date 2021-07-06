@@ -9,3 +9,5 @@
 html, body { height: 100%; font-family: 'El Messiri', sans-serif !important; }
 body { margin: 0; }
 h1, h2, h3, h4, h5, h6, div, span, p, a, button li {font-family: 'El Messiri', sans-serif !important;}
+.pi-chevron-right:before { content: "\e901"; }
+p-paginator-prev, .p-paginator-prev {color: red !important}

@@ -36,10 +36,13 @@ namespace API.Controllers
             var sec = await _secRepo.GetLastAsync();
             if (sec == null)
             {
+                sec = new MassSection();
+                sec.BannerId = bannerId;
                 await _secRepo.Add(sec);
             }
             else
             {
+                sec.BannerId = bannerId;
                 _secRepo.Update(sec);
             }
             await _secRepo.Save();
@@ -51,10 +54,12 @@ namespace API.Controllers
         {
             var sec = await _secRepo.GetLastAsync();
             if (sec == null) return NotFound();
+            input.secId = sec.Id;
 
             if (input.massId == null)
             {
-                await CreateMass(input);
+                var newMass = await CreateMass(input);
+                input.massId = newMass.Id;
             }
             else
             {
@@ -64,7 +69,8 @@ namespace API.Controllers
 
             if (input.massEventId == null)
             {
-                await CreateMassEvent(input);
+                var newEvent = await CreateMassEvent(input);
+                input.massEventId = newEvent.Id;
             }
             else
             {
@@ -74,9 +80,9 @@ namespace API.Controllers
             return input;
         }
 
-        private async Task<ActionResult<MassDto>> CreateMass(CreateMassIntput input)
+        private async Task<MassDto> CreateMass(CreateMassIntput input)
         {
-            var mass = new Mass(input.Day, input.Order, input.Date);
+            var mass = new Mass((int)input.secId, input.Day, input.Order, input.Date);
             await _massesRepo.Add(mass);
             await _massesRepo.Save();
             return _mapper.Map<Mass, MassDto>(mass);
@@ -95,7 +101,7 @@ namespace API.Controllers
             return _mapper.Map<Mass, MassDto>(mass);
         }
 
-        private async Task<ActionResult<MassEventDto>> CreateMassEvent(CreateMassIntput input)
+        private async Task<MassEventDto> CreateMassEvent(CreateMassIntput input)
         {
             var mass = new MassEvent(input.Name, input.Type, input.StartTime, input.EndTime, input.Place, input.IsActive, (int)input.massId);
             await _massEventsRepo.Add(mass);

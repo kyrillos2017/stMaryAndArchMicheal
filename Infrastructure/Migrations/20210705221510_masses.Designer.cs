@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210705151222_masses")]
+    [Migration("20210705221510_masses")]
     partial class masses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,6 +260,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
