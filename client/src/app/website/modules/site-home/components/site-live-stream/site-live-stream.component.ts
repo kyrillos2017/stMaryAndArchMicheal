@@ -21,7 +21,6 @@ export class SiteLiveStreamComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-<<<<<<< HEAD
   getVideo() {
 
     this._liveService.getLive().subscribe(res => {
@@ -38,18 +37,5 @@ export class SiteLiveStreamComponent implements OnInit, AfterViewInit {
         document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
       }
     })
-=======
-  getVideo(){
-    this.url = this.baseurl + this.videoId;
-    document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
-    // this._liveService.getLive().subscribe(res => {
-    //   if(res) {
-    //     this.isActive = res.isActive
-    //     this.url = this.baseurl + res.videoId;
-    //     document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
-    //   }
-    // })
-    // return url + this.videoId
->>>>>>> master
   }
 }

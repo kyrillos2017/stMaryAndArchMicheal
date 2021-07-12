@@ -1,7 +1,9 @@
 const ApiUrls = {
   ACCOUNT: {
     ACCOUNT: "api/Account",
-    LOGIN: "api/Account/login"
+    LOGIN: "api/Account/login",
+    REGISTER: "api/Account/register",
+    CHECK_EMAIL: "api/account/emailexists"
   },
   LIVE: {
     LIVE: "api/live",
@@ -10,8 +12,13 @@ const ApiUrls = {
     MAIN: "api/ImageAssets"
   },
   FATHERS: {
-    MAIN:"api/Fathers",
+    MAIN: "api/Fathers",
     SECTION: "api/Fathers/GetSection"
+  },
+  MASSES: {
+    GET_ALL: "api/Masses",
+    UPDATE_SEC: "api/Masses/UpdateSection",
+    CREATE_OR_UPDATE: "api/Masses/CreateOrUpdate"
   }
 
 }

@@ -1,4 +1,6 @@
-<p-overlayPanel dir="rtl" #op [showCloseIcon]="false" [baseZIndex]="9999"  >
+<span class="d-inline-block ps-3"><label class="d-block">{{label}}</label></span>
+<span><button type="button" (click)="show($event)" mat-flat-button color="primary">{{selectedImage ? selectedImage.title : 'اختار صورة'}}</button></span>
+<p-overlayPanel [baseZIndex]="9000" dir="rtl" #op [showCloseIcon]="false" [baseZIndex]="9999"  >
   <button mat-flat-button class="mb-3" color="primary" (click)="file.click()">+ إضافة صورة جديدة</button>
   <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
 

@@ -23,6 +23,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    EditorModule
+    EditorModule,
+    MatTabsModule
   ],
   exports: [
     FormsModule,
@@ -74,7 +76,8 @@ import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    EditorModule
+    EditorModule,
+    MatTabsModule
   ],
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true },
     MatDatepicker]

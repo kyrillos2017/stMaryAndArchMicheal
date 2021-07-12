@@ -9,10 +9,12 @@ body {
 }
 
 .form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
+    width: 100%;
+    max-width: 374px;
+    padding: 30px;
+    margin: auto;
+    border: 1px solid #eaeaea;
+    border-radius: 17px;
 }
 
 .form-signin .checkbox {
@@ -30,7 +32,6 @@ body {
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }

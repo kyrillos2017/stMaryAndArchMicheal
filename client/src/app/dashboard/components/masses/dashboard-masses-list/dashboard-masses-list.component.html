@@ -1,0 +1,62 @@
+<mat-tab-group dir="rtl" class="w-100 h-100">
+  <mat-tab label="القسم">
+    <div class="vh-100">
+      <form [formGroup]="massSecForm" (ngSubmit)="onSubmit()" dir="rtl">
+        <div class="row mt-4 mx-0 border rounded px-3 pt-3 pb-2 position-relative">
+
+
+          <div class="col-md-4">
+            <app-images-popup [label]="'صورة القسم'" #imagesPopupFather  (onSelectImage)="onSelectImage($event)"></app-images-popup>
+          </div>
+          <footer class="w-100 text-start pt-2 border-top mt-3">
+            <button type="submit" mat-flat-button color="primary">حفظ</button>
+          </footer>
+        </div>
+
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="الكهنة">
+    <div class="text-end my-3">
+      <button mat-flat-button color="primary" type="button" routerLink="/dashboard/mass-form">إنشاء قداس +</button>
+    </div>
+    <div class="mt-3">
+      <p-table #dt
+      dir="rtl"
+      [value]="masses"
+      dataKey="id"
+      styleClass="p-datatable-masses"
+      [rowHover]="true"
+      [globalFilterFields]="['name']">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                الأسم
+                <p-sortIcon field="name"></p-sortIcon>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-massSec>
+          <tr class="p-selectable-row">
+            <td>
+              <span class="p-column-title">الإسم</span>
+              {{massSec.name}}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">لا توجد بيانات</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <p-paginator [rows]="paginatorEvent.rows" [rowsPerPageOptions]="[5, 10,20,30]" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+

@@ -23,4 +23,10 @@ export class FathersService extends BaseService {
     }
     return this.get<IPagination<IFather>>(url);
   }
+
+  createFather(father: IFather){
+    let url = ApiUrls.FATHERS.MAIN;
+    console.log(father)
+    return this.post<IFather>(url, father)
+  }
 }
