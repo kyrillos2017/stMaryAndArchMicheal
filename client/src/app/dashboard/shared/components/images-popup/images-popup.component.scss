@@ -3,3 +3,9 @@
 @media (min-width: 700px) {
  ::ng-deep .p-overlaypanel{width: 400px !important;}
 }
+
+::ng-deep .p-overlaypanel{
+    top: auto !important;
+    left: auto !important;
+    --overlayArrowLeft: auto !important;
+}

@@ -20,6 +20,10 @@ export class DashboardSidebarComponent implements OnInit {
     {
       name: 'أباء الكنيسة',
       route: '/dashboard/fathers'
+    },
+    {
+      name: 'القداسات',
+      route: '/dashboard/masses'
     }
   ]
 

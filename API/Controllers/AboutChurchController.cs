@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Inputs;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -23,6 +24,7 @@ namespace API.Controllers
             _churchRepository = churchRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<AboutChurchDto>> CreateOrEdit(CreateAboutChurch input)
         {

@@ -29,9 +29,35 @@ namespace Infrastructure.Data
                 //     // }
 
                 // }
-                    await context.SaveChangesAsync();
 
-                
+                var folderName = Path.Combine("wwwroot", "images");
+                var folderAssetsName = Path.Combine("wwwroot", "imageSeeds");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (!context.ImageAssets.Any())
+                {
+                    var currentImages = Directory.GetFiles(folderName);
+                    var imageSeeds = Directory.GetFiles(folderAssetsName);
+                    foreach (var item in imageSeeds)
+                    {
+                        var title = item.Split("wwwroot\\imageSeeds\\")[1];
+                        var img = new ImageAssets(title, item);
+                        context.Add(img);
+                    }
+                    foreach (var item in currentImages)
+                    {
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), item);
+
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                }
+
+                await context.SaveChangesAsync();
+
+
 
             }
             catch (Exception ex)

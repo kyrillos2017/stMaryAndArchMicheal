@@ -16,7 +16,7 @@ export class DashboardFathersComponent implements OnInit {
     first: 1,
     globalFilter: null,
     multiSortMeta: undefined,
-    rows: 3,
+    rows: 5,
     sortField: undefined,
     sortOrder: 1,
   };
@@ -26,18 +26,20 @@ export class DashboardFathersComponent implements OnInit {
     private _fathersService: FathersService
   ){}
   ngOnInit(): void {
+    this.getFather(this.tableInit);
   }
 
   getFather(event: LazyLoadEvent){
     let params: IFatherParams = {
-      PageIndex: this.paginatorEvent.page? this.paginatorEvent.page +1: 1,
-      PageSize: 3,
+      PageIndex: this.paginatorEvent.page? this.paginatorEvent.page : 1,
+      PageSize: 5,
       Sort: event.sortField,
       Search: event.globalFilter,
     }
     this._fathersService.getFathers(params).subscribe(
       (res: IPagination<IFather>) => {
         this.fathers = res.result
+        console.log(res)
         this.totalRecords = res.count;
       }
     )

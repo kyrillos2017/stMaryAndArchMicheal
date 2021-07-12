@@ -10,6 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardFathersComponent } from './components/Fathers/dashboard-fathers/dashboard-fathers.component';
 import { DashboardFatherFormComponent } from './components/fathers/dashboard-father-form/dashboard-father-form.component';
 import { ImagesPopupComponent } from './shared/components/images-popup/images-popup.component';
+import { DashbordMassesFormComponent } from './components/masses/dashbord-masses-form/dashbord-masses-form.component';
+import { DashboardMassesListComponent } from './components/masses/dashboard-masses-list/dashboard-masses-list.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { ImagesPopupComponent } from './shared/components/images-popup/images-po
     DashboardLiveComponent,
     DashboardFathersComponent,
     DashboardFatherFormComponent,
-    ImagesPopupComponent
+    ImagesPopupComponent,
+    DashbordMassesFormComponent,
+    DashboardMassesListComponent
   ],
   imports: [
     CommonModule,

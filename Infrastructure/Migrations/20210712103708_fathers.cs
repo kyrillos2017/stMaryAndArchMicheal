@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class masses : Migration
+    public partial class fathers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -168,16 +168,17 @@ namespace Infrastructure.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     DeathDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     About = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageId = table.Column<int>(type: "int", nullable: true),
+                    ImageId = table.Column<int>(type: "int", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    FathersSectionId = table.Column<int>(type: "int", nullable: true)
+                    FatherSectionId = table.Column<int>(type: "int", nullable: false),
+                    fathersSectionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Fathers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Fathers_FathersSections_FathersSectionId",
-                        column: x => x.FathersSectionId,
+                        name: "FK_Fathers_FathersSections_fathersSectionId",
+                        column: x => x.fathersSectionId,
                         principalTable: "FathersSections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -186,7 +187,7 @@ namespace Infrastructure.Migrations
                         column: x => x.ImageId,
                         principalTable: "ImageAssets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,6 +196,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    SecId = table.Column<int>(type: "int", nullable: false),
                     Day = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -278,9 +280,9 @@ namespace Infrastructure.Migrations
                 column: "FathersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fathers_FathersSectionId",
+                name: "IX_Fathers_fathersSectionId",
                 table: "Fathers",
-                column: "FathersSectionId");
+                column: "fathersSectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fathers_ImageId",

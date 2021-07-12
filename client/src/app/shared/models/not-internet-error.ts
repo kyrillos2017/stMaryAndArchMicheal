@@ -1,7 +1,7 @@
 import { ErrorHandler } from "@angular/core";
 
 export default class NoInternetError implements ErrorHandler {
-  constructor(error) {
+  constructor(error: any) {
     console.log(error)
   }
   handleError(error: any): void {

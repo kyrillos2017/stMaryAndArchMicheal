@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Output, ViewChild, Injector, EventEmitter } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, ViewChild, Injector, EventEmitter, forwardRef, Input } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { IImageAssets, IImageAssetsParams } from 'src/app/shared/models/image-assets';
@@ -7,15 +7,32 @@ import { IPagination } from './../../../../shared/models/response-result';
 import { BaseComponent } from './../../../../shared/components/base/base.component';
 import { finalize } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-images-popup',
   templateUrl: './images-popup.component.html',
-  styleUrls: ['./images-popup.component.scss']
+  styleUrls: ['./images-popup.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ImagesPopupComponent),
+      multi: true,
+  },
+  {
+      provide: NG_VALIDATORS,
+      useValue: (_: any) => {
+          console.log(_)
+          return null;
+      },
+      multi: true,
+  },
+  ]
 })
 export class ImagesPopupComponent extends BaseComponent implements OnInit {
   @ViewChild('op') op : OverlayPanel;
   @Output('onSelectImage') onSelectImage = new EventEmitter;
+  @Input() label: string;
   active: boolean = false;
   loading: boolean = false;
   selectedImage: IImageAssets;
@@ -40,12 +57,16 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.getImages(this.tableInit);
   }
 
   show(event: Event){
-    this.getImages(this.tableInit);
     // this.active = true
     this.op.toggle(event)
+  }
+
+  hide(){
+    this.op.hide()
   }
   getImages(event: LazyLoadEvent){
     this.loading = true
@@ -70,6 +91,7 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
   }
   onRowSelect(event:Event) {
     this.onSelectImage.emit(event)
+    this.hide()
   }
 
 
@@ -100,6 +122,8 @@ public uploadFile = (files: any) => {
         const path = body.img?.imgUrl?.split('wwwroot')[1]
         body.img.imgUrl = domain + "/" + path
         this.selectedImage = body.img
+        this.onSelectImage.emit(this.selectedImage)
+        this.hide()
       }
     });
 }

@@ -5,6 +5,7 @@ using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -23,6 +24,7 @@ namespace API.Controllers
             _serviceRepo = serviceRepo;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<int>> CreateOrUpdate(ChurchServiceDto serviceDto)
         {
@@ -53,6 +55,7 @@ namespace API.Controllers
             return data;
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<ChurchServiceDto>> Delete(int id)
         {

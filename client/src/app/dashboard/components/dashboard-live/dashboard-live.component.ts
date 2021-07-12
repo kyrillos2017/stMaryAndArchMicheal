@@ -29,7 +29,6 @@ export class DashboardLiveComponent implements OnInit {
   ngOnInit(): void {
     this.liveFormInit();
     this.getLive();
-    console.log(this.imagesPopup)
   }
   liveFormInit(){
     this.liveForm = this.formBuilder.group(

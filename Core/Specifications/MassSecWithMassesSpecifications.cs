@@ -7,6 +7,7 @@ namespace Core.Specifications
         public MassSecWithMassesSpecifications()
         {
             AddInclude(x => x.Mass);
+            AddInclude(x => x.Banner);
         }
     }
 }

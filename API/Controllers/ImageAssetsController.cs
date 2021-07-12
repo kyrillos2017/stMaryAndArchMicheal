@@ -15,6 +15,7 @@ using Core.Specifications.Params;
 using API.Helpers;
 using Core.Specifications;
 using API.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -31,6 +32,8 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+
+        [Authorize]
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> Upload()
         {
@@ -65,6 +68,7 @@ namespace API.Controllers
         }
 
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<Pagination<ImageAssetsDto>>> GetAll([FromQuery] ImageAssetsParams imgParams)
         {
@@ -80,6 +84,7 @@ namespace API.Controllers
             );
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ImageAssetsDto>> GetById(int id)
         {

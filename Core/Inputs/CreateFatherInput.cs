@@ -11,8 +11,9 @@ namespace Core.Inputs
         public bool IsDead { get; set; } = false;
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
-        public int ImgId { get; set; }
+        public int ImageId { get; set; }
         public int? BannerId { get; set; }
         public int DisplayOrder { get; set; }
+        public int? FatherSectionId { get; set; }
     }
 }

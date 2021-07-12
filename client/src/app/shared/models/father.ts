@@ -13,17 +13,18 @@ export interface IConfession {
 
 
 export class IFather {
-  id: number
+  id?: number
   name: string
   priestlyRank: string
   priestlyDate: string
-  isDead: boolean
-  deathDate: string
-  about: string
+  isDead: boolean = false
+  deathDate?: string
+  about?: string
   image: IImageAssets
-  isActive: boolean
+  isActive: boolean = true
   displayOrder: number
-  confessions: IConfession[]
+  confessions?: IConfession[]
+  bannerId? : number
 }
 
 export class IFatherParams extends IPaginationParams{
