@@ -82,7 +82,9 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
     this.fatherForm.reset();
   }
 
+
   onSelectImage(event: any, type: number) {
+
     switch (type) {
       case 1:
         this.fatherForm.controls['imageId'].patchValue(event.data.id)
