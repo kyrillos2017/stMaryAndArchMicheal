@@ -8,6 +8,7 @@ using Core.Entities;
 using Core.Inputs;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,6 +26,7 @@ namespace API.Controllers
             _confessionRepo = confessionRepo;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ConfessionsDto>> CreateOrUpdate(CreateConfessionsInput input)
         {
@@ -61,6 +63,7 @@ namespace API.Controllers
             ;
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<ConfessionsDto>> Delete(int id)
         {

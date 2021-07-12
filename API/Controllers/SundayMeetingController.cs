@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,6 +26,8 @@ namespace API.Controllers
             _sindayMeetingRepo = sindayMeetingRepo;
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<int>> CreateOrUpdate(SundayMeetingDto sundayDto)
         {
@@ -56,6 +59,7 @@ namespace API.Controllers
             return data;
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<SundayMeetingDto>> Delete(int id)
         {

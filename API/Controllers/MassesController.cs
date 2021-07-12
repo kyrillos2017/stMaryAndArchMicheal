@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Inputs;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -30,6 +31,8 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+
+        [Authorize]
         [HttpPost("UpdateSection")]
         public async Task<ActionResult<int>> UpdateSection(int bannerId)
         {
@@ -49,6 +52,8 @@ namespace API.Controllers
             return sec.Id;
         }
 
+
+        [Authorize]
         [HttpPost("CreateOrUpdate")]
         public async Task<ActionResult<CreateMassIntput>> CreateOrUpdate(CreateMassIntput input)
         {

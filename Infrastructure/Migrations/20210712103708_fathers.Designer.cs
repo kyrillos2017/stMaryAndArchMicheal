@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210705221510_masses")]
-    partial class masses
+    [Migration("20210712103708_fathers")]
+    partial class fathers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,10 +159,10 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FathersSectionId")
+                    b.Property<int>("FatherSectionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -180,11 +180,14 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PriestlyRank")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("fathersSectionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FathersSectionId");
-
                     b.HasIndex("ImageId");
+
+                    b.HasIndex("fathersSectionId");
 
                     b.ToTable("Fathers");
                 });
@@ -390,13 +393,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Fathers", b =>
                 {
-                    b.HasOne("Core.Entities.FathersSection", null)
-                        .WithMany("fathers")
-                        .HasForeignKey("FathersSectionId");
-
                     b.HasOne("Core.Entities.ImageAssets", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.FathersSection", "fathersSection")
+                        .WithMany("fathers")
+                        .HasForeignKey("fathersSectionId");
+
+                    b.Navigation("fathersSection");
 
                     b.Navigation("Image");
                 });

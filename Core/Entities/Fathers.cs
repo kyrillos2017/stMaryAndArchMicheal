@@ -24,8 +24,11 @@ namespace Core.Entities
         public bool IsActive { get; set; }
         public DateTime? DeathDate { get; set; }
         public string About { get; set; }
+        public int ImageId { get; set; }
         public ImageAssets Image { get; set; }
         public int DisplayOrder { get; set; } = 100;
+        public int FatherSectionId { get; set; }
+        public FathersSection fathersSection { get; set; }
 
         public virtual IReadOnlyList<Confessions> Confessions { get; set; }
     }

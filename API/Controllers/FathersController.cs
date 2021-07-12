@@ -7,6 +7,7 @@ using Core.Inputs;
 using Core.Interfaces;
 using Core.Specifications;
 using Core.Specifications.Params;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,43 +31,54 @@ namespace API.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<int>> CreateOrUpdate(CreateFatherInput fatherDto)
         {
 
-            var secSpec = new FathersSecImageAssetsIncudeSpecifications();
-            var sec = await _secRepo.GetEntityWithSpec(secSpec);
-
-            if (sec == null)
+            try
             {
-                sec = new FathersSection(fatherDto.BannerId);
-                await _secRepo.Add(sec);
+                var secSpec = new FathersSecImageAssetsIncudeSpecifications();
+                var sec = await _secRepo.GetEntityWithSpec(secSpec);
+
+                if (sec == null)
+                {
+                    sec = new FathersSection(fatherDto.BannerId);
+                    await _secRepo.Add(sec);
+                }
+                else
+                {
+                    sec.BannerId = fatherDto.BannerId;
+                    _secRepo.Update(sec);
+                }
+                await _secRepo.Save();
+
+
+                var father = _mapper.Map<CreateFatherInput, Fathers>(fatherDto);
+                father.FatherSectionId = sec.Id;
+                if (fatherDto.Id == null || fatherDto.Id == 0)
+                {
+
+                    await _fathersRepo.Add(father);
+                }
+                else
+                {
+                    //Update
+
+                    _fathersRepo.Update(father);
+
+                }
+                var res = await _fathersRepo.Save();
+
+                if (father.Id == 0) return BadRequest(new ApiResponse(500));
+                return father.Id;
             }
-            else
+            catch (System.Exception ex)
             {
-                sec.BannerId = fatherDto.BannerId;
-                _secRepo.Update(sec);
+                var x = ex;
             }
-            var result =  await _secRepo.Save();
 
-
-            var father = _mapper.Map<CreateFatherInput, Fathers>(fatherDto);
-
-            if (fatherDto.Id == null || fatherDto.Id == 0)
-            {
-
-                await _fathersRepo.Add(father);
-            }
-            else
-            {
-                //Update
-                var s = await _fathersRepo.GetByIdAsync((int)fatherDto.Id);
-                if (s == null) return BadRequest(new ApiResponse(404));
-                _fathersRepo.Update(father);
-
-            }
-            await _fathersRepo.Save();
-            return father.Id;
+            return 0;
         }
 
 
@@ -113,6 +125,8 @@ namespace API.Controllers
 
         }
 
+
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<FathersDto>> Delete(int id)
         {

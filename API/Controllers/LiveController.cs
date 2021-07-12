@@ -3,6 +3,7 @@ using API.Dtos;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,6 +21,8 @@ namespace API.Controllers
             _liveRepository = liveRepository;
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<LiveDto>> CreateOrEdit(LiveDto input)
         {
