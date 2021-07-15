@@ -4,8 +4,14 @@ export interface IBanner {
   imgUrl: string;
 }
 
-export interface IMassEvent {
+
+export interface IMass {
   id: number;
+  day: number;
+  order?: string;
+  displayOrder: number
+  date?: Date;
+  massRepetationType?: number;
   name: string;
   type: number;
   startTime: Date;
@@ -13,17 +19,10 @@ export interface IMassEvent {
   place: string;
   isActive: boolean;
 }
-export interface IMass {
-  id: number;
-  day: number;
-  order: number;
-  date: Date;
-  massEvent: IMassEvent[];
-}
 
 export interface IMasses {
   banner: IBanner;
-  masses: IMass[];
+  mass: IMass[];
 }
 
 export interface ICraeteMass {

@@ -34,12 +34,10 @@ export class TextInputComponent implements OnInit {
 
     this.matFormField._control = this.formFieldControl;
     const control = this.controlDir.control;
-    console.log(control)
     const validators = (control && control.validator) ? [control.validator] : [];
     const asyncValidators = (control && control.asyncValidator) ? [control.asyncValidator] : [];
 
     if(control){
-      console.log(control)
       control.setValidators(validators);
       control.setAsyncValidators(asyncValidators);
       control.updateValueAndValidity();
@@ -61,9 +59,8 @@ export class TextInputComponent implements OnInit {
   // }
 
   onChange(event? : Event) {
-    console.log(event)
-    console.log(this.controlDir.control?.errors)
-    this.controlDir.control?.valueChanges.subscribe(res => console.log('res', res))
+    // console.log(this.controlDir.control?.errors)
+    // this.controlDir.control?.valueChanges.subscribe(res => console.log('res', res))
   }
 
   onTouched() {

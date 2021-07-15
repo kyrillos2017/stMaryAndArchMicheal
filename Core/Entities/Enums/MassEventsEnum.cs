@@ -10,4 +10,17 @@ namespace Core.Entities.Enums
         [EnumMember(Value = "PreMass")]
         PreMass,
     }
+
+    public enum MassRepetationType
+    {
+
+        [EnumMember(Value = "Dialy")]
+        Dialy,
+
+        [EnumMember(Value = "Monthely")]
+        Monthely,
+
+        [EnumMember(Value = "Special")]
+        Special,
+    }
 }

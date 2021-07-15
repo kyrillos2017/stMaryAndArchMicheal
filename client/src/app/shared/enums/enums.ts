@@ -11,14 +11,20 @@ export enum PriestlyRank {
   qomoseia = 2
 }
 
+export enum MassTypesEnum {
+  mass = 1,
+  preMass = 2
+}
+export enum MassRepetationType {
+  dialy = 1,
+  monthly = 2,
+  special = 3
+}
+
 export const StringIsNotNumber = (value: any) => isNaN(Number(value)) === false;
 export function enumToArray(enumme: any) {
     return Object.keys(enumme)
         .filter(StringIsNotNumber)
         .map(key => ({ id: +key, name: enumme[key] }));
 }
-export function findArray(array: any[], key: number, property: string) {
-    return array.filter(el => {
-        return el.id === key
-    })
-}
+

@@ -84,7 +84,6 @@ getVideo(){
   }
   this.url = this.baseurl + vid;
   document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
-  console.log(vid)
 }
 
 selectImage(event: Event){

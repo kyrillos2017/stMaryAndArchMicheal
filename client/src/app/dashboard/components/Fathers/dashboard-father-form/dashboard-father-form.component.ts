@@ -7,7 +7,8 @@ import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { enumToArray, PriestlyRank, ToastrMessages } from 'src/app/shared/enums/enums';
 import { FathersService } from './../../../../services/fathers.service';
 import { ToastrsService } from 'src/app/core/services/toastrs.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IFatherReturn } from 'src/app/shared/models/father';
 
 @Component({
   selector: 'app-dashboard-father-form',
@@ -15,10 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard-father-form.component.scss']
 })
 export class DashboardFatherFormComponent extends BaseComponent implements OnInit {
-  // @ViewChild('imagesPopup') imagesPopup: ImagesPopupComponent;
   fatherForm: FormGroup;
   submitted = false;
-  errors: string[];
   priestlyRankEnum = PriestlyRank
   priestlyRank: any[] = []
 
@@ -27,7 +26,8 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
     private formBuilder: FormBuilder,
     private _father: FathersService,
     private _toastr: ToastrsService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
     ) {
     super(injector)
     this.priestlyRank = enumToArray(this.priestlyRankEnum)
@@ -35,13 +35,21 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
 
   ngOnInit(): void {
     this.fatherFormInit()
-    // this.getImg()
-    // this.fatherForm.controls['firstName'].valueChanges.subscribe(console.log)
+    const id = this._route.snapshot.params['id']
+    if(id) {
+      this._father.getFatherById(id).subscribe((res: IFatherReturn) => {
+        let father = res.fathers.result.filter(x => x.id == id)[0]
+        this.fatherForm.patchValue(father)
+        this.fatherForm.controls['imageId'].patchValue(father.image.id)
+        this.fatherForm.controls['bannerId'].patchValue(res.banner?.id)
+      })
+    }
   }
 
   fatherFormInit() {
     this.fatherForm = this.formBuilder.group(
       {
+        id: [null],
         isActive: [true, Validators.required],
         name: [null, [Validators.required]],
         priestlyRank: [PriestlyRank.keseseia, [Validators.required]],
@@ -75,30 +83,8 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
 
   }
 
-
-
   onReset() {
     this.submitted = false;
     this.fatherForm.reset();
   }
-
-  onSelectImage(event: any, type: number) {
-    switch (type) {
-      case 1:
-        this.fatherForm.controls['imageId'].patchValue(event.data.id)
-        break;
-
-      case 2:
-        this.fatherForm.controls['bannerId'].patchValue(event.data.id)
-        break;
-
-      default:
-        break;
-    }
-    // this.imagesPopup.hide();
-  }
-
-  // selectImage(event: Event) {
-  //   this.imagesPopup.show(event)
-  // }
 }

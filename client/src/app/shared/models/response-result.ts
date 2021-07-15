@@ -1,3 +1,4 @@
+import { IImageAssets } from './image-assets';
 export class ResponseResult<T> {
   error: any
   result: T
@@ -15,4 +16,9 @@ export class IPagination<T>{
   pageIndex: number;
   count: number;
   result: T[];
+}
+
+export class IEnumMapping {
+  id: number;
+  name: string
 }

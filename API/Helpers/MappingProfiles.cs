@@ -29,9 +29,11 @@ namespace API.Helpers
             CreateMap<CreateAboutChurch, AboutChurchDto>().ReverseMap();
 
             CreateMap<ChurchService, ChurchServiceDto>().ReverseMap();
+            CreateMap<CreateService, ChurchService>().ReverseMap();
 
+            CreateMap<CreateMassIntput, Mass>().ReverseMap();
             CreateMap<Mass, MassDto>().ReverseMap();
-            CreateMap<MassEvent, MassEventDto>().ReverseMap();
+            // CreateMap<MassEvent, MassEventDto>().ReverseMap();
             CreateMap<MassSection, MassSectionDto>().ReverseMap();
         }
     }

@@ -12,6 +12,11 @@ import { DashboardFatherFormComponent } from './components/fathers/dashboard-fat
 import { ImagesPopupComponent } from './shared/components/images-popup/images-popup.component';
 import { DashbordMassesFormComponent } from './components/masses/dashbord-masses-form/dashbord-masses-form.component';
 import { DashboardMassesListComponent } from './components/masses/dashboard-masses-list/dashboard-masses-list.component';
+import { DashboardAboutChurchComponent } from './components/dashboard-about-church/dashboard-about-church.component';
+import { DashboardServicesListComponent } from './components/church-services/dashboard-services-list/dashboard-services-list.component';
+import { DashboardServicesFormComponent } from './components/church-services/dashboard-services-form/dashboard-services-form.component';
+import { ChurchMeetingsListComponent } from './components/meetings/church-meetings-list/church-meetings-list.component';
+import { ChurchMeetingsFormComponent } from './components/meetings/church-meetings-form/church-meetings-form.component';
 
 
 @NgModule({
@@ -24,7 +29,12 @@ import { DashboardMassesListComponent } from './components/masses/dashboard-mass
     DashboardFatherFormComponent,
     ImagesPopupComponent,
     DashbordMassesFormComponent,
-    DashboardMassesListComponent
+    DashboardMassesListComponent,
+    DashboardAboutChurchComponent,
+    DashboardServicesListComponent,
+    DashboardServicesFormComponent,
+    ChurchMeetingsListComponent,
+    ChurchMeetingsFormComponent
   ],
   imports: [
     CommonModule,

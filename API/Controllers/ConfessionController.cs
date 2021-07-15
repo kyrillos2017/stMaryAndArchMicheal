@@ -39,8 +39,7 @@ namespace API.Controllers
             else
             {
                 //Update
-                var s = await _confessionRepo.GetByIdAsync((int)input.Id);
-                if (s == null) return BadRequest(new ApiResponse(404));
+
                 _confessionRepo.Update(conf);
                 await _confessionRepo.Save();
 

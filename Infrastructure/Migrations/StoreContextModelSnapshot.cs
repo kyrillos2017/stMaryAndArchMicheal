@@ -84,8 +84,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("BannerImgUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BannerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -96,7 +96,12 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
 
                     b.ToTable("ChurchServices");
                 });
@@ -257,13 +262,35 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MassSectionId")
+                    b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<int>("Order")
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MassRepetationType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MassSectionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SecId")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Order")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Place")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -306,7 +333,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("MassId");
 
-                    b.ToTable("MassEvents");
+                    b.ToTable("MassEvent");
                 });
 
             modelBuilder.Entity("Core.Entities.MassSection", b =>
@@ -378,6 +405,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("Core.Entities.ChurchService", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Banner");
+                });
+
             modelBuilder.Entity("Core.Entities.Confessions", b =>
                 {
                     b.HasOne("Core.Entities.Fathers", "Fathers")
@@ -417,15 +455,19 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Mass", b =>
                 {
-                    b.HasOne("Core.Entities.MassSection", null)
+                    b.HasOne("Core.Entities.MassSection", "MassSection")
                         .WithMany("Mass")
-                        .HasForeignKey("MassSectionId");
+                        .HasForeignKey("MassSectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MassSection");
                 });
 
             modelBuilder.Entity("Core.Entities.MassEvent", b =>
                 {
                     b.HasOne("Core.Entities.Mass", "Mass")
-                        .WithMany("MassEvent")
+                        .WithMany()
                         .HasForeignKey("MassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -450,11 +492,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.FathersSection", b =>
                 {
                     b.Navigation("fathers");
-                });
-
-            modelBuilder.Entity("Core.Entities.Mass", b =>
-                {
-                    b.Navigation("MassEvent");
                 });
 
             modelBuilder.Entity("Core.Entities.MassSection", b =>

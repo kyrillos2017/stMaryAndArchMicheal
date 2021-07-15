@@ -19,6 +19,15 @@ const ApiUrls = {
     GET_ALL: "api/Masses",
     UPDATE_SEC: "api/Masses/UpdateSection",
     CREATE_OR_UPDATE: "api/Masses/CreateOrUpdate"
+  },
+  ABOUT_CHURCH: {
+    MAIN: "api/AboutChurch"
+  },
+  CHURCH_SERVICES: {
+    MAIN: "api/ChurchService"
+  },
+  SUNDAY_MEETINGS: {
+    MAIN: "api/SundayMeeting"
   }
 
 }

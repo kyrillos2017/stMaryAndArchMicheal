@@ -47,8 +47,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   onSubmit(){
     this.submitted = true
     let er = this.loginForm.get('password')?.hasError('minlength')
-    console.log(er)
-    console.log(this.loginForm.get('password')?.errors)
+
     if(!this.loginForm.valid) return;
     this._account.login(this.loginForm.value).subscribe((res)=>{
       this.router.navigateByUrl(this.returnUrl)

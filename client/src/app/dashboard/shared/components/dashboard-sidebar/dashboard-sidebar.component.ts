@@ -24,6 +24,18 @@ export class DashboardSidebarComponent implements OnInit {
     {
       name: 'القداسات',
       route: '/dashboard/masses'
+    },
+    {
+      name: 'عن الكنيسة',
+      route: '/dashboard/about-curch'
+    },
+    {
+      name: 'خدمات الكنيسة',
+      route: '/dashboard/services'
+    },
+    {
+      name: 'التربية الكنسية',
+      route: '/dashboard/meetings'
     }
   ]
 

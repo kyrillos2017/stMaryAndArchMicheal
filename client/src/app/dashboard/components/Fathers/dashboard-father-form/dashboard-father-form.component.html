@@ -43,13 +43,11 @@
 
 
     <div class="col-md-4">
-      <app-images-popup [label]="'صورة الكاهن'" #imagesPopupFather  (onSelectImage)="onSelectImage($event, 1)"></app-images-popup>
+      <app-images-popup [formGroup]="fatherForm" [controlName]="'imageId'" [isRequired]="true" [label]="'صورة الكاهن'" #imagesPopupFather  ></app-images-popup>
     </div>
 
     <div class="col-md-4">
-      <div class="w-100 d-inline-block">
-        <app-images-popup #imagesPopupSec [label]="'صورة القسم'" (onSelectImage)="onSelectImage($event, 2)"></app-images-popup>
-      </div>
+      <app-images-popup [formGroup]="fatherForm" [controlName]="'bannerId'" [isRequired]="false" [label]="'صورة القسم'" #imagesPopupFather  ></app-images-popup>
     </div>
 
     <div class="col-md-4">

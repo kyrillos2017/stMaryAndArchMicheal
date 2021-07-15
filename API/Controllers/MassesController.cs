@@ -59,12 +59,12 @@ namespace API.Controllers
         {
             var sec = await _secRepo.GetLastAsync();
             if (sec == null) return NotFound();
-            input.secId = sec.Id;
+            input.MassSectionId = sec.Id;
 
             if (input.massId == null)
             {
                 var newMass = await CreateMass(input);
-                input.massId = newMass.Id;
+                // input.massId = newMass.Id;
             }
             else
             {
@@ -72,67 +72,51 @@ namespace API.Controllers
             }
 
 
-            if (input.massEventId == null)
-            {
-                var newEvent = await CreateMassEvent(input);
-                input.massEventId = newEvent.Id;
-            }
-            else
-            {
-                await UpdateMassEvent(input);
-            }
+            // if (input.massEventId == null)
+            // {
+            //     var newEvent = await CreateMassEvent(input);
+            //     input.massEventId = newEvent.Id;
+            // }
+            // else
+            // {
+            //     await UpdateMassEvent(input);
+            // }
 
             return input;
         }
 
         private async Task<MassDto> CreateMass(CreateMassIntput input)
         {
-            var mass = new Mass((int)input.secId, input.Day, input.Order, input.Date);
+            var mass = _mapper.Map<CreateMassIntput, Mass>(input);
             await _massesRepo.Add(mass);
             await _massesRepo.Save();
             return _mapper.Map<Mass, MassDto>(mass);
         }
         private async Task<ActionResult<MassDto>> UpdateMass(CreateMassIntput input)
         {
-            var mass = await _massesRepo.GetByIdAsync((int)input.massId);
-            if (mass == null) return NotFound();
-
-            mass.Day = input.Day;
-            mass.Order = input.Order;
-            mass.Date = input.Date;
-
+            var mass = _mapper.Map<CreateMassIntput, Mass>(input);
             _massesRepo.Update(mass);
             await _massesRepo.Save();
             return _mapper.Map<Mass, MassDto>(mass);
         }
 
-        private async Task<MassEventDto> CreateMassEvent(CreateMassIntput input)
-        {
-            var mass = new MassEvent(input.Name, input.Type, input.StartTime, input.EndTime, input.Place, input.IsActive, (int)input.massId);
-            await _massEventsRepo.Add(mass);
-            await _massEventsRepo.Save();
-            return _mapper.Map<MassEvent, MassEventDto>(mass);
-        }
-        private async Task<ActionResult<MassEventDto>> UpdateMassEvent(CreateMassIntput input)
-        {
-            var mass = await _massesRepo.GetByIdAsync((int)input.massId);
-            if (mass == null) return NotFound();
-            var massEvent = await _massEventsRepo.GetByIdAsync((int)input.massEventId);
-            if (massEvent == null) return NotFound();
+        // private async Task<MassEventDto> CreateMassEvent(CreateMassIntput input)
+        // {
+        //     var mass = new MassEvent(input.Name, input.Type, input.StartTime, input.EndTime, input.Place, input.IsActive, (int)input.massId);
+        //     await _massEventsRepo.Add(mass);
+        //     await _massEventsRepo.Save();
+        //     return _mapper.Map<MassEvent, MassEventDto>(mass);
+        // }
+        // private async Task<ActionResult<MassEventDto>> UpdateMassEvent(CreateMassIntput input)
+        // {
+        //     var mass = await _massesRepo.GetByIdAsync((int)input.massId);
+        //     if (mass == null) return NotFound();
+        //     var massEvent = _mapper.Map<CreateMassIntput, MassEvent>(input);
 
-            massEvent.MassId = (int)input.massId;
-            massEvent.Name = input.Name;
-            massEvent.Type = input.Type;
-            massEvent.StartTime = input.StartTime;
-            massEvent.EndTime = input.EndTime;
-            massEvent.IsActive = input.IsActive;
-            massEvent.Place = input.Place;
-
-
-            _massEventsRepo.Update(massEvent);
-            await _massEventsRepo.Save();
-            return _mapper.Map<MassEvent, MassEventDto>(massEvent);
-        }
+        //     _massEventsRepo.Update(massEvent);
+        //     await _massEventsRepo.Save();
+        //     return _mapper.Map<MassEvent, MassEventDto>(massEvent);
+        // }
 
 
         [HttpGet]
