@@ -1,8 +1,6 @@
-import { HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output, Injector, ViewChild } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { finalize, map, switchMap } from 'rxjs/operators';
-import { ImagesPopupComponent } from 'src/app/dashboard/shared/components/images-popup/images-popup.component';
+import { finalize } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { enumToArray, PriestlyRank, ToastrMessages } from 'src/app/shared/enums/enums';
 import { FathersService } from './../../../../services/fathers.service';
