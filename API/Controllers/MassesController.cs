@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dtos;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Inputs;
@@ -61,7 +62,7 @@ namespace API.Controllers
             if (sec == null) return NotFound();
             input.MassSectionId = sec.Id;
 
-            if (input.massId == null)
+            if (input.Id == null)
             {
                 var newMass = await CreateMass(input);
                 // input.massId = newMass.Id;
@@ -100,23 +101,7 @@ namespace API.Controllers
             return _mapper.Map<Mass, MassDto>(mass);
         }
 
-        // private async Task<MassEventDto> CreateMassEvent(CreateMassIntput input)
-        // {
-        //     var mass = new MassEvent(input.Name, input.Type, input.StartTime, input.EndTime, input.Place, input.IsActive, (int)input.massId);
-        //     await _massEventsRepo.Add(mass);
-        //     await _massEventsRepo.Save();
-        //     return _mapper.Map<MassEvent, MassEventDto>(mass);
-        // }
-        // private async Task<ActionResult<MassEventDto>> UpdateMassEvent(CreateMassIntput input)
-        // {
-        //     var mass = await _massesRepo.GetByIdAsync((int)input.massId);
-        //     if (mass == null) return NotFound();
-        //     var massEvent = _mapper.Map<CreateMassIntput, MassEvent>(input);
 
-        //     _massEventsRepo.Update(massEvent);
-        //     await _massEventsRepo.Save();
-        //     return _mapper.Map<MassEvent, MassEventDto>(massEvent);
-        // }
 
 
         [HttpGet]
@@ -129,7 +114,28 @@ namespace API.Controllers
             return _mapper.Map<MassSection, MassSectionDto>(sec);
         }
 
+        [HttpGet("GetById")]
+        public async Task<ActionResult<MassDto>> GetMassById(int id)
+        {
+            var mass = await _massesRepo.GetByIdAsync(id);
+            if (mass == null) return NotFound();
+
+            return _mapper.Map<Mass, MassDto>(mass);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<ActionResult<MassDto>> Delete(int id)
+        {
+            var mass = await _massesRepo.GetByIdAsync(id);
+            if (mass == null) return BadRequest(new ApiResponse(404));
+            _massesRepo.Delete(mass);
+            await _massesRepo.Save();
+            var massDto = _mapper.Map<Mass, MassDto>(mass);
+            return massDto;
+        }
     }
+
 
 
 }

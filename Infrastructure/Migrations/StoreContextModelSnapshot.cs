@@ -47,6 +47,23 @@ namespace Infrastructure.Migrations
                     b.ToTable("AboutChurch");
                 });
 
+            modelBuilder.Entity("Core.Entities.AdsSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("AdsSection");
+                });
+
             modelBuilder.Entity("Core.Entities.Bishop", b =>
                 {
                     b.Property<int>("Id")
@@ -165,6 +182,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("FatherSectionId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("FathersSectionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
 
@@ -183,14 +203,11 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PriestlyRank")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("fathersSectionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId");
+                    b.HasIndex("FathersSectionId");
 
-                    b.HasIndex("fathersSectionId");
+                    b.HasIndex("ImageId");
 
                     b.ToTable("Fathers");
                 });
@@ -210,6 +227,75 @@ namespace Infrastructure.Migrations
                     b.HasIndex("BannerId");
 
                     b.ToTable("FathersSections");
+                });
+
+            modelBuilder.Entity("Core.Entities.Gallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.ToTable("Gallery");
+                });
+
+            modelBuilder.Entity("Core.Entities.GalleryImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GalleryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GalleryId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("GalleryImages");
+                });
+
+            modelBuilder.Entity("Core.Entities.GeneralSection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SectionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BannerId");
+
+                    b.ToTable("GeneralSections");
                 });
 
             modelBuilder.Entity("Core.Entities.ImageAssets", b =>
@@ -405,6 +491,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("Core.Entities.AdsSection", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
             modelBuilder.Entity("Core.Entities.ChurchService", b =>
                 {
                     b.HasOne("Core.Entities.ImageAssets", "Banner")
@@ -429,22 +524,59 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Fathers", b =>
                 {
+                    b.HasOne("Core.Entities.FathersSection", "FathersSection")
+                        .WithMany("fathers")
+                        .HasForeignKey("FathersSectionId");
+
                     b.HasOne("Core.Entities.ImageAssets", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.FathersSection", "fathersSection")
-                        .WithMany("fathers")
-                        .HasForeignKey("fathersSectionId");
-
-                    b.Navigation("fathersSection");
+                    b.Navigation("FathersSection");
 
                     b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Core.Entities.FathersSection", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.Navigation("Banner");
+                });
+
+            modelBuilder.Entity("Core.Entities.Gallery", b =>
+                {
+                    b.HasOne("Core.Entities.ImageAssets", "Banner")
+                        .WithMany()
+                        .HasForeignKey("BannerId");
+
+                    b.Navigation("Banner");
+                });
+
+            modelBuilder.Entity("Core.Entities.GalleryImages", b =>
+                {
+                    b.HasOne("Core.Entities.Gallery", "Gallery")
+                        .WithMany("Images")
+                        .HasForeignKey("GalleryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.ImageAssets", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gallery");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Core.Entities.GeneralSection", b =>
                 {
                     b.HasOne("Core.Entities.ImageAssets", "Banner")
                         .WithMany()
@@ -492,6 +624,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.FathersSection", b =>
                 {
                     b.Navigation("fathers");
+                });
+
+            modelBuilder.Entity("Core.Entities.Gallery", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Core.Entities.MassSection", b =>

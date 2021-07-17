@@ -55,6 +55,7 @@ export class DashboardAboutChurchComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.churchForm.invalid) {
+      this.submitted = false;
         return;
     }
 

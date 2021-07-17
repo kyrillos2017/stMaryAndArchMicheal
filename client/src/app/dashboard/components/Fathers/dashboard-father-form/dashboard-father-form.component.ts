@@ -1,9 +1,11 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output, Injector, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { finalize, map, switchMap } from 'rxjs/operators';
+import { ImagesPopupComponent } from 'src/app/dashboard/shared/components/images-popup/images-popup.component';
 import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { enumToArray, PriestlyRank, ToastrMessages } from 'src/app/shared/enums/enums';
-import { FathersService } from './../../../../services/fathers.service';
+import { FathersService } from '../../../../services/fathers.service';
 import { ToastrsService } from 'src/app/core/services/toastrs.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IFatherReturn } from 'src/app/shared/models/father';
@@ -18,7 +20,7 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
   submitted = false;
   priestlyRankEnum = PriestlyRank
   priestlyRank: any[] = []
-
+  id: number
   constructor(
     injector: Injector,
     private formBuilder: FormBuilder,
@@ -33,13 +35,12 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
 
   ngOnInit(): void {
     this.fatherFormInit()
-    const id = this._route.snapshot.params['id']
-    if(id) {
-      this._father.getFatherById(id).subscribe((res: IFatherReturn) => {
-        let father = res.fathers.result.filter(x => x.id == id)[0]
+    this.id = this._route.snapshot.params['id']
+    if(this.id) {
+      this._father.getFatherById(this.id).subscribe((res: IFatherReturn) => {
+        let father = res.fathers.result.filter(x => x.id == this.id)[0]
         this.fatherForm.patchValue(father)
         this.fatherForm.controls['imageId'].patchValue(father.image.id)
-        this.fatherForm.controls['bannerId'].patchValue(res.banner?.id)
       })
     }
   }
@@ -56,7 +57,6 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
         deathDate: [null],
         about: [''],
         imageId: [null, [Validators.required]],
-        bannerId: [null],
         displayOrder: [1000],
 
       }
@@ -68,6 +68,7 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
     this.submitted = true;
     // stop here if form is invalid
     if (this.fatherForm.invalid) {
+      this.submitted = false;
       return;
     }
 
@@ -76,7 +77,6 @@ export class DashboardFatherFormComponent extends BaseComponent implements OnIni
         finalize(()=> {this.submitted = false})
       ).subscribe(res=> {
         this._toastr.addSingle(ToastrMessages.success, 'تم', 'تم حفظ التغيرات بنجاح')
-        this._router.navigate(['/dashboard/fathers'])
       })
 
   }

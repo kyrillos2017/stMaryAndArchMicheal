@@ -5,7 +5,7 @@ namespace Core.Inputs
 {
     public class CreateMassIntput
     {
-        public int? massId { get; set; }
+        public int? Id { get; set; }
         // public int? massEventId { get; set; }
         public int? MassSectionId { get; set; }
         public MassRepetationType MassRepetationType { get; set; }

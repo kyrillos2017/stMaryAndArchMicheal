@@ -26,7 +26,7 @@ export interface IMasses {
 }
 
 export interface ICraeteMass {
-  massId: number;
+  id: number;
   massEventId: number;
   secId: number;
   day: number;

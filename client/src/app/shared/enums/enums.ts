@@ -28,3 +28,8 @@ export function enumToArray(enumme: any) {
         .map(key => ({ id: +key, name: enumme[key] }));
 }
 
+export enum GenderEnum {
+  Male = 1,
+  Female = 2,
+  Booth = 3
+}

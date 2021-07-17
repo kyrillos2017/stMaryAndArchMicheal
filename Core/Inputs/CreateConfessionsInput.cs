@@ -14,5 +14,6 @@ namespace Core.Inputs
         public bool IsActive { get; set; }
         public int FathersId { get; set; }
         public int DisplayOrder { get; set; }
+        public GenderEnum Gender { get; set; }
     }
 }

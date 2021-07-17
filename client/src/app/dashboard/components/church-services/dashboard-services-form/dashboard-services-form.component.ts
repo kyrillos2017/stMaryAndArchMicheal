@@ -1,10 +1,12 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ToastrsService } from 'src/app/core/services/toastrs.service';
 import { ChurchServicesService } from 'src/app/services/church-services.service';
 import { BaseComponent } from 'src/app/shared/components/base/base.component';
 import { ToastrMessages } from 'src/app/shared/enums/enums';
+import { IServiceDto, IServiceCreate } from 'src/app/shared/models/services';
 
 @Component({
   selector: 'app-dashboard-services-form',
@@ -19,13 +21,21 @@ export class DashboardServicesFormComponent extends BaseComponent implements OnI
     injector: Injector,
     private _service: ChurchServicesService,
     private formBuilder: FormBuilder,
-    private _toastr: ToastrsService
+    private _toastr: ToastrsService,
+    private _route: ActivatedRoute,
+    private _router: Router,
     ) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.massSecFormInit()
+    const id = this._route.snapshot.params['id']
+    if(id) {
+      this._service.getById(id).subscribe((res: IServiceCreate) => {
+        this.servicesForm.patchValue(res)
+      })
+    }
   }
 
   massSecFormInit() {
@@ -46,6 +56,7 @@ export class DashboardServicesFormComponent extends BaseComponent implements OnI
     this.submitted = true;
     // stop here if form is invalid
     if (this.servicesForm.invalid) {
+      this.submitted = false;
       return;
     }
 
@@ -56,6 +67,7 @@ export class DashboardServicesFormComponent extends BaseComponent implements OnI
         // display form values on success
         this._toastr.addSingle(ToastrMessages.success, 'تم', 'تم حفظ التغيرات بنجاح')
         this.servicesForm.reset();
+        this._router.navigate(['/dashboard/services'])
       })
 
   }

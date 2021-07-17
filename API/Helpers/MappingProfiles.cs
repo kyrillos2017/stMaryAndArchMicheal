@@ -35,6 +35,12 @@ namespace API.Helpers
             CreateMap<Mass, MassDto>().ReverseMap();
             // CreateMap<MassEvent, MassEventDto>().ReverseMap();
             CreateMap<MassSection, MassSectionDto>().ReverseMap();
+
+            CreateMap<Gallery, GalleryDto>().ReverseMap();
+            CreateMap<GalleryImages, GalleryImagesDto>().ReverseMap();
+            CreateMap<GeneralSection, GeneralSectionsDto>().ReverseMap();
+            CreateMap<CreateGalleryImage, GalleryImages>().ReverseMap();
+            CreateMap<CreateGeneralSection, GeneralSection>().ReverseMap();
         }
     }
 }

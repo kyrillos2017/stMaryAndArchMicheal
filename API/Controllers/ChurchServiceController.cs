@@ -55,6 +55,14 @@ namespace API.Controllers
             return data;
         }
 
+        [HttpGet("GetById")]
+        public async Task<CreateService> GetById(int id)
+        {
+            var service = await _serviceRepo.GetByIdAsync(id);
+            var data = _mapper.Map<CreateService>(service);
+            return data;
+        }
+
         [Authorize]
         [HttpDelete]
         public async Task<ActionResult<ChurchServiceDto>> Delete(int id)

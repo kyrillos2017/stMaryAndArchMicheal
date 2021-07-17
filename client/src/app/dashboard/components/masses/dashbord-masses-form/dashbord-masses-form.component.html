@@ -51,7 +51,7 @@
         <mat-error *ngFor="let validation of validation_messages">
           <mat-error class="error-message"
             *ngIf="massForm?.get('place')?.hasError(validation.type) && (massForm.get('place').dirty || massForm.get('place').touched)">
-            ترتيب من الشهر {{validation.message}}</mat-error>
+            المكان {{validation.message}}</mat-error>
         </mat-error>
       </mat-form-field>
     </div>

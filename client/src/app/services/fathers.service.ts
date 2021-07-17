@@ -56,4 +56,11 @@ export class FathersService extends BaseService {
     }
     return this.remove<IFather>(url);
   }
+
+  createOrUpdateSec(bannerId: any){
+    let url = ApiUrls.FATHERS.UPDATE_SECTION
+    let params = this.toQueryString(bannerId)
+    url += `?${params}`
+    return this.post<number>(url, bannerId)
+  }
 }

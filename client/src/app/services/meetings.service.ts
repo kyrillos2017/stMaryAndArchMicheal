@@ -26,5 +26,9 @@ export class MeetingsService extends BaseService {
     }
     return this.get<ICreateMeeting[]>(url)
   }
+  delete(id: number){
+    const url = ApiUrls.SUNDAY_MEETINGS.MAIN + `?id=${id}`
+    return this.remove<ICreateMeeting>(url);
+   }
 
 }

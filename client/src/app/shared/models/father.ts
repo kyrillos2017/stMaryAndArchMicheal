@@ -2,10 +2,10 @@ import { IImageAssets } from './image-assets';
 import { IPaginationParams } from './pagination';
 import { IPagination } from 'src/app/shared/models/response-result';
 export interface IConfession {
-  id: number
+  id?: number
   day: number
-  startTime: string
-  endTime: string
+  startTime: Date
+  endTime: Date
   place: string
   isActive: boolean
   gender: number

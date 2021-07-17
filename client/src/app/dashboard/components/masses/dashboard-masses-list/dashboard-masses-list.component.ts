@@ -65,6 +65,7 @@ export class DashboardMassesListComponent extends BaseComponent implements OnIni
     this.submitted = true;
     // stop here if form is invalid
     if (this.massSecForm.invalid) {
+      this.submitted = false;
       return;
     }
 

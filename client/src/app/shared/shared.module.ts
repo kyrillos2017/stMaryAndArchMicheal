@@ -28,6 +28,8 @@ import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatTableModule,
     MatPaginatorModule,
     CalendarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MatDialogModule
   ],
   exports: [
     FormsModule,
@@ -90,10 +93,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatPaginatorModule,
     CalendarModule,
     ConfirmDialogModule,
+    MatDialogModule
   ],
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true },
     MatDatepicker,
-    ConfirmationService
+    ConfirmationService,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

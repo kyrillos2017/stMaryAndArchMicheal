@@ -39,4 +39,9 @@ export class MassesService extends BaseService {
     }
     return this.remove<IMass>(url);
   }
+
+  getById(id:number){
+    const url = ApiUrls.MASSES.GET_BY_ID + `?id=${id}`;
+    return this.get<IMass>(url);
+  }
 }

@@ -51,6 +51,7 @@ export class DashboardLiveComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.liveForm.invalid) {
+      this.submitted = false;
         return;
     }
 

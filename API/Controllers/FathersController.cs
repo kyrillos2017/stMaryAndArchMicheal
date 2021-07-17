@@ -30,6 +30,27 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
+        [HttpPost("UpdateSection")]
+        public async Task<ActionResult<int>> UpdateSection(int bannerId)
+        {
+
+            var secSpec = new FathersSecImageAssetsIncudeSpecifications();
+            var sec = await _secRepo.GetEntityWithSpec(secSpec);
+
+            if (sec == null)
+            {
+                sec = new FathersSection(bannerId);
+                await _secRepo.Add(sec);
+            }
+            else
+            {
+                sec.BannerId = bannerId;
+                _secRepo.Update(sec);
+            }
+            await _secRepo.Save();
+            return sec.Id;
+        }
 
         [Authorize]
         [HttpPost]
@@ -38,21 +59,8 @@ namespace API.Controllers
 
             try
             {
-                var secSpec = new FathersSecImageAssetsIncudeSpecifications();
-                var sec = await _secRepo.GetEntityWithSpec(secSpec);
-
-                if (sec == null)
-                {
-                    sec = new FathersSection(fatherDto.BannerId);
-                    await _secRepo.Add(sec);
-                }
-                else
-                {
-                    sec.BannerId = fatherDto.BannerId;
-                    _secRepo.Update(sec);
-                }
-                await _secRepo.Save();
-
+                var sec = await _secRepo.GetLastAsync();
+                if (sec == null) return BadRequest(new ApiResponse(400));
 
                 var father = _mapper.Map<CreateFatherInput, Fathers>(fatherDto);
                 father.FatherSectionId = sec.Id;

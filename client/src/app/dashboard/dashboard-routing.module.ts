@@ -4,7 +4,7 @@ import { DashboardFathersComponent } from './components/Fathers/dashboard-father
 import { DashboardLiveComponent } from './components/dashboard-live/dashboard-live.component';
 import { DashboardLayoutComponent } from './shared/components/dashboard-layout/dashboard-layout.component';
 import { DashboardMassesListComponent } from './components/masses/dashboard-masses-list/dashboard-masses-list.component';
-import { DashboardFatherFormComponent } from './components/fathers/dashboard-father-form/dashboard-father-form.component';
+import { DashboardFatherFormComponent } from './components/Fathers/dashboard-father-form/dashboard-father-form.component';
 import { DashbordMassesFormComponent } from './components/masses/dashbord-masses-form/dashbord-masses-form.component';
 import { DashboardAboutChurchComponent } from './components/dashboard-about-church/dashboard-about-church.component';
 import { DashboardServicesListComponent } from './components/church-services/dashboard-services-list/dashboard-services-list.component';
