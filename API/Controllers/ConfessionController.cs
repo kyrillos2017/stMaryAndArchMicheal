@@ -39,8 +39,7 @@ namespace API.Controllers
             else
             {
                 //Update
-                var s = await _confessionRepo.GetByIdAsync((int)input.Id);
-                if (s == null) return BadRequest(new ApiResponse(404));
+
                 _confessionRepo.Update(conf);
                 await _confessionRepo.Save();
 
@@ -50,10 +49,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<ConfessionsDto>> GetAll()
+        public async Task<IReadOnlyList<ConfessionsDto>> GetAll(int id, int fatherId)
         {
 
-            var spec = new ConfessionsGroupByDaySpecifications();
+            var spec = new ConfessionsGroupByDaySpecifications((int)id, (int)fatherId);
             //var conf = await _confessionRepo.GroupListAsync(spec);
 
             var conf = await _confessionRepo.ListAsync(spec);

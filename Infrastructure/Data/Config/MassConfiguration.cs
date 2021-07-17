@@ -16,6 +16,11 @@ namespace Infrastructure.Data.Config
                     o => (DaysEnum)Enum.Parse(typeof(DaysEnum), o)
                 );
 
+            builder.Property(s => s.MassRepetationType).HasConversion(
+                    o => o.ToString(),
+                    o => (MassRepetationType)Enum.Parse(typeof(MassRepetationType), o)
+                );
+
             //builder.HasMany(o => o.MassEvent).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
     }

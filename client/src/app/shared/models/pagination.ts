@@ -11,3 +11,10 @@ export class IPaginatorEvent {
   rows?: number;
   pageCount?: number
 }
+
+export class IMaterialsPagination {
+  length: number
+  pageIndex: number
+  pageSize: number
+  previousPageIndex: number
+}

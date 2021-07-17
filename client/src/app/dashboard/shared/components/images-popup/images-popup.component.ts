@@ -1,13 +1,13 @@
-import { Component, ElementRef, OnInit, Output, ViewChild, Injector, EventEmitter, forwardRef, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, ViewChild, Injector, EventEmitter, forwardRef, Input, AfterViewInit, AfterContentInit, OnChanges } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { IImageAssets, IImageAssetsParams } from 'src/app/shared/models/image-assets';
 import { ImageAssetsService } from './../../../../services/image-assets.service';
 import { IPagination } from './../../../../shared/models/response-result';
 import { BaseComponent } from './../../../../shared/components/base/base.component';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-images-popup',
@@ -18,21 +18,26 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ImagesPopupComponent),
       multi: true,
-  },
-  {
+    },
+    {
       provide: NG_VALIDATORS,
       useValue: (_: any) => {
-          console.log(_)
-          return null;
+        // console.log(_)
+        return null;
       },
       multi: true,
-  },
+    },
   ]
 })
 export class ImagesPopupComponent extends BaseComponent implements OnInit {
-  @ViewChild('op') op : OverlayPanel;
+  @ViewChild('op') op: OverlayPanel;
   @Output('onSelectImage') onSelectImage = new EventEmitter;
   @Input() label: string;
+  @Input("formGroup") formGroup: FormGroup;
+  @Input() controlName: string;
+  @Input() isRequired: boolean = false;
+  // @Input()
+
   active: boolean = false;
   loading: boolean = false;
   selectedImage: IImageAssets;
@@ -44,31 +49,39 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
     sortField: undefined,
     sortOrder: 1,
   };
-  totalRecords :number;
+  totalRecords: number;
   pageIndex: number = 1
-  images: IImageAssets[]= [];
+  images: IImageAssets[] = [];
 
   constructor(
     injector: Injector,
     private _imageAssets: ImageAssetsService
   ) {
     super(injector)
-   }
-
-  ngOnInit(): void {
-
-    this.getImages(this.tableInit);
+  }
+  getSelectedImg() {
+    this.formGroup.controls[this.controlName].valueChanges.pipe(take(1)).subscribe(() => {
+      const imgId = this.formGroup.controls[this.controlName].value
+      if (imgId) {
+        this._imageAssets.getImgById(imgId).subscribe(res => this.selectedImage = res)
+      }
+    })
   }
 
-  show(event: Event){
+  ngOnInit(): void {
+    this.getImages(this.tableInit);
+    this.getSelectedImg()
+  }
+
+  show(event: Event) {
     // this.active = true
     this.op.toggle(event)
   }
 
-  hide(){
+  hide() {
     this.op.hide()
   }
-  getImages(event: LazyLoadEvent){
+  getImages(event: LazyLoadEvent) {
     this.loading = true
     let params: IImageAssetsParams = {
       PageIndex: this.pageIndex,
@@ -76,7 +89,7 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
       Sort: event.sortField,
       Search: event.globalFilter,
     }
-    this._imageAssets.getAll(params).pipe(finalize(()=> this.loading = false)).subscribe(
+    this._imageAssets.getAll(params).pipe(finalize(() => this.loading = false)).subscribe(
       (res: IPagination<IImageAssets>) => {
         this.images = res.result
         this.totalRecords = res.count;
@@ -85,47 +98,52 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
 
   }
 
-  paginate(event: any){
-    this.pageIndex = event.page +1
+  paginate(event: any) {
+    this.pageIndex = event.page + 1
     this.getImages(this.tableInit)
   }
-  onRowSelect(event:Event) {
+  onRowSelect(event: any) {
     this.onSelectImage.emit(event)
+    this.setValue(event.data.id)
     this.hide()
   }
 
-
-
-
-public progress: number;
-public message: string;
-@Output() public onUploadFinished = new EventEmitter();
-public uploadFile = (files: any) => {
-  if (files.length === 0) {
-    return;
+  setValue(id: number | undefined) {
+    if (id) this.formGroup.controls[this.controlName].patchValue(id)
   }
-  let fileToUpload = <File>files[0];
-  const formData = new FormData();
 
-  formData.set('file', fileToUpload, fileToUpload.name);
 
-  this._imageAssets.upload(formData)
-    .subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / (event.total ? event.total : 0));
-      else if (event.type === HttpEventType.Response) {
-        this.message = 'Upload success.';
 
-        this.onUploadFinished.emit(event.body);
-        let body: any = event.body;
-        const domain = event.url?.split('/api')[0]
-        const path = body.img?.imgUrl?.split('wwwroot')[1]
-        body.img.imgUrl = domain + "/" + path
-        this.selectedImage = body.img
-        this.onSelectImage.emit(this.selectedImage)
-        this.hide()
-      }
-    });
-}
+  public progress: number;
+  public message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+  public uploadFile = (files: any) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+
+    formData.set('file', fileToUpload, fileToUpload.name);
+
+    this._imageAssets.upload(formData)
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress)
+          this.progress = Math.round(100 * event.loaded / (event.total ? event.total : 0));
+        else if (event.type === HttpEventType.Response) {
+          this.message = 'Upload success.';
+
+          this.onUploadFinished.emit(event.body);
+          let body: any = event.body;
+          const domain = event.url?.split('/api')[0]
+          const path = body.img?.imgUrl?.split('wwwroot')[1]
+          body.img.imgUrl = domain + "/" + path
+          this.selectedImage = body.img
+          this.onSelectImage.emit(this.selectedImage)
+          if (this.selectedImage) this.setValue(this.selectedImage.id)
+          this.hide()
+        }
+      });
+  }
 
 }

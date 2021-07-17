@@ -28,7 +28,7 @@ namespace Core.Entities
         public ImageAssets Image { get; set; }
         public int DisplayOrder { get; set; } = 100;
         public int FatherSectionId { get; set; }
-        public FathersSection fathersSection { get; set; }
+        public FathersSection FathersSection { get; set; }
 
         public virtual IReadOnlyList<Confessions> Confessions { get; set; }
     }

@@ -21,38 +21,39 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _account: AccountService,
     private router: Router,
-    private activatedRoute : ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private _bussy: BusyService,
     private _toastr: ToastrsService
   ) {
     super(injector)
-   }
+  }
 
   ngOnInit(): void {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/dashboard'
     this.loginFormInit()
   }
-  loginFormInit(){
+  loginFormInit() {
     this.loginForm = this.formBuilder.group(
       {
-        email:  [null, [Validators.required, Validators.email]],
+        email: [null, [Validators.required, Validators.email]],
         password: [null, [Validators.required, Validators.minLength(6)]]
       }
     )
   }
-  get f(){
+  get f() {
     return this.loginForm.controls;
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true
     let er = this.loginForm.get('password')?.hasError('minlength')
-    console.log(er)
-    console.log(this.loginForm.get('password')?.errors)
-    if(!this.loginForm.valid) return;
-    this._account.login(this.loginForm.value).subscribe((res)=>{
+
+    if (!this.loginForm.valid) {
+      this.submitted = false;
+      return };
+    this._account.login(this.loginForm.value).subscribe((res) => {
       this.router.navigateByUrl(this.returnUrl)
-    }, err=> {
+    }, err => {
       this._toastr.addSingle(ToastrMessages.error, 'حدث خطأ ما', 'بريد إلكتروني أو كلمة مرور خاطئة')
       console.log(err)
     })

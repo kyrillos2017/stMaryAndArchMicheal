@@ -12,7 +12,9 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TableModule} from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import {EditorModule} from 'primeng/editor';
-
+import { CalendarModule } from 'primeng/calendar';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 // materials
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,6 +26,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -52,7 +58,12 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     EditorModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    CalendarModule,
+    ConfirmDialogModule,
+    MatDialogModule
   ],
   exports: [
     FormsModule,
@@ -77,9 +88,17 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     EditorModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    CalendarModule,
+    ConfirmDialogModule,
+    MatDialogModule
   ],
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true },
-    MatDatepicker]
+    MatDatepicker,
+    ConfirmationService,
+    MatDialogModule
+  ]
 })
 export class SharedModule { }

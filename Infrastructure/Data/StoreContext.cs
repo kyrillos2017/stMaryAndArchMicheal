@@ -25,7 +25,10 @@ namespace Infrastructure.Data
         public DbSet<ImageAssets> ImageAssets { get; set; }
         public DbSet<MassSection> MassSection { get; set; }
         public DbSet<Mass> Masses { get; set; }
-        public DbSet<MassEvent> MassEvents { get; set; }
+        public DbSet<Gallery> Gallery { get; set; }
+        public DbSet<GalleryImages> GalleryImages { get; set; }
+        public DbSet<GeneralSection> GeneralSections { get; set; }
+        public DbSet<AdsSection> AdsSection { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

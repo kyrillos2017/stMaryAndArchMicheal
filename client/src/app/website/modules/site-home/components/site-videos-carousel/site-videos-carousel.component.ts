@@ -13,7 +13,7 @@ export class SiteVideosCarouselComponent implements OnInit, AfterViewInit {
   ) { }
   isActive = true;
   ngAfterViewInit(): void {
-    
+
   }
   ngOnInit(): void {
   }
@@ -59,12 +59,12 @@ export class SiteVideosCarouselComponent implements OnInit, AfterViewInit {
       if (t) {
         t.setAttribute('src', youtubeUrl)
       }
-      console.log(t)
+      // console.log(t)
     })
   }
 
   generateFrame() {
-    console.log(this.videosContainer.nativeElement)
+    // console.log(this.videosContainer.nativeElement)
     this.ids.forEach(el => {
       let html = `
       <ng-template carouselSlide>

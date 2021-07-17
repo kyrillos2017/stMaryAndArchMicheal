@@ -40,8 +40,7 @@ namespace API.Controllers
             else
             {
                 //Update
-                var s = await _sindayMeetingRepo.GetByIdAsync((int)sundayDto.Id);
-                if (s == null) return BadRequest(new ApiResponse(404));
+
                 _sindayMeetingRepo.Update(sunday);
                 await _sindayMeetingRepo.Save();
 
@@ -51,9 +50,9 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<IReadOnlyList<SundayMeetingDto>> GetAll()
+        public async Task<IReadOnlyList<SundayMeetingDto>> GetAll(int? id)
         {
-            var spec = new SundayMeetingSpecifications();
+            var spec = new SundayMeetingSpecifications(id);
             var sundays = await _sindayMeetingRepo.ListAsync(spec);
             var data = _mapper.Map<IReadOnlyList<SundayMeetingDto>>(sundays);
             return data;

@@ -51,6 +51,7 @@ export class DashboardLiveComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.liveForm.invalid) {
+      this.submitted = false;
         return;
     }
 
@@ -84,7 +85,6 @@ getVideo(){
   }
   this.url = this.baseurl + vid;
   document.getElementsByTagName('iframe')[0].setAttribute('src', this.url)
-  console.log(vid)
 }
 
 selectImage(event: Event){

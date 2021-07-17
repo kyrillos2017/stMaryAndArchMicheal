@@ -30,33 +30,38 @@ namespace API.Controllers
         {
             var spec = new AboutChurchWithImageSpecification();
             var about = await _churchRepository.GetEntityWithSpec(spec);
-            var inputMapper = _mapper.Map<CreateAboutChurch, AboutChurch>(input);
+            about.ImageId = input.ImageId;
+            about.BannerId = input.BannerId;
+            about.IsActive = input.IsActive;
+            about.Description = input.Description;
+
             if (about == null)
             {
-                await _churchRepository.Add(inputMapper);
-                await _churchRepository.Save();
+                await _churchRepository.Add(about);
 
             }
             else
             {
                 // about.BannerId = input.BannerId;
-                _churchRepository.Update(inputMapper);
-                await _churchRepository.Save();
+                _churchRepository.Update(about);
             }
+            await _churchRepository.Save();
 
-            return _mapper.Map<CreateAboutChurch, AboutChurchDto>(input);
+            return _mapper.Map<AboutChurch, AboutChurchDto>(about);
         }
 
         [HttpGet]
         public async Task<ActionResult<AboutChurchDto>> Get()
         {
-            var about = await _churchRepository.GetByIdAsync(1);
+            var spec = new AboutChurchWithImageSpecification();
+            var about = await _churchRepository.GetEntityWithSpec(spec);
             if (about == null)
             {
                 return new AboutChurchDto();
             }
             else
             {
+
                 return _mapper.Map<AboutChurch, AboutChurchDto>(about);
             }
         }
