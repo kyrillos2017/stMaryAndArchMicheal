@@ -29,6 +29,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 
 
@@ -63,7 +65,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     CalendarModule,
     ConfirmDialogModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslocoRootModule,
+    TranslocoModule,
   ],
   exports: [
     FormsModule,
@@ -93,12 +97,14 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     CalendarModule,
     ConfirmDialogModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslocoModule,
   ],
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextInputComponent), multi: true },
     MatDatepicker,
     ConfirmationService,
-    MatDialogModule
+    MatDialogModule,
+    TranslocoService
   ]
 })
 export class SharedModule { }

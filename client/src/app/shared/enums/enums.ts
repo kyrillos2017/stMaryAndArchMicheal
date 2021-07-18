@@ -13,7 +13,8 @@ export enum PriestlyRank {
 
 export enum MassTypesEnum {
   mass = 1,
-  preMass = 2
+  preMass = 2,
+  MidnightPraises = 3
 }
 export enum MassRepetationType {
   dialy = 1,

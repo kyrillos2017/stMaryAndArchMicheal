@@ -119,6 +119,18 @@ namespace API.Controllers
 
         }
 
+        [HttpGet("GetById")]
+        public async Task<ActionResult<CreateGalleryImage>> GetById(int id)
+        {
+
+            var spec = new GalleryImagesWithIncludeImages(id);
+            var image = await _imagesRepo.GetEntityWithSpec(spec);
+            if (image == null) return NotFound();
+
+            return _mapper.Map<GalleryImages, CreateGalleryImage>(image);
+
+        }
+
         [Authorize]
         [HttpDelete]
         public async Task<ActionResult<GalleryImagesDto>> Delete(int id)

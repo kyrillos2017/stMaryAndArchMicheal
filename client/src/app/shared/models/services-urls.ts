@@ -34,6 +34,20 @@ const ApiUrls = {
   },
   CONFESSIONS: {
     MAIN: "api/Confession"
+  },
+  GALLERY: {
+    MAIN: "api/Gallery",
+    UPDATE_SECTION: "api/Gallery/UpdateSection",
+    GET_SECTION: "api/Gallery/GetSection",
+    GET_BY_ID: "api/Gallery/GetById"
+  },
+  SECTIONS: {
+    MAIN: "api/Sections",
+    GET_BY_ID: "api/Sections/GetById"
+  },
+  ADS: {
+    MAIN: "api/AdsSection",
+    GET_BY_ID: "api/AdsSection/GetById"
   }
 
 }

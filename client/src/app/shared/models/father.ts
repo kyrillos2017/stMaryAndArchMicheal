@@ -1,6 +1,7 @@
 import { IImageAssets } from './image-assets';
 import { IPaginationParams } from './pagination';
 import { IPagination } from 'src/app/shared/models/response-result';
+
 export interface IConfession {
   id?: number
   day: number

@@ -10,6 +10,9 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import {SkeletonModule} from 'primeng/skeleton';
+import { TranslocoRootModule } from './transloco/transloco-root.module';
+import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { httpLoader } from './http-loader';
 
 
 @NgModule({
@@ -23,12 +26,22 @@ import {SkeletonModule} from 'primeng/skeleton';
     BrowserModule,
     BrowserAnimationsModule,
     SkeletonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    // httpLoader,
+    // {
+    //   provide: TRANSLOCO_CONFIG,
+    //   useValue: {
+    //     availableLangs: ["en", "ar"],
+    //     reRenderOnLangChange: true,
+    //     fallbackLang: "ar",
+    //     defaultLang: "ar"
+    //   } as TranslocoConfig
+    // }
   ],
   bootstrap: [AppComponent]
 })

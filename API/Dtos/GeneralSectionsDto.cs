@@ -10,6 +10,7 @@ namespace API.Dtos
         public int DisplayOrder { get; set; }
         public ImageAssets Banner { get; set; }
         public bool IsActive { get; set; }
+        public bool IsWhite { get; set; }
 
     }
 }

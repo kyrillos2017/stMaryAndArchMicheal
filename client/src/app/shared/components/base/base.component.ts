@@ -14,6 +14,7 @@ export abstract class BaseComponent {
   validation_messages = validation_messages
   primengTableHelper: PrimengTableHelper;
   MassRepetationType = MassRepetationType
+  GeneralSectionsEnum = SectionsEnum
   massRepetation: IEnumMapping[];
   days: IEnumMapping[];
   massTypes: IEnumMapping[];
@@ -27,7 +28,7 @@ export abstract class BaseComponent {
     this.days = enumToArray(DaysEnum)
     this.massTypes = enumToArray(MassTypesEnum)
     this.genders = enumToArray(GenderEnum)
-    this.genders = enumToArray(SectionsEnum)
+    this.generalSections = enumToArray(SectionsEnum)
   }
 
   noTyping() {

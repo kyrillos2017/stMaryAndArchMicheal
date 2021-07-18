@@ -41,6 +41,9 @@ namespace API.Helpers
             CreateMap<GeneralSection, GeneralSectionsDto>().ReverseMap();
             CreateMap<CreateGalleryImage, GalleryImages>().ReverseMap();
             CreateMap<CreateGeneralSection, GeneralSection>().ReverseMap();
+
+            CreateMap<AdsSection, AdsSectionDto>().ReverseMap();
+            CreateMap<AdsSection, CreateAdInput>().ReverseMap();
         }
     }
 }

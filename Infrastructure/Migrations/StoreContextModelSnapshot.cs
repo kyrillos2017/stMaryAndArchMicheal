@@ -54,8 +54,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -287,6 +293,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsWhite")
+                        .HasColumnType("bit");
+
                     b.Property<string>("SectionName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -495,7 +504,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Core.Entities.ImageAssets", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Image");
                 });

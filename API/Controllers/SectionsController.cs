@@ -35,6 +35,15 @@ namespace API.Controllers
             return _mapper.Map<IReadOnlyList<GeneralSectionsDto>>(sec);
         }
 
+        [HttpGet("GetById")]
+        public async Task<CreateGeneralSection> GetSecById(int id)
+        {
+            var spec = new GeneralSectionsWithImagesSpecifications(id);
+            var sec = await _secRepo.GetEntityWithSpec(spec);
+
+            return _mapper.Map<GeneralSection, CreateGeneralSection>(sec);
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<GeneralSectionsDto>> CreateOrUpdate(CreateGeneralSection input)
