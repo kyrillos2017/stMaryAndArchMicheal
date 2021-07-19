@@ -30,8 +30,8 @@ namespace Infrastructure.Data
 
                 // }
 
-                var folderName = Path.Combine("wwwroot", "images");
-                var folderAssetsName = Path.Combine("wwwroot", "imageSeeds");
+                var folderName = Path.Combine("wwwroot", "images/");
+                var folderAssetsName = Path.Combine("wwwroot", "imageSeeds/");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (!context.ImageAssets.Any())
@@ -41,6 +41,7 @@ namespace Infrastructure.Data
                     foreach (var item in imageSeeds)
                     {
                         var title = item.Split("wwwroot\\imageSeeds\\")[1];
+                        title = title.Replace(" ", "");
                         var img = new ImageAssets(title, item);
                         context.Add(img);
                     }

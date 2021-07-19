@@ -18,6 +18,7 @@ namespace API.Helpers
             {
                 var root = "wwwroot";
                 var src = source.ImgUrl.Replace(root, "");
+                src = src.Replace(" ", "%20");
                 return _config["ApiUrl"] + src;
             }
 

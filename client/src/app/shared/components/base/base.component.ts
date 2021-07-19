@@ -56,17 +56,10 @@ export abstract class BaseComponent {
     } else {return null}
   }
 
-  convertTranslation(){
-
-  }
-
-  translate(key: string){
-    if(key){
-
-    }
-
-    return
-  }
+  getImage(imgUrl: string){
+    let url= 'url(' +'"' +imgUrl +'"' + ')'
+    return url
+   }
 
 
 }

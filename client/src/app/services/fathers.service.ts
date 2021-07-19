@@ -40,7 +40,7 @@ export class FathersService extends BaseService {
       let params = this.toQueryString(fatherParams)
       url += `?${params}`
     }
-    return this.get<IPagination<IFather>>(url);
+    return this.get<IFatherReturn>(url);
   }
 
   createFather(father: IFather){

@@ -32,7 +32,6 @@ namespace API.Controllers
             var about = await _churchRepository.GetEntityWithSpec(spec);
             about.ImageId = input.ImageId;
             about.BannerId = input.BannerId;
-            about.IsActive = input.IsActive;
             about.Description = input.Description;
 
             if (about == null)
