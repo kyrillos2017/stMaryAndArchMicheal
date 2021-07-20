@@ -14,7 +14,7 @@ import { ToastrsService } from 'src/app/core/services/toastrs.service';
 export class ChurchMeetingsListComponent extends BaseComponent implements OnInit {
   totalRecords :number;
 
-  displayedColumns: string[] = ['position', 'name', 'active', 'actions'];
+  displayedColumns: string[] = ['position', 'name', 'order', 'active', 'actions'];
   meetings: ICreateMeeting[]= [];
   constructor(
     injector: Injector,

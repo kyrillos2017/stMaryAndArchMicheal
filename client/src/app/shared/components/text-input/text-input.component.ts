@@ -64,7 +64,6 @@ export class TextInputComponent implements OnInit {
   }
 
   onTouched() {
-    console.log('t')
   }
 
   writeValue(obj: any): void {

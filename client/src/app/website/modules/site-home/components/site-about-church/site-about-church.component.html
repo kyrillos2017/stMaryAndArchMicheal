@@ -5,15 +5,15 @@
     <span class="mb-5 mt-3 small-hr"></span>
     <div class="row">
       <div class="col-md-4">
-        <img class="img-fluid" [src]="aboutChurch?.image?.imgUrl" alt="" srcset="">
+        <img width="auto" height="325px" [src]="aboutChurch?.image?.imgUrl" alt="" srcset="">
       </div>
       <div class="col-md-8" [class.position-relative]="showMore">
-        <div *ngIf="showMore" class="showmore-layout pt-4">
+        <div *ngIf="showMore" class="pt-4" [class.showmore-layout-w]="isWhite" [class.showmore-layout]="!isWhite">
           <div *ngIf="showMore" class="w-100 text-center">
             <a class="main-btn" routerLink="/about-church">عرض الكل</a>
           </div>
         </div>
-        {{aboutChurch?.description}}
+        <div [innerHtml]="aboutChurch?.description"></div>
       </div>
     </div>
   </div>

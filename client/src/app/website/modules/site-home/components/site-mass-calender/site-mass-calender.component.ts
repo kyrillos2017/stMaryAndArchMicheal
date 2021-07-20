@@ -1,14 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { MassesService } from 'src/app/services/masses.service';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { IMasses } from 'src/app/shared/models/masses';
 
 @Component({
   selector: 'app-site-mass-calender',
   templateUrl: './site-mass-calender.component.html',
   styleUrls: ['./site-mass-calender.component.scss'],
 })
-export class SiteMassCalenderComponent implements OnInit {
+export class SiteMassCalenderComponent extends BaseComponent implements OnInit {
   @Input() showMore = false;
+  @Input() isWhite = false;
 
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
+  banner:string
   repeatedMasses = [
     {
       day: 'الأحد',
@@ -80,7 +84,24 @@ export class SiteMassCalenderComponent implements OnInit {
       ],
     },
   ]
-  constructor() {}
+  constructor(
+    injector: Injector,
+    private _mass: MassesService
+  ) {
+    super(injector)
 
-  ngOnInit(): void {}
+  }
+
+  ngOnInit(): void {
+    this.getMasses()
+  }
+
+  masses: any
+  getMasses(){
+    this._mass.getAll().subscribe((res: IMasses) => {
+      this.banner = res.banner.imgUrl;
+      this.masses = this.groupBy(res.mass, 'massRepetationType')
+      console.log(this.masses)
+    })
+  }
 }

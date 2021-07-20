@@ -1,8 +1,8 @@
-<div [class.bg-light]="showMore" [class.py-5]="showMore" [class.pb-5]="!showMore" class="w-100">
+<div [class.bg-light]="showMore && !isWhite" [class.py-5]="showMore" [class.pb-5]="!showMore" class="w-100">
   <app-site-home-seperator *ngIf="!showMore" [fixed]="false" [banner]="banner"></app-site-home-seperator>
 
   <div class="container" [class.position-relative]="showMore">
-    <div *ngIf="showMore" class="showmore-layout">
+    <div *ngIf="showMore" [class.showmore-layout-w]="isWhite" [class.showmore-layout]="!isWhite">
       <div *ngIf="showMore" class="w-100 text-center mt-4">
         <a class="main-btn" routerLink="/masses">عرض الكل</a>
       </div>

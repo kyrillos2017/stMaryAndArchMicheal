@@ -55,11 +55,20 @@ namespace API.Controllers
             return data;
         }
 
-        [HttpGet("GetById")]
-        public async Task<CreateService> GetById(int id)
+        [HttpGet("GetForEdit")]
+        public async Task<CreateService> GetForEdit(int id)
         {
             var service = await _serviceRepo.GetByIdAsync(id);
             var data = _mapper.Map<CreateService>(service);
+            return data;
+        }
+
+        [HttpGet("GetById")]
+        public async Task<ChurchServiceDto> GetById(int id)
+        {
+            var spec = new ServicesWithBannerSpecification(id);
+            var service = await _serviceRepo.GetEntityWithSpec(spec);
+            var data = _mapper.Map<ChurchServiceDto>(service);
             return data;
         }
 
@@ -74,5 +83,16 @@ namespace API.Controllers
             var serviceDto = _mapper.Map<ChurchService, ChurchServiceDto>(service);
             return serviceDto;
         }
+
+        [HttpGet("getNames")]
+        public async Task<IReadOnlyList<ChurchServicesNamesDto>> GetNames()
+        {
+
+            var spec = new ServicesWithBannerSpecification();
+            var services = await _serviceRepo.ListAsync(spec);
+
+            return _mapper.Map<IReadOnlyList<ChurchServicesNamesDto>>(services);
+        }
+
     }
 }

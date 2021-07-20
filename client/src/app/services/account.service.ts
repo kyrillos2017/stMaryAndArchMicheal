@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiUrls } from '../shared/models/services-urls';
-import { IUser } from '../shared/models/user';
 import { BaseService } from './../shared/services/base.service';
+import { IUser } from './../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,9 @@ export class AccountService extends BaseService {
 
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
+
+  private isAuthSource = new ReplaySubject<boolean>(1);
+  isAuth$ = this.isAuthSource.asObservable();
 
   constructor(
     injector : Injector,
@@ -48,6 +51,11 @@ export class AccountService extends BaseService {
        if(user){
          localStorage.setItem('token', user.token);
          this.currentUserSource.next(user);
+         if(user.token){
+           this.isAuthSource.next(true)
+         }else {
+           this.isAuthSource.next(false)
+         }
        }
      })
    )
@@ -78,6 +86,18 @@ export class AccountService extends BaseService {
    return this.get<boolean>(url);
  }
 
+//  isAuth() {
+//   let user: any
+//   return this.currentUser$.pipe(map(res => {
+//     if(res?.token){
+//       return true
+//     }
+//     else{
+//       return false
+//     }
+//   })).toPromise().then(res => console.log(res));
 
-
+//   // console.log(user)
+//   // return (user) ? true: false;
+//  }
 }

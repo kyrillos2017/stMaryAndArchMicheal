@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Core.Entities;
 
 namespace Core.Specifications
@@ -8,6 +10,11 @@ namespace Core.Specifications
         {
             AddInclude(x => x.Banner);
             AddOrderBy(x => x.DisplayOrder);
+        }
+
+        public ServicesWithBannerSpecification(int id) : base(x => x.Id == id)
+        {
+            AddInclude(x => x.Banner);
         }
     }
 }

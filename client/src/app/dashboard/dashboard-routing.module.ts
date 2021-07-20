@@ -17,6 +17,7 @@ import { SectionsListComponent } from './components/sections/sections-list/secti
 import { SectionsFormComponent } from './components/sections/sections-form/sections-form.component';
 import { AdsListComponent } from './components/ads/ads-list/ads-list.component';
 import { AdFormComponent } from './components/ads/ad-form/ad-form.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -25,99 +26,123 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DashboardLiveComponent
+        component: DashboardLiveComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'live',
-        component: DashboardLiveComponent
+        component: DashboardLiveComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'fathers',
-        component: DashboardFathersComponent
+        component: DashboardFathersComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'new-father',
-        component: DashboardFatherFormComponent
+        component: DashboardFatherFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'father/:id',
-        component: DashboardFatherFormComponent
+        component: DashboardFatherFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'masses',
-        component: DashboardMassesListComponent
+        component: DashboardMassesListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'mass-form',
-        component: DashbordMassesFormComponent
+        component: DashbordMassesFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'mass-form/:id',
-        component: DashbordMassesFormComponent
+        component: DashbordMassesFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'about-curch',
-        component: DashboardAboutChurchComponent
+        component: DashboardAboutChurchComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'services',
-        component: DashboardServicesListComponent
+        component: DashboardServicesListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'service-form',
-        component: DashboardServicesFormComponent
+        component: DashboardServicesFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'service-form/:id',
-        component: DashboardServicesFormComponent
+        component: DashboardServicesFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'meetings',
-        component: ChurchMeetingsListComponent
+        component: ChurchMeetingsListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'meeting-form',
-        component: ChurchMeetingsFormComponent
+        component: ChurchMeetingsFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'meeting-form/:id',
-        component: ChurchMeetingsFormComponent
+        component: ChurchMeetingsFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'gallery',
-        component: GalleryListComponent
+        component: GalleryListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'gallery-form',
-        component: GalleryFormComponent
+        component: GalleryFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'gallery-form/:id',
-        component: GalleryFormComponent
+        component: GalleryFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'sections',
-        component: SectionsListComponent
+        component: SectionsListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'section-form',
-        component: SectionsFormComponent
+        component: SectionsFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'section-form/:id',
-        component: SectionsFormComponent
+        component: SectionsFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'ads',
-        component: AdsListComponent
+        component: AdsListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'ad-form',
-        component: AdFormComponent
+        component: AdFormComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'ad-form/:id',
-        component: AdFormComponent
+        component: AdFormComponent,
+        canActivate: [AuthGuard]
       },
     ]
   }

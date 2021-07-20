@@ -1,32 +1,66 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { GalleryService } from 'src/app/services/gallery.service';
+import { Router } from '@angular/router';
+import { ICarouselImage, IGalleryImage, IGalleryReturn } from 'src/app/shared/models/gallery';
+import { IImageAssets } from 'src/app/shared/models/image-assets';
 
-interface Image {
-  previewImageSrc: string;
-  thumbnailImageSrc: string;
-  alt: string;
-  title: string;
-}
 @Component({
   selector: 'app-site-home-gallery',
   templateUrl: './site-home-gallery.component.html',
   styleUrls: ['./site-home-gallery.component.scss'],
 })
-export class SiteHomeGalleryComponent implements OnInit {
+export class SiteHomeGalleryComponent extends BaseComponent implements OnInit {
   showFlag: boolean = false;
   selectedImageIndex: number = -1;
-  constructor(private http: HttpClient) {}
+  route: boolean
+  params: {
+    PageIndex: number;
+    PageSize: number;
+  }
+  totalCount: number
+
+  constructor(
+    injector: Injector,
+    private _router: Router,
+    private _gallery: GalleryService
+  ) {
+    super(injector)
+    this.route = this._router.url.includes("/gallery");
+    this.params = { PageIndex: 1, PageSize: 8 }
+  }
   @Input() showMore = false;
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
-  images: Image[] = [];
+  @Input() isWhite = false;
+  banner: string | undefined
+  images: ICarouselImage[] = [];
   ngOnInit(): void {
-    this.getImages().then(imgs => {
-      let images = imgs.map(el => {
-        return  {image: el.previewImageSrc, ...el}
-      
+    if (this.route) {
+      this.params.PageIndex = 1;
+      this.params.PageSize = 16;
+    }
+    this.getSec()
+
+  }
+
+  getSec() {
+    this._gallery.getBanners(this.params).subscribe((res: IGalleryReturn) => {
+      this.totalCount = res.images.count
+      this.banner = res.banner?.imgUrl
+      res.images.result.forEach((img: IGalleryImage) => {
+        let carouselImage: ICarouselImage = {
+          image: img.image.imgUrl,
+          alt: img.image.title,
+          title: img.image.title
+        }
+        if (!this.images.includes(carouselImage)) {
+          this.images.push(carouselImage)
+        }
       })
-      this.images = images;
-    });
+      if (this.images.length <= res.images.count) {
+        this.params.PageIndex += 1
+      }
+    })
   }
   responsiveOptions: any[] = [
     {
@@ -43,24 +77,14 @@ export class SiteHomeGalleryComponent implements OnInit {
     },
   ];
 
-  getImages() {
-    return this.http
-      .get<any>('/assets/images.json')
-      .toPromise()
-      .then((res) => <Image[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-
-  showLightbox(index:number) {
+  showLightbox(index: number) {
     this.selectedImageIndex = index;
     this.showFlag = true;
-}
+  }
 
-closeEventHandler() {
+  closeEventHandler() {
     this.showFlag = false;
     this.selectedImageIndex = -1;
-}
+  }
 
 }

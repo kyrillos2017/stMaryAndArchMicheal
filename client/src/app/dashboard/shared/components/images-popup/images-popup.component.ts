@@ -76,7 +76,6 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
   }
 
   show(event: Event) {
-    // this.active = true
     this.op.toggle(event)
   }
 
@@ -142,7 +141,9 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
           body.img.imgUrl = domain + "/" + path
           this.selectedImage = body.img
           this.onSelectImage.emit(this.selectedImage)
-          if (this.selectedImage) this.setValue(this.selectedImage.id)
+          if (this.selectedImage) {
+            this.setValue(this.selectedImage.id)
+          }
           this.hide()
         }
       });

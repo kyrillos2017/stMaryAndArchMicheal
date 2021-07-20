@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SiteHomeSeperatorComponent implements OnInit {
   @Input() banner:string;
   @Input() fixed:boolean = false;
+  @Input() hasMarginBottom:boolean = true;
   constructor() { }
 
   ngOnInit(): void {

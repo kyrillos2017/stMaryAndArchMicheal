@@ -16,7 +16,7 @@ export class SectionsService extends BaseService {
    }
 
    getSections(){
-     const url = ApiUrls.SECTIONS.MAIN
+      const url = ApiUrls.SECTIONS.MAIN
       return this.get<ISection[]>(url);
    }
 

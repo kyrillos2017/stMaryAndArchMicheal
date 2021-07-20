@@ -26,7 +26,6 @@ export class IFather {
   isActive: boolean = true
   displayOrder: number
   confessions?: IConfession[]
-  banner? : IImageAssets
 }
 
 export class IFatherParams extends IPaginationParams{

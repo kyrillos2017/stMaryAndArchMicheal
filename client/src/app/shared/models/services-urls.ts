@@ -27,7 +27,9 @@ const ApiUrls = {
   },
   CHURCH_SERVICES: {
     MAIN: "api/ChurchService",
-    GET_BY_ID: "api/ChurchService/GetById"
+    GET_FOR_EDIT: "api/ChurchService/GetForEdit",
+    GET_BY_ID: "api/ChurchService/GetById",
+    GET_NAMES: "api/ChurchService/getNames"
   },
   SUNDAY_MEETINGS: {
     MAIN: "api/SundayMeeting"

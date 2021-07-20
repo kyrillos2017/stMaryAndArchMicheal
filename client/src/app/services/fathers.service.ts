@@ -26,11 +26,8 @@ export class FathersService extends BaseService {
   }
 
   getFatherById(id: number){
-    let url = ApiUrls.FATHERS.SECTION;
-    if(id){
-      let params = this.toQueryString(id)
-      url += `?${params}`
-    }
+    let url = ApiUrls.FATHERS.SECTION + `?FatherId=${id}`;
+
     return this.get<IFatherReturn>(url);
   }
 

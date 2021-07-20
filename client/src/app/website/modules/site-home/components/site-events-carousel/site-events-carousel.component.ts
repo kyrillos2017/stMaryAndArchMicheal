@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { AdsService } from './../../../../../services/ads.service';
+import { IAd } from 'src/app/shared/models/ads';
 
 @Component({
   selector: 'app-site-events-carousel',
   templateUrl: './site-events-carousel.component.html',
   styleUrls: ['./site-events-carousel.component.scss']
 })
-export class SiteEventsCarouselComponent implements OnInit {
-
-  constructor() { }
-
+export class SiteEventsCarouselComponent extends BaseComponent implements OnInit {
+  @Input() isWhite = false;
+  constructor(
+    inj: Injector,
+    private _ads: AdsService
+  ) {
+    super(inj)
+  }
+  banners: IAd[]
   ngOnInit(): void {
+    this.getSec()
   }
 
-  banners = [
-    {
-      src: 'https://localhost:5001/images/211.jpg'
-    },
-    {
-      src: 'https://i.ytimg.com/vi/HjqDIHaW-tI/maxresdefault.jpg'
-    }
-  ];
+  getSec(){
+    this._ads.getAds().subscribe(res =>  this.banners = res)
+  }
+
+
   customOptions: OwlOptions = {
     loop: true,
     items: 1,

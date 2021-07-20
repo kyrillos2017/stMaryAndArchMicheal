@@ -1,60 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { FathersService } from 'src/app/services/fathers.service';
+import { ActivatedRoute } from '@angular/router';
+import { IFather } from 'src/app/shared/models/father';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { IConfession } from './../../../../../shared/models/father';
 
 @Component({
   selector: 'app-site-confessions',
   templateUrl: './site-confessions.component.html',
   styleUrls: ['./site-confessions.component.scss']
 })
-export class SiteConfessionsComponent implements OnInit {
+export class SiteConfessionsComponent extends BaseComponent implements OnInit {
 
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
-  constructor() { }
+  banner:string | undefined
+  id: number
+  father: IFather
+  confessions: any
+  constructor(
+    injector: Injector,
+    private _father: FathersService,
+    private _route: ActivatedRoute
+    ) {
+    super(injector);
+    this.id = this._route.snapshot.params['id']
+   }
 
   ngOnInit(): void {
+    this.getFather(this.id)
   }
-  father= {
-    name: 'بيشوي بسطا',
-    priestlyRank: 'قمص',
-    priestlyDate: '01-02-1111',
-    deathDate : '',
-    img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg',
-    events: {
-      confession : [
-        {
-          day: 'الأحد',
-          calender: [
-            {
-              startTime: '01:00 pm',
-              endTime: '04:00 pm',
-              place: 'المكتب',
-              isActive: true
-            },
-            {
-              startTime: '01:00 pm',
-              endTime: '04:00 pm',
-              place: 'المكتب',
-              isActive: true
-            }
-          ]
-        },
-        {
-          day: 'الأحد',
-          calender: [
-            {
-              startTime: '01:00 pm',
-              endTime: '04:00 pm',
-              place: 'المكتب',
-              isActive: true
-            },
-            {
-              startTime: '01:00 pm',
-              endTime: '04:00 pm',
-              place: 'المكتب',
-              isActive: true
-            }
-          ]
-        }
-      ]
-    }
+
+  getFather(id: number){
+    this._father.getFatherById(id).subscribe(res => {
+      this.banner = res.banner?.imgUrl
+      this.father = res.fathers.result.filter(x => x.id == id)[0]
+      this.confessions = this.groupBy(this.father.confessions, 'day')
+    })
   }
+
+
+
 }

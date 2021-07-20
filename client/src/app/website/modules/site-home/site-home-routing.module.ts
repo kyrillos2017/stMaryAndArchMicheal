@@ -9,6 +9,7 @@ import { SiteHomeGalleryComponent } from './components/site-home-gallery/site-ho
 import { SiteLandingComponent } from './components/site-landing/site-landing.component';
 import { SiteMassCalenderComponent } from './components/site-mass-calender/site-mass-calender.component';
 import { SiteServicesTableComponent } from './components/site-services-table/site-services-table.component';
+import { SiteSundayMeetingsComponent } from './components/site-sunday-meetings/site-sunday-meetings.component';
 
 const routes: Routes = [
   {
@@ -45,14 +46,14 @@ const routes: Routes = [
       },
       {
         path: 'church-service/sunday-school',
-        component: SiteServicesTableComponent
+        component: SiteSundayMeetingsComponent
       },
       {
         path: 'church-service/:id',
         component: SiteChurchServicesComponent
       },
-      
-      
+
+
     ]
   }
 ];

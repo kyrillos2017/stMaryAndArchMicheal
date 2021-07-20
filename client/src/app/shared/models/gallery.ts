@@ -17,3 +17,9 @@ export interface ICreateGalleryImage {
   imageId: number
   displayOrder: number
 }
+
+export interface ICarouselImage {
+  image: string | undefined;
+  alt: string | undefined;
+  title: string | undefined;
+}

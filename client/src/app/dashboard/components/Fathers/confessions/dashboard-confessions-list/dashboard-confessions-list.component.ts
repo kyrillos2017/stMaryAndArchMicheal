@@ -77,7 +77,6 @@ export class DashboardConfessionsListComponent extends BaseComponent implements 
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       this.getConfissions()
     });
   }

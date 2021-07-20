@@ -23,9 +23,7 @@
           </a>
           <ul class="dropdown-menu text-end">
             <li><a mat-button class="dropdown-item pointer" routerLink="/church-service/sunday-school">التربية الكنيسة</a></li>
-            <li><a mat-button class="dropdown-item pointer" routerLink="/church-service/1">إخوة الرب</a></li>
-            <li><a mat-button class="dropdown-item pointer"  routerLink="/church-service/1">مركز الكمبيوتر</a></li>
-            <li><a mat-button class="dropdown-item pointer"  routerLink="/church-service/1">أنشطة عامة</a></li>
+            <li *ngFor="let name of names"><a mat-button class="dropdown-item pointer" [routerLink]="['/church-service/', name.id]">{{name.name}}</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -41,7 +39,8 @@
           <a mat-button class="nav-link">إعلانات هامة</a>
         </li>
         <li class="nav-item">
-          <a mat-button class="nav-link" routerLink="/login">تسجيل الدخول</a>
+          <a mat-button *ngIf="!(checkAuth() | async)" class="nav-link" routerLink="/login">تسجيل الدخول</a>
+          <a mat-button *ngIf="checkAuth() | async" class="nav-link" routerLink="/dashboard">لوحة التحكم</a>
         </li>
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

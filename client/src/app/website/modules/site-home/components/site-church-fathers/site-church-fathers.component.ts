@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input, OnInit, ViewChild, Injector } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FathersService } from 'src/app/services/fathers.service';
 import { IFather, IFatherReturn } from 'src/app/shared/models/father';
 import { IImageAssets } from 'src/app/shared/models/image-assets';
@@ -19,31 +19,35 @@ export class SiteChurchFathersComponent extends BaseComponent implements OnInit 
   banner: IImageAssets | undefined
   fathers: IFather[]
   params : {
-    PageIndex?: number;
-    PageSize?: number;
+    PageIndex: number;
+    PageSize: number;
   } = {PageIndex: 1, PageSize: 6}
-
+  route: boolean
   constructor(
     injector: Injector,
     private _router: Router,
-    private _fathers: FathersService
+    private _fathers: FathersService,
   ) {
     super(injector);
+    this.route = this._router.url.includes("/fathers");
   }
-// img = "https://localhost:5001/images/download(9).png"
 
   ngOnInit(): void {
+
+    if (this.route) {
+      this.params.PageIndex = 1;
+      this.params.PageSize = 1600;
+    }
     this.getFathers()
   }
 
 
   getFathers(){
+
     this._fathers.getFathersSec(this.params).subscribe(res => {
       this.banner = res.banner
       this.fathers = res.fathers.result
-      if(this.params?.PageIndex && (this.fathers.length !>= res.fathers.count)) this.params.PageIndex += 1
 
-      console.log(res)
     })
   }
 

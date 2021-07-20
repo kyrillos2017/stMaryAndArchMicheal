@@ -49,17 +49,57 @@ export abstract class BaseComponent {
   }
 
   findValue(array: IEnumMapping[], key: any) {
-     if (key && array) {
+    if (key && array) {
       return array.filter((el) => {
         return el.id == key;
       })[0].name;
-    } else {return null}
+    } else { return null }
   }
 
-  getImage(imgUrl: string){
-    let url= 'url(' +'"' +imgUrl +'"' + ')'
+  getImage(imgUrl: string) {
+    let url = '"' + imgUrl + '"'
     return url
-   }
+  }
+
+  getImageUrl(imgUrl: string) {
+    let url = 'url(' + '"' + imgUrl + '"' + ')'
+    return url
+  }
+
+  //  groupBy(array: any, prop: string){
+
+  //   let obj = array.reduce((r: any, a:any) => {
+  //         r[a[prop]] = r[a[prop]] || [];
+  //         r[a[prop]].push(a);
+  //         return r;
+  //     });
+
+  //     console.log(typeof(obj))
+  //     console.log(obj)
+  //   //   Object.keys(obj).map(function(personNamedIndex){
+  //   //     let person = obj[personNamedIndex];
+  //   //     // do something with person
+  //   //     console.log(person)
+  //   //     return person;
+  //   // });
+
+  // }
+
+  groupBy(collection: any, property: string) {
+    var i = 0, val, index,
+      values = [], result = []; // result = [{day: number, event: []}]
+    for (; i < collection.length; i++) {
+      val = collection[i][property];
+      index = values.indexOf(val);
+      if (index > -1)
+        result[index].events.push(collection[i]);
+      else {
+        values.push(val);
+        result.push({ day: val, events: [collection[i]] });
+      }
+    }
+    return result;
+  }
 
 
 }

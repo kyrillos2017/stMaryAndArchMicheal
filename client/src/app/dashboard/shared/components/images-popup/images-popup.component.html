@@ -10,7 +10,7 @@
       </mat-error>
     </div>
 <p-overlayPanel [baseZIndex]="9000" dir="rtl" #op [showCloseIcon]="false" [baseZIndex]="9999">
-    <button mat-flat-button class="mb-3" color="primary" (click)="file.click()">+ إضافة صورة جديدة</button>
+    <button type="button" mat-flat-button class="mb-3" color="primary" (click)="file.click()">+ إضافة صورة جديدة</button>
     <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
     <input type="hidden" [formControlName]="controlName" [required]="isRequired">
 

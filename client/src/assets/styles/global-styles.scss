@@ -137,6 +137,7 @@ body {
   height: 30%;
   display: flex;
   align-items: flex-end;
+  z-index: 10;
 }
 .showmore-layout-w {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f8f9fa+0,f8f9fa+49,ffffff+100&1+0,1+49,0+100 */
@@ -169,6 +170,7 @@ body {
   height: 30%;
   display: flex;
   align-items: flex-end;
+  z-index: 10;
 }
 
 .small-card-img{
@@ -185,6 +187,15 @@ body {
 .section-banner{
   height: get-vw(150px);
   width: 100%;
+
+}
+.section-banner-skeleton{
+    height:get-vw(150px) !important;
+    position: absolute !important;
+    top: 0;
+    z-index: -1;
+}
+.img-cover{
   background-size: cover;
   background-position: center center ;
 }
@@ -192,6 +203,7 @@ th, td{text-align: right !important;}
 
 
 .input-overlay{
+  direction: ltr !important;
   position: absolute !important;
     bottom: -10px !important;
 }
@@ -206,3 +218,4 @@ th, td{text-align: right !important;}
 .text-custom-light{
   color: #b1b1b1!important;
 }
+.short-sec{min-height: calc( 100% - 335px );}

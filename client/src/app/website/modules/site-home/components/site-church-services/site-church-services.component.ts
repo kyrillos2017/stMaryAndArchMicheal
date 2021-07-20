@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ChurchServicesService } from 'src/app/services/church-services.service';
+import { IServiceDto } from 'src/app/shared/models/services';
 
 @Component({
   selector: 'app-site-church-services',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./site-church-services.component.scss']
 })
 export class SiteChurchServicesComponent implements OnInit {
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
-  constructor() { }
+  banner:string
+  id: number;
+  service: IServiceDto
+  constructor(
+    private _service : ChurchServicesService,
+    private _route: ActivatedRoute,
+
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this._route.params.subscribe(res => {
+      if(res.id){
+        this.getService(res.id)
+      }
+    })
+  }
+
+  getService(id: number){
+    this._service.getById(id).subscribe(res => {
+      this.service = res
+    })
   }
 
 }
