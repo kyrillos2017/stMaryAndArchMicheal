@@ -16,4 +16,7 @@ export class DashboardNavbarComponent implements OnInit {
   logout(){
     this._auth.logout()
   }
+  checkAuth(){
+    return this._auth.isAuth()
+  }
 }

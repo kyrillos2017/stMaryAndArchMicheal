@@ -35,6 +35,7 @@ namespace API.Controllers
             return _mapper.Map<IReadOnlyList<AdsSectionDto>>(sec);
         }
 
+        [Authorize]
         [HttpGet("GetById")]
         public async Task<CreateAdInput> GetSecById(int id)
         {

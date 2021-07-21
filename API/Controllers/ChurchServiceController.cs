@@ -55,6 +55,7 @@ namespace API.Controllers
             return data;
         }
 
+        [Authorize]
         [HttpGet("GetForEdit")]
         public async Task<CreateService> GetForEdit(int id)
         {

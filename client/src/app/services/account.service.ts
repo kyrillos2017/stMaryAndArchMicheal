@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ApiUrls } from '../shared/models/services-urls';
 import { BaseService } from './../shared/services/base.service';
 import { IUser } from './../shared/models/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,10 @@ export class AccountService extends BaseService {
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  private isAuthSource = new ReplaySubject<boolean>(1);
-  isAuth$ = this.isAuthSource.asObservable();
-
   constructor(
     injector : Injector,
-    private router: Router
+    private router: Router,
+    private _jwt: JwtHelperService
   ) {
     super(injector)
    }
@@ -51,27 +50,11 @@ export class AccountService extends BaseService {
        if(user){
          localStorage.setItem('token', user.token);
          this.currentUserSource.next(user);
-         if(user.token){
-           this.isAuthSource.next(true)
-         }else {
-           this.isAuthSource.next(false)
-         }
        }
      })
    )
   }
 
-  // register(value: any){
-  //   const url = ApiUrls.ACCOUNT.REGISTER
-  //    return this.post<IUser>(url, value).pipe(
-  //     map(user=> {
-  //      if(user){
-  //        localStorage.setItem('token', user.token);
-  //        this.currentUserSource.next(user);
-  //      }
-  //     })
-  //   )
-  // }
 
   logout(){
    localStorage.removeItem('token');
@@ -86,18 +69,12 @@ export class AccountService extends BaseService {
    return this.get<boolean>(url);
  }
 
-//  isAuth() {
-//   let user: any
-//   return this.currentUser$.pipe(map(res => {
-//     if(res?.token){
-//       return true
-//     }
-//     else{
-//       return false
-//     }
-//   })).toPromise().then(res => console.log(res));
-
-//   // console.log(user)
-//   // return (user) ? true: false;
-//  }
+ isAuth() : boolean {
+  const token = localStorage.getItem('token');
+  if(token && !this._jwt.isTokenExpired(token)){
+    return true;
+  }else{
+    return false
+  }
+ }
 }

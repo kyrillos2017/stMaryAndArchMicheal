@@ -219,3 +219,9 @@ th, td{text-align: right !important;}
   color: #b1b1b1!important;
 }
 .short-sec{min-height: calc( 100% - 335px );}
+.navbar-toggler{
+  border: none;
+    &:focus{
+      box-shadow: none;
+    }
+}

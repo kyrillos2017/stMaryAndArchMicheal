@@ -20,6 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["crypto-js", "crypto", "core.js", "crypto-js.js"],
             "outputPath": "dist/stMaryAndArchMichael",
             "index": "src/index.html",
             "main": "src/main.ts",

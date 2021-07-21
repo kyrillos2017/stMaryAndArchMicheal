@@ -95,7 +95,7 @@ export abstract class BaseComponent {
         result[index].events.push(collection[i]);
       else {
         values.push(val);
-        result.push({ day: val, events: [collection[i]] });
+        result.push({ [property]: val, events: [collection[i]] });
       }
     }
     return result;

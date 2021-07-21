@@ -27,7 +27,7 @@ export class SiteNavbarComponent implements OnInit {
   }
 
   checkAuth(){
-    return this._auth.isAuth$
+     return this._auth.isAuth()
   }
 
   getServicesNames(){
