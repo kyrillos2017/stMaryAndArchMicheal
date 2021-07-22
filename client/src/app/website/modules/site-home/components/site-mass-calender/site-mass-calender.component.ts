@@ -52,7 +52,6 @@ export class SiteMassCalenderComponent extends BaseComponent implements OnInit {
         }
       });
 
-      console.log(this.nonRepeatedMasses)
     })
   }
 }

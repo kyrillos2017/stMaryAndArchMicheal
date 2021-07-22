@@ -1,4 +1,4 @@
-<app-site-intro></app-site-intro>
+<app-site-intro [banner]="introBanner"></app-site-intro>
 <div *ngFor="let sec of sections" [ngSwitch]="sec.sectionName">
   <app-site-live-stream [isWhite]="sec.isWhite" *ngSwitchCase="GeneralSectionsEnum.Live"></app-site-live-stream>
   <app-site-mass-calender [isWhite]="sec.isWhite" *ngSwitchCase="GeneralSectionsEnum.Masses" [showMore]="true"></app-site-mass-calender>

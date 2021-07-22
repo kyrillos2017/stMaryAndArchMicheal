@@ -1,3 +1,4 @@
+import { SectionsEnum } from './../../../../../shared/enums/general-sections-enum';
 import { Component, OnInit, Injector } from '@angular/core';
 import { SectionsService } from 'src/app/services/sections.service';
 import { BaseComponent } from 'src/app/shared/components/base/base.component';
@@ -11,6 +12,7 @@ import { ISection } from 'src/app/shared/models/sections';
 export class SiteLandingComponent extends BaseComponent implements OnInit {
 
   sections: ISection[]
+  introBanner: string | undefined
   constructor(
     injector: Injector,
     private _sections: SectionsService
@@ -23,9 +25,10 @@ export class SiteLandingComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getSections(){
+  getSections() {
     this._sections.getSections().subscribe(res => {
       this.sections = res.filter(x => x.isActive == true)
+      this.introBanner = res.filter(x => x.sectionName == SectionsEnum.Intro)[0].banner.imgUrl
     })
   }
 

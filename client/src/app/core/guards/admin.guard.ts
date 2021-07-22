@@ -20,7 +20,6 @@ export class AdminGuard implements CanActivate {
       const token = localStorage.getItem('token')
       if(token){
         let decoded = this._jwt.decodeToken(token)
-        console.log(decoded)
         if(decoded.role == "superadmin" || decoded.role == "admin") return true;
 
         this._router.navigate(['/login'])

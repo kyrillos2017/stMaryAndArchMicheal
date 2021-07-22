@@ -16,7 +16,14 @@ namespace API.Helpers
         {
             if (!string.IsNullOrEmpty(source.ImgUrl))
             {
-                var root = "wwwroot";
+                var wwwroot = "wwwroot";
+                var content = "Content";
+                var root = content;
+                if (source.ImgUrl.Contains(wwwroot))
+                {
+                    root = wwwroot;
+                }
+
                 var src = source.ImgUrl.Replace(root, "");
                 src = src.Replace(" ", "%20");
                 return _config["ApiUrl"] + src;

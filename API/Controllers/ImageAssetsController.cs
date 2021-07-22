@@ -40,7 +40,7 @@ namespace API.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("wwwroot", "images/");
+                var folderName = Path.Combine("Content/", "images/");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (file.Length > 0)
                 {
