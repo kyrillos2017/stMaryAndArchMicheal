@@ -25,13 +25,28 @@ namespace API
         // public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContextPool<AppIdentityDbContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlStringIdentity")));
+            services.AddDbContextPool<StoreContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlString")));
+
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContextPool<AppIdentityDbContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlStringIdentity")));
+            services.AddDbContextPool<StoreContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlString")));
+
+            ConfigureServices(services);
+        }
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContextPool<AppIdentityDbContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlStringIdentity")));
-            services.AddDbContextPool<StoreContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SqlString")));
+
             // services.AddDbContext<StoreContext>(x => x.UseSqlite(_configuration.GetConnectionString("Default")));
             // services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlite(_configuration.GetConnectionString("IdentityConnection")));
 

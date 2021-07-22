@@ -16,8 +16,6 @@ namespace Infrastructure.Data
 
             try
             {
-
-
                 var folderName = Path.Combine("Content/", "images/");
                 var folderAssetsName = Path.Combine("Content/", "imageSeeds/");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
