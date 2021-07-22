@@ -1,6 +1,6 @@
 export const environment = {
   baseUrl: 'http://localhost:4200',
   production: true,
-  remoteServiceBaseUrl: "api/",
+  remoteServiceBaseUrl: "",
   secretCode: "StMeryAndArchMichealChurch_Khalafawy::Kr10::FatherKaras"
 };

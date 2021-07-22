@@ -13,17 +13,17 @@ export class ImageAssetsService {
 
 
   upload(file: any) {
-    const url = `${environment.remoteServiceBaseUrl}/api/ImageAssets`;
+    const url = `${environment.remoteServiceBaseUrl}api/ImageAssets`;
     return this.http.post(url, file, { reportProgress: true, observe: 'events' })
   }
 
   getImgById(id: number) {
-    const url = `${environment.remoteServiceBaseUrl}/api/ImageAssets`;
+    const url = `${environment.remoteServiceBaseUrl}api/ImageAssets`;
     return this.http.get(url + "/" + id)
   }
 
   getAll(images?: IImageAssetsParams) {
-    let url = `${environment.remoteServiceBaseUrl}/api/ImageAssets`;
+    let url = `${environment.remoteServiceBaseUrl}api/ImageAssets`;
     if (images) {
       let params = this.toQueryString(images)
       url += `?${params}`

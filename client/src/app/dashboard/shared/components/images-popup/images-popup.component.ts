@@ -137,12 +137,7 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
           this.onUploadFinished.emit(event.body);
           let body: any = event.body;
           const domain = event.url?.split('/api')[0]
-          let path
-          if (body.img?.imgUrl?.contains("wwwroot")) {
-            path = body.img?.imgUrl?.split('wwwroot')[1]
-          } else {
-            body.img?.imgUrl?.split('Content')[1]
-          }
+          const path = body.img?.imgUrl?.split('Content')[1]
           body.img.imgUrl = domain + "/" + path
           this.selectedImage = body.img
           this.onSelectImage.emit(this.selectedImage)

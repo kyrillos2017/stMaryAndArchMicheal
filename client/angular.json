@@ -51,7 +51,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "aot": true,
               "namedChunks": false,
               "extractLicenses": true,
