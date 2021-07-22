@@ -1,6 +1,7 @@
 import { IImageAssets } from './image-assets';
 import { IPaginationParams } from './pagination';
 import { IPagination } from 'src/app/shared/models/response-result';
+
 export interface IConfession {
   id?: number
   day: number
@@ -25,7 +26,6 @@ export class IFather {
   isActive: boolean = true
   displayOrder: number
   confessions?: IConfession[]
-  banner? : IImageAssets
 }
 
 export class IFatherParams extends IPaginationParams{

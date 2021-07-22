@@ -43,7 +43,7 @@
         <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
           <mat-label>اليوم</mat-label>
           <mat-select formControlName="day">
-            <mat-option *ngFor="let o of days" [value]="o.id">{{o.name}}</mat-option>
+            <mat-option *ngFor="let o of days" [value]="o.id">{{o.name | transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

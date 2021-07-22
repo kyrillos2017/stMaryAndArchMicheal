@@ -9,3 +9,4 @@ export class IImageAssets {
 export interface IImageAssetsParams extends IImageAssets , IPaginationParams{
 
 }
+

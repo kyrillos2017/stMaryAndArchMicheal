@@ -72,7 +72,6 @@ onReset() {
 
   handleChange(e: any) {
     let isChecked = e.checked;
-    console.log(e)
 }
 
 getVideo(){

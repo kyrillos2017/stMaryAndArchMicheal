@@ -39,3 +39,7 @@ export interface ICraeteMass {
   place: string;
   isActive: boolean;
 }
+export interface IMassGroup{
+    [x: string]: any;
+    events: any[];
+}

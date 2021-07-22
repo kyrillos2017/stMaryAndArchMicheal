@@ -40,11 +40,12 @@ namespace API.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("wwwroot", "images");
+                var folderName = Path.Combine("Content/", "images/");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (file.Length > 0)
                 {
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    fileName = fileName.Replace(" ", "");
                     var fullPath = Path.Combine(pathToSave, fileName);
                     var dbPath = Path.Combine(folderName, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))

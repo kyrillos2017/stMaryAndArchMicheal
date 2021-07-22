@@ -15,7 +15,8 @@ namespace Infrastructure.Identity
                 {
                     DisplayName = "Admin",
                     Email = "admin@admin.com",
-                    UserName = "admin"
+                    UserName = "admin",
+                    Role = "superadmin"
                 };
                 await userManager.CreateAsync(user, "Abc123**");
             };

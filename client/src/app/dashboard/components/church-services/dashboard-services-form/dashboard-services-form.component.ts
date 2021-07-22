@@ -32,7 +32,7 @@ export class DashboardServicesFormComponent extends BaseComponent implements OnI
     this.massSecFormInit()
     const id = this._route.snapshot.params['id']
     if(id) {
-      this._service.getById(id).subscribe((res: IServiceCreate) => {
+      this._service.getForEdit(id).subscribe((res: IServiceCreate) => {
         this.servicesForm.patchValue(res)
       })
     }

@@ -11,7 +11,6 @@ export class SiteServicesTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('work')
   }
   services = [
     {

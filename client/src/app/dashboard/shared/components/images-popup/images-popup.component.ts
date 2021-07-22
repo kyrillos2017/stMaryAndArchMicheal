@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Output, ViewChild, Injector, EventEmitter, forwardRef, Input, AfterViewInit, AfterContentInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, Injector, EventEmitter, forwardRef, Input } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { IImageAssets, IImageAssetsParams } from 'src/app/shared/models/image-assets';
@@ -7,7 +7,7 @@ import { IPagination } from './../../../../shared/models/response-result';
 import { BaseComponent } from './../../../../shared/components/base/base.component';
 import { finalize, take } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
-import { FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-images-popup',
@@ -39,7 +39,7 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
   // @Input()
 
   active: boolean = false;
-  loading: boolean = false;
+  tableLoading: boolean = true;
   selectedImage: IImageAssets;
   tableInit = {
     first: 1,
@@ -49,9 +49,9 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
     sortField: undefined,
     sortOrder: 1,
   };
-  totalRecords: number;
+  totalRecords: number = 0;
   pageIndex: number = 1
-  images: IImageAssets[] = [];
+  images: IImageAssets[];
 
   constructor(
     injector: Injector,
@@ -69,12 +69,13 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getImages(this.tableInit);
+    if (this.op) {
+      this.getImages(this.tableInit);
+    }
     this.getSelectedImg()
   }
 
   show(event: Event) {
-    // this.active = true
     this.op.toggle(event)
   }
 
@@ -82,14 +83,14 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
     this.op.hide()
   }
   getImages(event: LazyLoadEvent) {
-    this.loading = true
+    this.tableLoading = true
     let params: IImageAssetsParams = {
       PageIndex: this.pageIndex,
       PageSize: 3,
       Sort: event.sortField,
       Search: event.globalFilter,
     }
-    this._imageAssets.getAll(params).pipe(finalize(() => this.loading = false)).subscribe(
+    this._imageAssets.getAll(params).pipe(finalize(() => this.tableLoading = false)).subscribe(
       (res: IPagination<IImageAssets>) => {
         this.images = res.result
         this.totalRecords = res.count;
@@ -136,11 +137,13 @@ export class ImagesPopupComponent extends BaseComponent implements OnInit {
           this.onUploadFinished.emit(event.body);
           let body: any = event.body;
           const domain = event.url?.split('/api')[0]
-          const path = body.img?.imgUrl?.split('wwwroot')[1]
+          const path = body.img?.imgUrl?.split('Content')[1]
           body.img.imgUrl = domain + "/" + path
           this.selectedImage = body.img
           this.onSelectImage.emit(this.selectedImage)
-          if (this.selectedImage) this.setValue(this.selectedImage.id)
+          if (this.selectedImage) {
+            this.setValue(this.selectedImage.id)
+          }
           this.hide()
         }
       });

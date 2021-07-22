@@ -16,3 +16,9 @@ export interface IServiceDto {
   description: string
   displayOrder: number
 }
+
+export interface IServiceName {
+  id: number
+  name: string
+  isActive: boolean
+}

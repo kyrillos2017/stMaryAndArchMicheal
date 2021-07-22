@@ -1,86 +1,57 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { MassesService } from 'src/app/services/masses.service';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
+import { IMasses, IMassGroup } from 'src/app/shared/models/masses';
 
 @Component({
   selector: 'app-site-mass-calender',
   templateUrl: './site-mass-calender.component.html',
   styleUrls: ['./site-mass-calender.component.scss'],
 })
-export class SiteMassCalenderComponent implements OnInit {
+export class SiteMassCalenderComponent extends BaseComponent implements OnInit {
   @Input() showMore = false;
+  @Input() isWhite = false;
 
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
-  repeatedMasses = [
-    {
-      day: 'الأحد',
-      events: [
-        {
-          name: 'القداس الأول',
-          type: 'قداس',
-          startTime: '8:00 am',
-          endTime:'10:00 am',
-          place: 'الدور الأرضي',
-          isActive: true
-        },
-        {
-          name: 'القداس الثاني',
-          type: 'قداس',
-          startTime: '9:00 am',
-          endTime:'11:00 am',
-          place: 'الدور الأول',
-          isActive: true
-        },
-      ],
-    },
-    {
-      day: 'الإثنين',
-      events: [
-        {
-          name: 'عشية',
-          type: 'عشية',
-          startTime: '7:00 pm',
-          endTime:'8:00 pm',
-          place: 'الدور الأرضي',
-          isActive: true
-        },
-      ],
-    },
+  banner:string
+  repeatedMasses :any
 
-  ];
+  nonRepeatedMasses :any
 
-  nonRepeatedMasses = [
-    {
-      day: 'الأحد',
-      order: 'الرابع',
-      events: [
-        {
-          name: 'القداس الأول',
-          type: 'قداس',
-          startTime: '8:00 am',
-          endTime:'10:00 am',
-          place: 'الدور الأرضي',
-          isActive: true
-        },
-      ],
-    },
-  ]
+  specialDays :any
+  constructor(
+    injector: Injector,
+    private _mass: MassesService
+  ) {
+    super(injector)
 
-  specialDays = [
-    {
-      day: 'الأحد',
-      date: '01-01-2022',
-      events: [
-        {
-          name: 'القداس رأس السنة',
-          type: 'قداس',
-          startTime: '8:00 am',
-          endTime:'10:00 am',
-          place: 'الدور الأرضي',
-          isActive: true
-        },
-      ],
-    },
-  ]
-  constructor() {}
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMasses()
+  }
+
+  masses: any
+  getMasses(){
+    this._mass.getAll().subscribe((res: IMasses) => {
+      this.banner = res.banner.imgUrl;
+      this.masses = this.groupBy(res.mass, 'massRepetationType')
+      this.masses.forEach((element: any) => {
+        switch (element.massRepetationType) {
+          case this.MassRepetationType.dialy:
+            this.repeatedMasses = this.groupBy(element.events, 'day')
+            break;
+            case this.MassRepetationType.monthly:
+            this.nonRepeatedMasses = this.groupBy(element.events, 'day')
+            break;
+            case this.MassRepetationType.special:
+            this.specialDays = this.groupBy(element.events, 'day')
+            break;
+
+          default:
+            break;
+        }
+      });
+
+    })
+  }
 }

@@ -16,6 +16,7 @@ import { SiteChurchServicesComponent } from './components/site-church-services/s
 import { SiteLiveStreamComponent } from './components/site-live-stream/site-live-stream.component';
 import { SiteHomeSeperatorComponent } from './components/site-home-seperator/site-home-seperator.component';
 import { SiteServicesTableComponent } from './components/site-services-table/site-services-table.component';
+import { SiteSundayMeetingsComponent } from './components/site-sunday-meetings/site-sunday-meetings.component';
 
 
 
@@ -34,7 +35,8 @@ import { SiteServicesTableComponent } from './components/site-services-table/sit
     SiteChurchServicesComponent,
     SiteLiveStreamComponent,
     SiteHomeSeperatorComponent,
-    SiteServicesTableComponent
+    SiteServicesTableComponent,
+    SiteSundayMeetingsComponent
   ],
   imports: [
     CommonModule,

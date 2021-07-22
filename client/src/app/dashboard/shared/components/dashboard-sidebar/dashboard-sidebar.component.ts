@@ -36,6 +36,18 @@ export class DashboardSidebarComponent implements OnInit {
     {
       name: 'التربية الكنسية',
       route: '/dashboard/meetings'
+    },
+    {
+      name: 'معرض الصور',
+      route: '/dashboard/gallery'
+    },
+    {
+      name: 'أقسام الرئيسية',
+      route: '/dashboard/sections'
+    },
+    {
+      name: 'إعلانات هامة',
+      route: '/dashboard/ads'
     }
   ]
 

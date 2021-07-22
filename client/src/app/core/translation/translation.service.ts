@@ -11,8 +11,6 @@ export class TranslationService {
   translate(){
     return  this.http.get("assets/translate.json")
       .subscribe((res) => {
-        console.log(res)
-        console.log(typeof(res))
 
       });
   }

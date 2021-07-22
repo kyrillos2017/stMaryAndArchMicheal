@@ -7,6 +7,6 @@ namespace API.Dtos
 
         public int? Id { get; set; }
         public int DisplayOrder { get; set; }
-        public ImageAssets Image { get; set; }
+        public ImageAssetsDto Image { get; set; }
     }
 }

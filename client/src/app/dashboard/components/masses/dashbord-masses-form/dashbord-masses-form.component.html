@@ -22,7 +22,7 @@
       <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
         <mat-label>اليوم</mat-label>
         <mat-select formControlName="day">
-          <mat-option *ngFor="let o of days" [value]="o.id">{{o.name}}</mat-option>
+          <mat-option *ngFor="let o of days" [value]="o.id">{{o.name | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -30,7 +30,7 @@
       <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
         <mat-label>التكرار</mat-label>
         <mat-select formControlName="massRepetationType">
-          <mat-option *ngFor="let o of massRepetation" [value]="o.id">{{o.name}}</mat-option>
+          <mat-option *ngFor="let o of massRepetation" [value]="o.id">{{o.name | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -38,7 +38,7 @@
       <mat-form-field appearance="legacy" class="w-100 text-right mb-3">
         <mat-label>النوع</mat-label>
         <mat-select formControlName="type">
-          <mat-option *ngFor="let o of massTypes" [value]="o.id">{{o.name}}</mat-option>
+          <mat-option *ngFor="let o of massTypes" [value]="o.id">{{o.name | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

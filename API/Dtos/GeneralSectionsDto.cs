@@ -8,8 +8,9 @@ namespace API.Dtos
         public int? Id { get; set; }
         public SectionsEnum SectionName { get; set; }
         public int DisplayOrder { get; set; }
-        public ImageAssets Banner { get; set; }
+        public ImageAssetsDto Banner { get; set; }
         public bool IsActive { get; set; }
+        public bool IsWhite { get; set; }
 
     }
 }

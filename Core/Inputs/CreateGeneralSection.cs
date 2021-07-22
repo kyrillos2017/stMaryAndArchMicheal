@@ -9,5 +9,6 @@ namespace Core.Inputs
         public int DisplayOrder { get; set; }
         public int? BannerId { get; set; }
         public bool IsActive { get; set; }
+        public bool IsWhite { get; set; }
     }
 }

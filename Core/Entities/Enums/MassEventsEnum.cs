@@ -9,6 +9,8 @@ namespace Core.Entities.Enums
 
         [EnumMember(Value = "PreMass")]
         PreMass,
+        [EnumMember(Value = "MidnightPraises")]
+        MidnightPraises,
     }
 
     public enum MassRepetationType

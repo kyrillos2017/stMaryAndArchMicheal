@@ -19,6 +19,13 @@ import { ChurchMeetingsListComponent } from './components/meetings/church-meetin
 import { ChurchMeetingsFormComponent } from './components/meetings/church-meetings-form/church-meetings-form.component';
 import { DashboardConfessionFormComponent } from './components/Fathers/confessions/dashboard-confession-form/dashboard-confession-form.component';
 import { DashboardConfessionsListComponent } from './components/Fathers/confessions/dashboard-confessions-list/dashboard-confessions-list.component';
+import { GalleryListComponent } from './components/gallery/gallery-list/gallery-list.component';
+import { GalleryFormComponent } from './components/gallery/gallery-form/gallery-form.component';
+import { GallerySectionFormComponent } from './components/gallery/gallery-section-form/gallery-section-form.component';
+import { SectionsListComponent } from './components/sections/sections-list/sections-list.component';
+import { SectionsFormComponent } from './components/sections/sections-form/sections-form.component';
+import { AdsListComponent } from './components/ads/ads-list/ads-list.component';
+import { AdFormComponent } from './components/ads/ad-form/ad-form.component';
 
 
 @NgModule({
@@ -38,7 +45,14 @@ import { DashboardConfessionsListComponent } from './components/Fathers/confessi
     ChurchMeetingsListComponent,
     ChurchMeetingsFormComponent,
     DashboardConfessionsListComponent,
-    DashboardConfessionFormComponent
+    DashboardConfessionFormComponent,
+    GalleryListComponent,
+    GalleryFormComponent,
+    GallerySectionFormComponent,
+    SectionsListComponent,
+    SectionsFormComponent,
+    AdsListComponent,
+    AdFormComponent
   ],
   imports: [
     CommonModule,

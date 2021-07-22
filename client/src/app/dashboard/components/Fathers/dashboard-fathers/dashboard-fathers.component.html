@@ -17,7 +17,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> الإسم </th>
-            <td mat-cell *matCellDef="let element"> ال{{element.priestlyRank == "qomoseia"? "قمص" : "قس"}}
+            <td mat-cell *matCellDef="let element"> ال{{element.priestlyRank | transloco}}
               {{element.name}}
             </td>
           </ng-container>
@@ -25,8 +25,8 @@
           <!-- active Column -->
           <ng-container matColumnDef="active">
             <th mat-header-cell *matHeaderCellDef> التفعيل </th>
-            <td mat-cell *matCellDef="let element"> <span *ngIf="element.isActive"><i
-                  class="fa fa-check-square-o text-success" aria-hidden="true"></i></span> </td>
+            <td mat-cell *matCellDef="let element"> <span><i
+              [class.text-custom-light]="!element.isActive" [class.text-success]="element.isActive"  class="fa fa-check-square-o" aria-hidden="true"></i></span> </td>
           </ng-container>
 
           <!-- actions Column -->
@@ -48,7 +48,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator dir="ltr" [pageSizeOptions]="[5, 10, 20]" [length]="totalRecords" (page)="paginate($event)"
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="totalRecords" (page)="paginate($event)"
           showFirstLastButtons></mat-paginator>
       </div>
     </div>

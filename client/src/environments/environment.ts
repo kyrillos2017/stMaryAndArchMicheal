@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  baseUrl: 'http://localhost:4200',
   production: false,
-  remoteServiceBaseUrl: "https://localhost:5001"
+  remoteServiceBaseUrl: "https://localhost:5001",
+  secretCode: "StMeryAndArchMichealChurch_Khalafawy::Kr10::FatherKaras"
 };
 
 /*

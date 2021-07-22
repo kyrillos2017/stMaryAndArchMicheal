@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from './../../../../services/account.service';
 
 @Component({
   selector: 'app-dashboard-navbar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _auth: AccountService) { }
 
   ngOnInit(): void {
   }
 
+  logout(){
+    this._auth.logout()
+  }
+  checkAuth(){
+    return this._auth.isAuth()
+  }
 }

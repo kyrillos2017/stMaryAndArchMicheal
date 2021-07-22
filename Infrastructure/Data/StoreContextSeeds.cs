@@ -17,21 +17,9 @@ namespace Infrastructure.Data
             try
             {
 
-                // add seed for product brands to db
-                // if (!context.ProductBrands.Any())
-                // {
-                //     //var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
-                //    // var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
 
-                //     // foreach (var item in brands)
-                //     // {
-                //     //     context.ProductBrands.Add(item);
-                //     // }
-
-                // }
-
-                var folderName = Path.Combine("wwwroot", "images");
-                var folderAssetsName = Path.Combine("wwwroot", "imageSeeds");
+                var folderName = Path.Combine("Content/", "images/");
+                var folderAssetsName = Path.Combine("Content/", "imageSeeds/");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (!context.ImageAssets.Any())
@@ -40,7 +28,8 @@ namespace Infrastructure.Data
                     var imageSeeds = Directory.GetFiles(folderAssetsName);
                     foreach (var item in imageSeeds)
                     {
-                        var title = item.Split("wwwroot\\imageSeeds\\")[1];
+                        var title = item.Split("Content/\\imageSeeds\\")[1];
+                        title = title.Replace(" ", "");
                         var img = new ImageAssets(title, item);
                         context.Add(img);
                     }

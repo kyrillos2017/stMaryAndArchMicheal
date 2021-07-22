@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './core/components/errors/server-error/server-error.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  
+
   {
     path: 'login',
     loadChildren: () => import('./account/account.module').then(m=> m.AccountModule),

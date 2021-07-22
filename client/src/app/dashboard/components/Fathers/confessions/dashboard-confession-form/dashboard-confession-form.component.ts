@@ -29,7 +29,6 @@ export class DashboardConfessionFormComponent extends BaseComponent implements O
     super(injector)
     this.fatherId = this.data.fatherId;
     this.id = this.data.id;
-    console.log(data)
   }
 
   ngOnInit(): void {
@@ -37,7 +36,6 @@ export class DashboardConfessionFormComponent extends BaseComponent implements O
 
     if (this.id) {
       this._conf.getById(this.id).subscribe((res: IConfession[]) => {
-        console.log(res)
         let conf = res.filter(x => x.id == this.id)[0]
         conf.startTime = new Date(conf.startTime)
         conf.endTime = new Date(conf.endTime)

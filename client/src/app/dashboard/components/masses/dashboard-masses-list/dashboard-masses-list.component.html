@@ -18,8 +18,8 @@
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> الإسم </th>
             <td mat-cell *matCellDef="let element">
-              <div>{{element.name}}</div>
-              <div>{{ findValue(days, element.day) }}</div>
+              <div class="font-weight-bold">{{element.name}}</div>
+              <div >{{ findValue(days, element.day) | transloco }}</div>
             </td>
           </ng-container>
 
@@ -27,8 +27,8 @@
           <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef> النوع </th>
             <td mat-cell *matCellDef="let element">
-              <div>{{ findValue(massTypes, element.type) }}</div>
-              <div>{{ findValue(massRepetation, element.massRepetationType) }}</div>
+              <div class="font-weight-bold">{{ findValue(massTypes, element.type) | transloco }}</div>
+              <div>{{ findValue(massRepetation, element.massRepetationType) | transloco }}</div>
             </td>
           </ng-container>
 
@@ -44,7 +44,7 @@
           <!-- active Column -->
           <ng-container matColumnDef="active">
             <th mat-header-cell *matHeaderCellDef> التفعيل </th>
-            <td mat-cell *matCellDef="let element"> <span *ngIf="element.isActive"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></span> </td>
+            <td mat-cell *matCellDef="let element"> <span><i [class.text-custom-light]="!element.isActive" [class.text-success]="element.isActive" class="fa fa-check-square-o" aria-hidden="true"></i></span> </td>
           </ng-container>
 
           <!-- actions Column -->

@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiUrls } from '../shared/models/services-urls';
-import { IUser } from '../shared/models/user';
 import { BaseService } from './../shared/services/base.service';
+import { IUser } from './../shared/models/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AccountService extends BaseService {
 
   constructor(
     injector : Injector,
-    private router: Router
+    private router: Router,
+    private _jwt: JwtHelperService
   ) {
     super(injector)
    }
@@ -53,17 +55,6 @@ export class AccountService extends BaseService {
    )
   }
 
-  // register(value: any){
-  //   const url = ApiUrls.ACCOUNT.REGISTER
-  //    return this.post<IUser>(url, value).pipe(
-  //     map(user=> {
-  //      if(user){
-  //        localStorage.setItem('token', user.token);
-  //        this.currentUserSource.next(user);
-  //      }
-  //     })
-  //   )
-  // }
 
   logout(){
    localStorage.removeItem('token');
@@ -78,6 +69,12 @@ export class AccountService extends BaseService {
    return this.get<boolean>(url);
  }
 
-
-
+ isAuth() : boolean {
+  const token = localStorage.getItem('token');
+  if(token && !this._jwt.isTokenExpired(token)){
+    return true;
+  }else{
+    return false
+  }
+ }
 }

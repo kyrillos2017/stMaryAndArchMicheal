@@ -9,5 +9,6 @@ namespace Core.Entities
         public int? BannerId { get; set; }
         public ImageAssets Banner { get; set; }
         public bool IsActive { get; set; }
+        public bool IsWhite { get; set; } = true;
     }
 }

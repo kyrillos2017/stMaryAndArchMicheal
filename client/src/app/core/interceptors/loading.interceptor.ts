@@ -24,6 +24,9 @@ export class LoadingInterceptor implements HttpInterceptor {
     if(req.url.includes('emailexists')){
       return next.handle(req);
     }
+    if(req.url.includes('ImageAssets')){
+      return next.handle(req);
+    }
     this._busyService.busy();
     return next.handle(req).pipe(
       // delay(2000),

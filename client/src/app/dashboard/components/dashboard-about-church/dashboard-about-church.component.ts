@@ -22,7 +22,6 @@ export class DashboardAboutChurchComponent implements OnInit {
     this._church.getSec().subscribe(form => {
       if(form){
         let newForm: IChurchCreate = {
-          isActive : form.isActive,
           description : form.description,
           bannerId : form.banner.id,
           imageId : form.image.id,

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { LiveService } from './../../../../../dashboard/shared/services/live.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { LiveService } from './../../../../../dashboard/shared/services/live.ser
   styleUrls: ['./site-live-stream.component.scss']
 })
 export class SiteLiveStreamComponent implements OnInit, AfterViewInit {
-
+  @Input() isWhite = false;
   isActive = true;
   baseurl = 'https://www.youtube.com/embed/';
   videoId: string = 'kQobPqE0T5M';

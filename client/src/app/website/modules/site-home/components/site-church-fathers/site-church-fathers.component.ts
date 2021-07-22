@@ -1,24 +1,54 @@
-import { AfterContentInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterContentInit, Component, Input, OnInit, ViewChild, Injector } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FathersService } from 'src/app/services/fathers.service';
+import { IFather, IFatherReturn } from 'src/app/shared/models/father';
+import { IImageAssets } from 'src/app/shared/models/image-assets';
+import { IPagination } from 'src/app/shared/models/response-result';
 import { SiteConfessionsComponent } from './../site-confessions/site-confessions.component';
+import { IFatherParams } from './../../../../../shared/models/father';
+import { BaseComponent } from 'src/app/shared/components/base/base.component';
 
 @Component({
   selector: 'app-site-church-fathers',
   templateUrl: './site-church-fathers.component.html',
   styleUrls: ['./site-church-fathers.component.scss']
 })
-export class SiteChurchFathersComponent implements OnInit {
+export class SiteChurchFathersComponent extends BaseComponent implements OnInit {
   @Input() showMore = false;
-
-  banner:string = 'http://boltoncopts.org/wp-content/uploads/2017/11/cropped-12779085_10153439604893951_2889210514726304878_o.jpg';
+  @Input() isWhite = false;
+  banner: IImageAssets | undefined
+  fathers: IFather[]
+  params : {
+    PageIndex: number;
+    PageSize: number;
+  } = {PageIndex: 1, PageSize: 6}
+  route: boolean
   constructor(
+    injector: Injector,
     private _router: Router,
-
-  ) { }
-
+    private _fathers: FathersService,
+  ) {
+    super(injector);
+    this.route = this._router.url.includes("/fathers");
+  }
 
   ngOnInit(): void {
 
+    if (this.route) {
+      this.params.PageIndex = 1;
+      this.params.PageSize = 1600;
+    }
+    this.getFathers()
+  }
+
+
+  getFathers(){
+
+    this._fathers.getFathersSec(this.params).subscribe(res => {
+      this.banner = res.banner
+      this.fathers = res.fathers.result
+
+    })
   }
 
   bishop = {
@@ -29,43 +59,6 @@ export class SiteChurchFathersComponent implements OnInit {
     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMSMu47mafyh-hlHynd13Xmxp51ebRDhT11Q&usqp=CAU'
   }
 
-  fathers = [
-    {
-      name: 'بيشوي بسطا',
-      priestlyRank: 'قمص',
-      priestlyDate: '01-02-1111',
-      deathDate : '',
-      img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
-    },
-    {
-      name: 'بيشوي بسطا',
-      priestlyRank: 'قمص',
-      priestlyDate: '01-02-1111',
-      deathDate : '01:01:1223',
-      img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
-    },
-    {
-      name: 'بيشوي بسطا',
-      priestlyRank: 'قمص',
-      priestlyDate: '01-02-1111',
-      deathDate : undefined,
-      img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
-    },
-    {
-      name: 'بيشوي بسطا',
-      priestlyRank: 'قمص',
-      priestlyDate: '01-02-1111',
-      deathDate : undefined,
-      img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
-    },
-    {
-      name: 'بيشوي بسطا',
-      priestlyRank: 'قمص',
-      priestlyDate: '01-02-1111',
-      deathDate : undefined,
-      img: 'https://st-takla.org/Gallery/var/albums/Clergy/Coptic-Priests/02-Beh-B-P/bbhg/www-st-takla-org--fr-bishoy-basta.jpg'
-    }
-  ]
 
 
 }
