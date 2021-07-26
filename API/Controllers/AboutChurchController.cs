@@ -30,19 +30,19 @@ namespace API.Controllers
         {
             var spec = new AboutChurchWithImageSpecification();
             var about = await _churchRepository.GetEntityWithSpec(spec);
-            about.ImageId = input.ImageId;
-            about.BannerId = input.BannerId;
-            about.Description = input.Description;
+
+
 
             if (about == null)
             {
-                await _churchRepository.Add(about);
-
+                var newSec = _mapper.Map<CreateAboutChurch, AboutChurch>(input);
+                await _churchRepository.Add(newSec);
             }
             else
             {
                 // about.BannerId = input.BannerId;
-                _churchRepository.Update(about);
+                var sec = _mapper.Map<CreateAboutChurch, AboutChurch>(input);
+                _churchRepository.Update(sec);
             }
             await _churchRepository.Save();
 

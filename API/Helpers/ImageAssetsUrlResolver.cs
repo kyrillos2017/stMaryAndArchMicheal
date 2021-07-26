@@ -16,8 +16,8 @@ namespace API.Helpers
         {
             if (!string.IsNullOrEmpty(source.ImgUrl))
             {
-                var wwwroot = "wwwroot";
-                var content = "Content";
+                var wwwroot = "wwwroot/";
+                var content = "Content/";
                 var root = content;
                 if (source.ImgUrl.Contains(wwwroot))
                 {

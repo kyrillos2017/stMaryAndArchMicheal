@@ -9,16 +9,17 @@ import { ToastrMessages } from 'src/app/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-dashboard-fathers',
   templateUrl: './dashboard-fathers.component.html',
   styleUrls: ['./dashboard-fathers.component.scss']
 })
-export class DashboardFathersComponent implements OnInit{
-  displayedColumns: string[] = ['position', 'name', 'active' , 'actions'];
+export class DashboardFathersComponent implements OnInit {
+  displayedColumns: string[] = ['position', 'name', 'active', 'actions'];
 
-  fathers: IFather[]= [];
+  fathers: IFather[] = [];
   tableInit = {
     first: 1,
     globalFilter: null,
@@ -27,21 +28,23 @@ export class DashboardFathersComponent implements OnInit{
     sortField: undefined,
     sortOrder: 1,
   };
-  totalRecords :number;
+  totalRecords: number;
   paginatorEvent: IMaterialsPagination = {
     length: 0,
     pageIndex: 1,
     pageSize: 5,
-    previousPageIndex: 0}
-    fathersSecForm: FormGroup;
-    submitted = false;
+    previousPageIndex: 0
+  }
+  fathersSecForm: FormGroup;
+  submitted = false;
   constructor(
     private _fathersService: FathersService,
     private confirmationService: ConfirmationService,
     private _toastr: ToastrsService,
     private formBuilder: FormBuilder,
-    private _router: Router
-  ){}
+    private _router: Router,
+    private t: TranslocoService
+  ) { }
   ngOnInit(): void {
     this.getFather();
     this.fathersSecFormInit()
@@ -76,7 +79,7 @@ export class DashboardFathersComponent implements OnInit{
   }
 
 
-  getFather(){
+  getFather() {
     let params: IFatherParams = {
       PageIndex: this.paginatorEvent.pageIndex,
       PageSize: this.paginatorEvent.pageSize
@@ -89,29 +92,29 @@ export class DashboardFathersComponent implements OnInit{
     )
   }
 
-  paginate(event: IMaterialsPagination){
+  paginate(event: IMaterialsPagination) {
     event.pageIndex += 1
     this.paginatorEvent = event;
     this.getFather()
   }
 
-  delete(father: IFather){
+  delete(father: IFather) {
     this.confirmationService.confirm({
-      message: `هل تريد مسح ال${father.priestlyRank + ' ' + father.name}`,
+      message: `هل تريد مسح ال${this.t.translate(father.priestlyRank) + ' ' + father.name}`,
       header: `تأكيد`,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        if(father.id)
-        this._fathersService.delete(father.id).subscribe(()=> {
-          this.getFather()
-          this._toastr.addSingle(ToastrMessages.success,'تم الحذف', `تم حذف ال${father.priestlyRank + ' ' + father.name}`)
-        },
-        err => {
-          this._toastr.addSingle(ToastrMessages.error,'خطأ داخلي', 'حدث خطأ بالنظام')
-        })
+        if (father.id)
+          this._fathersService.delete(father.id).subscribe(() => {
+            this.getFather()
+            this._toastr.addSingle(ToastrMessages.success, 'تم الحذف', `تم حذف ال${this.t.translate(father.priestlyRank) + ' ' + father.name}`)
+          },
+            err => {
+              this._toastr.addSingle(ToastrMessages.error, 'خطأ داخلي', 'حدث خطأ بالنظام')
+            })
       },
       reject: () => {
-       // this.loading = false
+        // this.loading = false
       }
     });
   }
